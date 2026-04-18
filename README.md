@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# ERCraft
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+이터널 리턴 플레이어 통계·매치 히스토리 앱입니다.
+현재 1~2일차 작업 중 — 뼈대와 폴더 구조만 잡힌 상태.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 1~2일차 초기 뼈대
 
-## React Compiler
+### Day 1 — 프로젝트 셋업·구조
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Vite + React + TypeScript, Tailwind, shadcn/ui 초기화
+- 경로 별칭 `@/` → `src/`
+- `src/types` — `ApiResult`, 플레이어·매치·랭킹 타입
+- React Router: `/`, `/player/:nickname`, `/ranking`, `/auth/callback`, 404
+- `.env.example` / `.gitignore` / Prettier 등 기본 설정
 
-## Expanding the ESLint configuration
+### Day 2 — mock·API 스텁·첫 화면
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/mocks` — 타입에 맞는 mock 플레이어·매치·랭킹 데이터
+- `src/api` — axios 클라이언트, `VITE_BSER_API_KEY` 없으면 mock 반환
+- `src/hooks` — `useDebounce`, `usePlayerStats`, `useMatchHistory`(infinite)
+- 홈: 디바운스 검색 → 프로필 링크 / 프로필: mock 기준 요약·최근 매치
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 폴더 구조
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── api/              # axios 인스턴스 + 엔드포인트 함수
+├── components/
+│   ├── ui/           # shadcn/ui
+│   ├── shared/       # StatusDot, TierBadge 등 공용 UI
+│   └── player/       # MatchRow, ProfileCard 등 플레이어 UI
+├── hooks/            # useDebounce, useMatchHistory, usePlayerStats 등
+├── lib/              # shadcn 유틸 등
+├── mocks/            # 타입 맞춘 mock 데이터
+├── pages/            # 라우트별 페이지
+├── store/            # Zustand 등 클라이언트 상태
+├── types/            # player, match, ranking, api
+└── utils/            # formatters, tierMap 등
 ```
