@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 
-import { fetchPlayerStats, searchPlayers } from '@/api/player'
+import { fetchPlayerByNickname, fetchPlayerStats } from '@/api/player'
 import { useMatchHistory } from '@/hooks/useMatchHistory'
 
 function formatWinRate(wins: number, games: number): string {
@@ -25,9 +25,8 @@ export function ProfilePage() {
   const profileQuery = useQuery({
     queryKey: ['player', 'profile', nickname],
     queryFn: async () => {
-      const search = await searchPlayers(nickname)
-      const summary =
-        search.data.find((p) => p.nickname.toLowerCase() === nickname.toLowerCase()) ?? null
+      const profile = await fetchPlayerByNickname(nickname)
+      const summary = profile.data
       if (!summary) return null
       const statsResult = await fetchPlayerStats(summary.userNum)
       return { summary, stats: statsResult.data }
@@ -82,8 +81,8 @@ export function ProfilePage() {
   }
 
   const { summary, stats } = profileQuery.data
-  const firstPage = matchesQuery.data?.pages[0]?.data ?? []
-  const recentMatches = firstPage.slice(0, 5)
+  const firstPageItems = matchesQuery.data?.pages[0]?.data.items ?? []
+  const recentMatches = firstPageItems.slice(0, 5)
 
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-8 p-6 text-left">
@@ -106,6 +105,10 @@ export function ProfilePage() {
           {stats.assists})
         </p>
         <p>Total games: {stats.games}</p>
+        {stats.avgPlacement !== undefined ? (
+          <p>Avg. placement: {stats.avgPlacement.toFixed(2)}</p>
+        ) : null}
+        {stats.avgKills !== undefined ? <p>Avg. kills: {stats.avgKills.toFixed(2)}</p> : null}
       </section>
 
       <section className="space-y-3 text-sm">

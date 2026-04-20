@@ -1,4 +1,4 @@
-// MOCK — swap with real API call once VITE_BSER_API_KEY is available
+// MOCK — 실 API 붙기 전
 
 import type { RankingEntry } from '@/types/ranking'
 

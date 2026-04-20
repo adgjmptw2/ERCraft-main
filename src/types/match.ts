@@ -1,3 +1,10 @@
+export interface Paginated<T> {
+  items: T[]
+  page: number
+  pageSize: number
+  hasNext: boolean
+}
+
 export interface MatchSummary {
   matchId: string
   userNum: number

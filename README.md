@@ -3,7 +3,10 @@
 이터널 리턴 플레이어 통계·전적 검색 웹 앱(스터디).
 
 - **1~2일차:** 프론트 뼈대, mock, 홈·프로필
-- **3일차:** 백엔드용 테이블·API 초안만 ([docs/DAY3.md](./docs/DAY3.md)) — 코드는 아직 안 건드림
+- **3일차:** 백엔드용 테이블·API 초안만 ([docs/DAY3.md])
+- **4일차:** mock을 JSON + loader로 바꾸고, 매치 응답 `Paginated` 맞춤 ([docs/DAY4.md](./docs/DAY4.md))
+
+테스트: `npm run test:run` (Vitest, mock 경로 위주)
 
 ---
 

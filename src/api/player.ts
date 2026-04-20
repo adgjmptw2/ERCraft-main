@@ -1,8 +1,12 @@
 import { apiClient } from '@/api/client'
-import { MOCK_MATCHES } from '@/mocks/matches'
-import { MOCK_PLAYER_ROWS } from '@/mocks/players'
+import {
+  buildMockStatsForUser,
+  getMockPlayerSummaryByNickname,
+  searchMockPlayersByNickname,
+  sliceMockMatchHistory,
+} from '@/mocks/loader'
 import type { ApiResult } from '@/types/api'
-import type { MatchSummary } from '@/types/match'
+import type { MatchSummary, Paginated } from '@/types/match'
 import type { PlayerStats, PlayerSummary } from '@/types/player'
 
 const PAGE_SIZE = 10
@@ -19,36 +23,43 @@ function cacheResult<T>(data: T): ApiResult<T> {
   }
 }
 
-function matchesForUser(userNum: number): MatchSummary[] {
-  return MOCK_MATCHES.filter((m) => m.userNum === userNum).sort(
-    (a, b) => new Date(b.gameStartedAt).getTime() - new Date(a.gameStartedAt).getTime(),
-  )
-}
-
 export async function searchPlayers(nickname: string): Promise<ApiResult<PlayerSummary[]>> {
   if (!hasApiKey()) {
-    const q = nickname.trim().toLowerCase()
-    const rows = MOCK_PLAYER_ROWS.filter((row) => row.summary.nickname.toLowerCase().includes(q))
-    return cacheResult(rows.map((r) => r.summary))
+    return cacheResult(searchMockPlayersByNickname(nickname))
   }
 
-  // TODO: Wire BSER player search — endpoint and response mapping TBD
+  // TODO: BSER — 플레이어 검색
   const { data } = await apiClient.get<ApiResult<PlayerSummary[]>>('/players/search', {
     params: { nickname },
   })
   return data
 }
 
-export async function fetchPlayerStats(userNum: number): Promise<ApiResult<PlayerStats>> {
+export async function fetchPlayerByNickname(
+  nickname: string,
+): Promise<ApiResult<PlayerSummary | null>> {
   if (!hasApiKey()) {
-    const row = MOCK_PLAYER_ROWS.find((r) => r.summary.userNum === userNum)
-    if (!row) {
-      throw new Error('Player stats not found (mock)')
-    }
-    return cacheResult(row.stats)
+    const found = getMockPlayerSummaryByNickname(nickname)
+    return cacheResult(found ?? null)
   }
 
-  // TODO: Wire BSER user stats — endpoint TBD
+  // TODO: BSER — 프로필 by nickname
+  const { data } = await apiClient.get<ApiResult<PlayerSummary | null>>(
+    `/players/${encodeURIComponent(nickname)}`,
+  )
+  return data
+}
+
+export async function fetchPlayerStats(userNum: number): Promise<ApiResult<PlayerStats>> {
+  if (!hasApiKey()) {
+    const stats = buildMockStatsForUser(userNum)
+    if (!stats) {
+      throw new Error('Player stats not found')
+    }
+    return cacheResult(stats)
+  }
+
+  // TODO: BSER — 시즌 스탯
   const { data } = await apiClient.get<ApiResult<PlayerStats>>(`/players/${userNum}/stats`)
   return data
 }
@@ -56,17 +67,17 @@ export async function fetchPlayerStats(userNum: number): Promise<ApiResult<Playe
 export async function fetchMatchHistory(
   userNum: number,
   page: number,
-): Promise<ApiResult<MatchSummary[]>> {
+): Promise<ApiResult<Paginated<MatchSummary>>> {
   if (!hasApiKey()) {
-    const all = matchesForUser(userNum)
-    const start = page * PAGE_SIZE
-    const slice = all.slice(start, start + PAGE_SIZE)
-    return cacheResult(slice)
+    return cacheResult(sliceMockMatchHistory(userNum, page, PAGE_SIZE))
   }
 
-  // TODO: Wire BSER match history with pagination — endpoint TBD
-  const { data } = await apiClient.get<ApiResult<MatchSummary[]>>(`/players/${userNum}/matches`, {
-    params: { page, pageSize: PAGE_SIZE },
-  })
+  // TODO: BSER — 매치 히스토리(페이지)
+  const { data } = await apiClient.get<ApiResult<Paginated<MatchSummary>>>(
+    `/players/${userNum}/matches`,
+    {
+      params: { page, pageSize: PAGE_SIZE },
+    },
+  )
   return data
 }

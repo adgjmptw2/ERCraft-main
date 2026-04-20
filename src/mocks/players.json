@@ -1,0 +1,40 @@
+{
+  "seasonId": 12,
+  "players": [
+    {
+      "userNum": 847291,
+      "nickname": "한강쐐기",
+      "level": 88,
+      "tier": "Mithril",
+      "mmr": 3050
+    },
+    {
+      "userNum": 192044,
+      "nickname": "RustyMango",
+      "level": 34,
+      "tier": "Bronze III",
+      "mmr": 1620
+    },
+    {
+      "userNum": 560733,
+      "nickname": "DuskLine902",
+      "level": 61,
+      "tier": "Gold II",
+      "mmr": 2280
+    },
+    {
+      "userNum": 301882,
+      "nickname": "프로토콜Y",
+      "level": 79,
+      "tier": "Diamond I",
+      "mmr": 2680
+    },
+    {
+      "userNum": 674015,
+      "nickname": "네온샤워",
+      "level": 47,
+      "tier": "Silver II",
+      "mmr": 1980
+    }
+  ]
+}

@@ -1,2 +1,7 @@
 export { apiClient } from '@/api/client'
-export { fetchMatchHistory, fetchPlayerStats, searchPlayers } from '@/api/player'
+export {
+  fetchMatchHistory,
+  fetchPlayerByNickname,
+  fetchPlayerStats,
+  searchPlayers,
+} from '@/api/player'
