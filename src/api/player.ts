@@ -1,13 +1,17 @@
 import { apiClient } from '@/api/client'
 import {
+  buildMockStatsDTOForUser,
   buildMockStatsForUser,
+  getMockPlayerByUserNum,
   getMockPlayerSummaryByNickname,
   searchMockPlayersByNickname,
+  sliceMockMatchDTOHistory,
   sliceMockMatchHistory,
 } from '@/mocks/loader'
 import type { ApiResult } from '@/types/api'
-import type { MatchSummary, Paginated } from '@/types/match'
-import type { PlayerStats, PlayerSummary } from '@/types/player'
+import type { MatchSummary, MatchSummaryDTO, Paginated } from '@/types/match'
+import type { PlayerStats, PlayerStatsDTO, PlayerSummary } from '@/types/player'
+import { throwApiError } from '@/utils/apiError'
 
 const PAGE_SIZE = 10
 
@@ -54,7 +58,7 @@ export async function fetchPlayerStats(userNum: number): Promise<ApiResult<Playe
   if (!hasApiKey()) {
     const stats = buildMockStatsForUser(userNum)
     if (!stats) {
-      throw new Error('Player stats not found')
+      throwApiError('PLAYER_NOT_FOUND', 'Player stats not found')
     }
     return cacheResult(stats)
   }
@@ -80,4 +84,34 @@ export async function fetchMatchHistory(
     },
   )
   return data
+}
+
+export async function fetchPlayerStatsDTO(
+  userNum: number,
+): Promise<ApiResult<PlayerStatsDTO>> {
+  if (!hasApiKey()) {
+    const dto = buildMockStatsDTOForUser(userNum)
+    if (!dto) {
+      throwApiError('PLAYER_NOT_FOUND', 'Player stats not found')
+    }
+    return cacheResult(dto)
+  }
+
+  // TODO: BSER — 시즌 스탯 DTO
+  throwApiError('NOT_IMPLEMENTED', 'DTO path not wired to real API yet')
+}
+
+export async function fetchMatchDTOHistory(
+  userNum: number,
+  page: number,
+): Promise<ApiResult<Paginated<MatchSummaryDTO>>> {
+  if (!hasApiKey()) {
+    if (!getMockPlayerByUserNum(userNum)) {
+      throwApiError('PLAYER_NOT_FOUND', 'Player not found')
+    }
+    return cacheResult(sliceMockMatchDTOHistory(userNum, page, PAGE_SIZE))
+  }
+
+  // TODO: BSER — 매치 히스토리 DTO
+  throwApiError('NOT_IMPLEMENTED', 'DTO path not wired to real API yet')
 }

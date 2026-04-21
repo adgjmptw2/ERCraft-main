@@ -2,8 +2,9 @@
 
 import matchesData from '@/mocks/matches.json'
 import playersData from '@/mocks/players.json'
-import type { MatchSummary, Paginated } from '@/types/match'
-import type { PlayerStats, PlayerSummary } from '@/types/player'
+import type { MatchSummary, MatchSummaryDTO, Paginated } from '@/types/match'
+import type { PlayerStats, PlayerStatsDTO, PlayerSummary } from '@/types/player'
+import { toMatchSummaryDTO, toStatsDTO } from '@/utils/dto'
 
 interface PlayerRecord {
   userNum: number
@@ -126,5 +127,26 @@ export function sliceMockMatchHistory(
     page,
     pageSize,
     hasNext,
+  }
+}
+
+export function buildMockStatsDTOForUser(userNum: number): PlayerStatsDTO | null {
+  const stats = buildMockStatsForUser(userNum)
+  if (!stats) return null
+  const player = playersFile.players.find((p) => p.userNum === userNum)
+  if (!player) return null
+  const matches = sortedMatchesForUser(userNum)
+  return toStatsDTO(stats, matches, player.tier)
+}
+
+export function sliceMockMatchDTOHistory(
+  userNum: number,
+  page: number,
+  pageSize: number,
+): Paginated<MatchSummaryDTO> {
+  const result = sliceMockMatchHistory(userNum, page, pageSize)
+  return {
+    ...result,
+    items: result.items.map((m) => toMatchSummaryDTO(m)),
   }
 }

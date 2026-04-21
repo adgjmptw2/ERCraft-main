@@ -37,3 +37,15 @@ export interface NicknameHistoryEntry {
 }
 
 export type NicknameHistory = NicknameHistoryEntry[]
+
+export interface PlayerStatsDTO {
+  games: number
+  winRate: number
+  avgKills: number
+  avgPlacement: number
+  kda: number
+  kdaString: string
+  mostPlayedCharacter: { name: string; count: number }
+  tier: string
+  mmr: number
+}

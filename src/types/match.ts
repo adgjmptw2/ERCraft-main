@@ -21,3 +21,9 @@ export interface MatchDetail extends MatchSummary {
   damageToPlayers?: number
   visionScore?: number
 }
+
+export interface MatchSummaryDTO extends MatchSummary {
+  kdaString: string
+  placementLabel: string
+  relativeTime: string
+}

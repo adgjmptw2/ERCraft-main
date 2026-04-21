@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  fetchMatchDTOHistory,
   fetchMatchHistory,
   fetchPlayerByNickname,
   fetchPlayerStats,
+  fetchPlayerStatsDTO,
   searchPlayers,
 } from '@/api/player'
 
@@ -41,5 +43,20 @@ describe('player api (mock path, no BSER key)', () => {
     expect(res.data.hasNext).toBeTypeOf('boolean')
     expect(res.data.page).toBe(0)
     expect(res.data.pageSize).toBe(10)
+  })
+
+  it('fetchPlayerStatsDTO 없는 유저 → PLAYER_NOT_FOUND', async () => {
+    await expect(fetchPlayerStatsDTO(999_999)).rejects.toMatchObject({
+      code: 'PLAYER_NOT_FOUND',
+    })
+  })
+
+  it('fetchMatchDTOHistory 첫 페이지 첫 item에 DTO 필드 포함', async () => {
+    const res = await fetchMatchDTOHistory(847291, 0)
+    const first = res.data.items[0]
+    expect(first).toBeDefined()
+    expect(typeof first.kdaString).toBe('string')
+    expect(typeof first.placementLabel).toBe('string')
+    expect(typeof first.relativeTime).toBe('string')
   })
 })
