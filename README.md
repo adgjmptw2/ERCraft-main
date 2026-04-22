@@ -20,7 +20,7 @@
 - 경로 별칭 `@/` → `src/`
 - `src/types` — `ApiResult`, 플레이어·매치·랭킹 타입
 - React Router: `/`, `/player/:nickname`, `/ranking`, `/auth/callback`, 404
-- `.env.example` / `.gitignore` / Prettier 등 기본 설정
+- `.env.example` / Prettier 등 기본 설정
 
 ### Day 2 — mock·API 스텁·첫 화면
 
