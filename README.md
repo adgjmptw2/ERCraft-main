@@ -6,7 +6,7 @@
 - **3일차:** 백엔드용 테이블·API 초안만 ([docs/DAY3.md])
 - **4일차:** mock을 JSON + loader로 바꾸고, 매치 응답 `Paginated` 맞춤 ([docs/DAY4.md](./docs/DAY4.md))
 
-테스트: `npm run test:run` (Vitest, mock 경로 위주)
+테스트: `npm run test:run` (Vitest, mock 경로 위주) — 절차·백엔드 DB는 [docs/TESTING.md](./docs/TESTING.md)
 
 ---
 

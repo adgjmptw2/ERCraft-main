@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// users — id UUID PK, provider + provider_sub unique (stub OAuth 자리)
+model User {
+  id          String   @id @default(uuid()) @db.Char(36)
+  provider    String
+  providerSub String   @map("provider_sub")
+  displayName String?  @map("display_name")
+  email       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  favorites     FavoritePlayer[]
+  searchHistory SearchHistory[]
+
+  @@unique([provider, providerSub], map: "users_provider_provider_sub_key")
+  @@map("users")
+}
+
+/// favorite_players — bigserial → autoincrement Int, player_user_num → BigInt
+model FavoritePlayer {
+  id               Int      @id @default(autoincrement())
+  userId           String   @map("user_id") @db.Char(36)
+  playerUserNum    BigInt   @map("player_user_num")
+  nicknameSnapshot String   @map("nickname_snapshot")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, playerUserNum], map: "favorite_players_user_id_player_user_num_key")
+  @@index([userId, createdAt(sort: Desc)], map: "favorite_players_user_id_created_at_idx")
+  @@map("favorite_players")
+}
+
+/// search_history
+model SearchHistory {
+  id             Int      @id @default(autoincrement())
+  userId         String   @map("user_id") @db.Char(36)
+  query          String
+  matchedUserNum BigInt?  @map("matched_user_num")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)], map: "search_history_user_id_created_at_idx")
+  @@map("search_history")
+}
