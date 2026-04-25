@@ -13,6 +13,7 @@
 - **6일차:** `backend/` Fastify·Prisma·MySQL, `X-User-Id` stub, 즐겨찾기·검색 기록 API ([docs/DAY6.md](./docs/DAY6.md))
 - **7일차:** `EternalReturnClient` 인터페이스로 프론트 API 분리, 백엔드 body 파싱 zod 교체 ([docs/DAY7.md](./docs/DAY7.md))
 - **8일차:** `getClient()` 캐시 제거, DTO 전용 hook, `getErrorMessage`, 프로필·홈 에러 처리 정리 ([docs/DAY8.md](./docs/DAY8.md))
+- **9일차:** `TierBadge`·`SourceBadge`·`Skeleton`, `PlayerRow`·`MatchRow`, 홈·프로필 UI ([docs/DAY9.md](./docs/DAY9.md))
 
 ---
 

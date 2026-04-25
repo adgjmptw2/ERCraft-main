@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 
+import { PlayerRow } from '@/components/player'
+import { SkeletonCard, SourceBadge } from '@/components/shared'
 import { searchPlayers } from '@/api/player'
 import { useDebounce } from '@/hooks/useDebounce'
 import { getErrorMessage } from '@/utils/errorMessage'
@@ -23,21 +24,27 @@ export function HomePage() {
     <div className="mx-auto flex min-h-svh max-w-lg flex-col gap-6 p-6 text-left">
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">ERCraft</h1>
-        <p className="text-muted-foreground text-sm">Search Eternal Return players (mock data).</p>
+        <p className="text-muted-foreground text-sm">이터널 리턴 플레이어 검색 (mock 데이터)</p>
       </header>
 
       <label className="flex flex-col gap-2 text-sm font-medium">
-        Player nickname
+        플레이어 닉네임
         <input
           className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type at least 2 characters"
+          placeholder="2자 이상 입력"
           autoComplete="off"
         />
       </label>
 
-      {canSearch && isFetching ? <p className="text-muted-foreground text-sm">Searching…</p> : null}
+      {canSearch && isFetching ? (
+        <div className="flex flex-col gap-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      ) : null}
 
       {canSearch && isError ? (
         <p className="text-destructive text-sm" role="alert">
@@ -47,21 +54,20 @@ export function HomePage() {
 
       {canSearch && !isFetching && !isError ? (
         players.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No players found</p>
+          <p className="text-muted-foreground text-sm">검색 결과가 없습니다</p>
         ) : (
-          <ul className="divide-border divide-y rounded-md border">
-            {players.map((p) => (
-              <li key={p.userNum} className="flex items-center justify-between gap-3 px-3 py-2 text-sm">
-                <span>{p.nickname}</span>
-                <Link
-                  className="text-primary font-medium underline-offset-4 hover:underline"
-                  to={`/player/${encodeURIComponent(p.nickname)}`}
-                >
-                  View profile
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col gap-2">
+            {data?.source ? (
+              <div className="flex items-center gap-2">
+                <SourceBadge source={data.source} />
+              </div>
+            ) : null}
+            <ul className="divide-border divide-y rounded-md border">
+              {players.map((p) => (
+                <PlayerRow key={p.userNum} player={p} />
+              ))}
+            </ul>
+          </div>
         )
       ) : null}
     </div>

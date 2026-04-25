@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 
+import { MatchRow } from '@/components/player'
+import { Skeleton, SkeletonCard, SourceBadge, TierBadge } from '@/components/shared'
+import { Button } from '@/components/ui/button'
 import { fetchPlayerByNickname } from '@/api/player'
 import { useMatchDTOHistory } from '@/hooks/useMatchDTOHistory'
 import { usePlayerStatsDTO } from '@/hooks/usePlayerStatsDTO'
@@ -36,8 +39,14 @@ export function ProfilePage() {
 
   if (summaryQuery.isPending) {
     return (
-      <div className="mx-auto max-w-lg p-6 text-left">
-        <p className="text-muted-foreground text-sm">프로필 불러오는 중…</p>
+      <div className="mx-auto flex max-w-lg flex-col gap-6 p-6 text-left">
+        <Skeleton className="h-4 w-24" />
+        <div className="space-y-2">
+          <Skeleton className="h-8 w-48 max-w-full" />
+          <Skeleton className="h-6 w-40 max-w-full" />
+        </div>
+        <SkeletonCard />
+        <SkeletonCard />
       </div>
     )
   }
@@ -68,6 +77,7 @@ export function ProfilePage() {
 
   const summary = summaryQuery.data
   const matchItems = matchesQuery.data?.pages.flatMap((page) => page.data.items) ?? []
+  const matchesSource = matchesQuery.data?.pages[0]?.source
 
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-8 p-6 text-left">
@@ -75,37 +85,70 @@ export function ProfilePage() {
         ← 검색으로
       </Link>
 
-      <header className="space-y-1">
+      <header className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">{summary.nickname}</h1>
-        <p className="text-muted-foreground text-sm">
-          레벨 {summary.level} · {summary.tier}
-        </p>
+        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
+          <span>레벨 {summary.level}</span>
+          <TierBadge tier={summary.tier} />
+        </div>
       </header>
 
-      <section className="space-y-2 text-sm">
-        <h2 className="text-foreground font-medium">통계</h2>
+      <section className="space-y-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-foreground font-medium">시즌 통계</h2>
+          {statsQuery.isSuccess && statsQuery.data?.source ? (
+            <SourceBadge source={statsQuery.data.source} />
+          ) : null}
+        </div>
         {statsQuery.isPending ? (
-          <p className="text-muted-foreground">통계 불러오는 중…</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         ) : statsQuery.isError ? (
           <p className="text-destructive" role="alert">
             {getErrorMessage(statsQuery.error, '통계 정보를 불러오지 못했습니다')}
           </p>
         ) : statsQuery.isSuccess ? (
-          <div className="space-y-1">
-            <p>승률: {statsQuery.data.data.winRate}%</p>
-            <p>KDA: {statsQuery.data.data.kdaString}</p>
-            <p>총 판수: {statsQuery.data.data.games}</p>
-            <p>평균 순위: {statsQuery.data.data.avgPlacement.toFixed(2)}</p>
-            <p>평균 킬: {statsQuery.data.data.avgKills.toFixed(2)}</p>
-            <p>가장 많이 한 캐릭터: {statsQuery.data.data.mostPlayedCharacter.name}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-md border border-border bg-card p-3">
+              <p className="text-muted-foreground text-xs">승률</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.winRate}%</p>
+            </div>
+            <div className="rounded-md border border-border bg-card p-3">
+              <p className="text-muted-foreground text-xs">KDA</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.kdaString}</p>
+            </div>
+            <div className="rounded-md border border-border bg-card p-3">
+              <p className="text-muted-foreground text-xs">총 판수</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.games}</p>
+            </div>
+            <div className="rounded-md border border-border bg-card p-3">
+              <p className="text-muted-foreground text-xs">평균 순위</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.avgPlacement.toFixed(2)}</p>
+            </div>
+            <div className="rounded-md border border-border bg-card p-3">
+              <p className="text-muted-foreground text-xs">평균 킬</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.avgKills.toFixed(2)}</p>
+            </div>
+            <div className="rounded-md border border-border bg-card p-3 sm:col-span-2">
+              <p className="text-muted-foreground text-xs">주 캐릭터</p>
+              <p className="text-lg font-semibold">{statsQuery.data.data.mostPlayedCharacter.name}</p>
+            </div>
           </div>
         ) : null}
       </section>
 
       <section className="space-y-3 text-sm">
-        <h2 className="text-foreground font-medium">최근 전적</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-foreground font-medium">최근 전적</h2>
+          {matchesSource ? <SourceBadge source={matchesSource} /> : null}
+        </div>
         {matchesQuery.isPending ? (
-          <p className="text-muted-foreground">전적 불러오는 중…</p>
+          <div className="grid gap-2">
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         ) : matchesQuery.isError ? (
           <p className="text-destructive" role="alert">
             {getErrorMessage(matchesQuery.error, '전적 정보를 불러오지 못했습니다')}
@@ -113,18 +156,23 @@ export function ProfilePage() {
         ) : matchItems.length === 0 ? (
           <p className="text-muted-foreground">기록된 전적이 없습니다.</p>
         ) : (
-          <ul className="divide-border divide-y rounded-md border">
-            {matchItems.map((m) => (
-              <li key={m.matchId} className="space-y-1 px-3 py-2">
-                <p className="font-medium">{m.characterName}</p>
-                <p>
-                  {m.placementLabel} · KDA {m.kdaString}
-                  {m.victory ? ' · 승리' : ''}
-                </p>
-                <p className="text-muted-foreground text-xs">{m.relativeTime}</p>
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="flex flex-col gap-2">
+              {matchItems.map((m) => (
+                <MatchRow key={m.matchId} match={m} />
+              ))}
+            </ul>
+            {matchesQuery.hasNextPage ? (
+              <Button
+                type="button"
+                variant="outline"
+                disabled={matchesQuery.isFetchingNextPage}
+                onClick={() => void matchesQuery.fetchNextPage()}
+              >
+                더 보기
+              </Button>
+            ) : null}
+          </>
         )}
       </section>
     </div>
