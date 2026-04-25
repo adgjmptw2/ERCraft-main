@@ -1,0 +1,7 @@
+node_modules
+dist
+backend/dist
+.env
+.env.local
+backend/.env
+*.zip
