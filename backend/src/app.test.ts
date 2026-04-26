@@ -141,4 +141,116 @@ describe.skipIf(!hasTestDb)('backend HTTP (TEST_DATABASE_URL)', () => {
     const body = res.json() as { data: unknown[] }
     expect(body.data.length).toBe(50)
   })
+
+  it('POST /api/favorites playerUserNum 0 → 400 INVALID_REQUEST', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: { ...jsonHeaders, 'x-user-id': 'user-val-0' },
+      payload: { playerUserNum: 0, nicknameSnapshot: 'ok' },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('POST /api/favorites playerUserNum -1 → 400 INVALID_REQUEST', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: { ...jsonHeaders, 'x-user-id': 'user-val-neg' },
+      payload: { playerUserNum: -1, nicknameSnapshot: 'ok' },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('POST /api/favorites nicknameSnapshot 빈 문자열 → 400 INVALID_REQUEST', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: { ...jsonHeaders, 'x-user-id': 'user-nick-empty' },
+      payload: { playerUserNum: 1, nicknameSnapshot: '' },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('POST /api/favorites nicknameSnapshot 공백만 → 400 INVALID_REQUEST', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: { ...jsonHeaders, 'x-user-id': 'user-nick-space' },
+      payload: { playerUserNum: 1, nicknameSnapshot: '   ' },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('X-User-Id 공백만 → 401 UNAUTHORIZED', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: { ...jsonHeaders, 'x-user-id': '   ' },
+      payload: { playerUserNum: 1, nicknameSnapshot: 'a' },
+    })
+    expect(res.statusCode).toBe(401)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('UNAUTHORIZED')
+  })
+
+  it('GET /api/favorites 0건 → 200 data 빈 배열', async () => {
+    const res = await app.inject({
+      method: 'GET',
+      url: '/api/favorites',
+      headers: { 'x-user-id': 'user-no-favs' },
+    })
+    expect(res.statusCode).toBe(200)
+    const body = res.json() as { data: unknown[] }
+    expect(body.data).toEqual([])
+  })
+
+  it('GET /api/favorites 다른 유저 격리', async () => {
+    const headersA = { ...jsonHeaders, 'x-user-id': 'user-a-iso' }
+    await app.inject({
+      method: 'POST',
+      url: '/api/favorites',
+      headers: headersA,
+      payload: { playerUserNum: 900001, nicknameSnapshot: 'OnlyA' },
+    })
+    const resB = await app.inject({
+      method: 'GET',
+      url: '/api/favorites',
+      headers: { 'x-user-id': 'user-b-iso' },
+    })
+    expect(resB.statusCode).toBe(200)
+    const body = resB.json() as { data: unknown[] }
+    expect(body.data).toEqual([])
+  })
+
+  it('POST /api/search-history matchedUserNum 0 → 400 INVALID_REQUEST', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/search-history',
+      headers: { ...jsonHeaders, 'x-user-id': 'user-m0' },
+      payload: { query: 'q', matchedUserNum: 0 },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('GET /api/nonexistent → 404 NOT_FOUND', async () => {
+    const res = await app.inject({
+      method: 'GET',
+      url: '/api/nonexistent',
+    })
+    expect(res.statusCode).toBe(404)
+    const body = res.json() as { error: { code: string; message: string } }
+    expect(body.error.code).toBe('NOT_FOUND')
+    expect(body.error.message).toBe('Route not found')
+  })
 })

@@ -14,35 +14,53 @@ function errorBody(code: string, message: string, details?: unknown) {
   return { error: { code, message } }
 }
 
-export function attachErrorHandlers(app: FastifyInstance): void {
-  app.setNotFoundHandler((_request, reply) => {
-    void reply.status(404).send(errorBody('NOT_FOUND', 'Resource not found'))
-  })
+const INTERNAL_MESSAGE = 'Internal server error'
 
-  app.setErrorHandler((error, _request, reply) => {
+function summarizeValidationDetails(error: unknown): { fields: Array<{ path: string; message: string }> } {
+  if (!hasZodFastifySchemaValidationErrors(error)) {
+    return { fields: [{ path: 'body', message: 'Invalid request payload' }] }
+  }
+  const raw = (error as { validation?: unknown }).validation
+  if (!Array.isArray(raw) || raw.length === 0) {
+    return { fields: [{ path: 'body', message: 'Invalid request payload' }] }
+  }
+  const fields = raw.slice(0, 30).map((item: unknown) => {
+    if (typeof item !== 'object' || item === null) {
+      return { path: 'body', message: 'invalid' }
+    }
+    const rec = item as Record<string, unknown>
+    const instancePath = typeof rec.instancePath === 'string' ? rec.instancePath.replace(/^\//, '') : ''
+    const path = instancePath || (typeof rec.schemaPath === 'string' ? String(rec.schemaPath) : 'body')
+    const message = typeof rec.message === 'string' ? rec.message : 'invalid'
+    return { path: path || 'body', message }
+  })
+  return { fields }
+}
+
+export function attachErrorHandlers(app: FastifyInstance): void {
+  app.setErrorHandler((error, request, reply) => {
     if (error instanceof HttpError) {
       return reply.status(error.statusCode).send(errorBody(error.code, error.message, error.details))
     }
 
     if (hasZodFastifySchemaValidationErrors(error)) {
-      return reply
-        .status(400)
-        .send(errorBody('INVALID_REQUEST', 'Invalid request payload', error.validation))
+      const details = summarizeValidationDetails(error)
+      return reply.status(400).send(errorBody('INVALID_REQUEST', 'Invalid request payload', details))
     }
 
     if (isResponseSerializationError(error)) {
-      console.error('[zod serialize]', error.cause?.issues)
-      return reply.status(500).send(errorBody('INTERNAL_ERROR', 'Something went wrong'))
+      request.server.log.error({ err: error }, '[zod serialize]')
+      return reply.status(500).send(errorBody('INTERNAL_ERROR', INTERNAL_MESSAGE))
     }
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.error('[prisma]', error.code, error.message)
-      return reply.status(500).send(errorBody('INTERNAL_ERROR', 'Something went wrong'))
+      request.server.log.error({ err: error }, '[prisma]')
+      return reply.status(500).send(errorBody('INTERNAL_ERROR', INTERNAL_MESSAGE))
     }
 
     if (error instanceof Prisma.PrismaClientValidationError) {
-      console.error('[prisma validation]', error.message)
-      return reply.status(500).send(errorBody('INTERNAL_ERROR', 'Something went wrong'))
+      request.server.log.error({ err: error }, '[prisma validation]')
+      return reply.status(500).send(errorBody('INTERNAL_ERROR', INTERNAL_MESSAGE))
     }
 
     const code = (error as { code?: string }).code
@@ -50,7 +68,7 @@ export function attachErrorHandlers(app: FastifyInstance): void {
       return reply.status(400).send(errorBody('INVALID_REQUEST', 'Invalid JSON body'))
     }
 
-    console.error('[unhandled]', error)
-    return reply.status(500).send(errorBody('INTERNAL_ERROR', 'Something went wrong'))
+    request.server.log.error({ err: error }, '[unhandled]')
+    return reply.status(500).send(errorBody('INTERNAL_ERROR', INTERNAL_MESSAGE))
   })
 }

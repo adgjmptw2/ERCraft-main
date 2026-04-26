@@ -28,6 +28,12 @@ export async function createApp(options: CreateAppOptions = {}) {
 
   attachErrorHandlers(app)
 
+  app.setNotFoundHandler((_request, reply) => {
+    void reply.status(404).send({
+      error: { code: 'NOT_FOUND', message: 'Route not found' },
+    })
+  })
+
   await app.register(favoritesRoutes, { prefix: '/api' })
   await app.register(searchHistoryRoutes, { prefix: '/api' })
 

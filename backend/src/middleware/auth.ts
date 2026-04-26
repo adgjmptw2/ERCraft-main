@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import type { FastifyRequest } from 'fastify'
 
 import { HttpError } from '../utils/httpError.js'
@@ -37,14 +38,21 @@ export async function resolveStubUserId(
   prisma: import('@prisma/client').PrismaClient,
   stubSubject: string,
 ): Promise<string> {
-  const user = await prisma.user.findUniqueOrThrow({
-    where: {
-      provider_providerSub: {
-        provider: STUB_PROVIDER,
-        providerSub: stubSubject,
+  try {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: {
+        provider_providerSub: {
+          provider: STUB_PROVIDER,
+          providerSub: stubSubject,
+        },
       },
-    },
-    select: { id: true },
-  })
-  return user.id
+      select: { id: true },
+    })
+    return user.id
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
+      throw new HttpError(500, 'INTERNAL_ERROR', 'User resolution failed')
+    }
+    throw e
+  }
 }
