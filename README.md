@@ -15,6 +15,7 @@
 - **8일차:** `getClient()` 캐시 제거, DTO 전용 hook, `getErrorMessage`, 프로필·홈 에러 처리 정리 ([docs/DAY8.md](./docs/DAY8.md))
 - **9일차:** `TierBadge`·`SourceBadge`·`Skeleton`, `PlayerRow`·`MatchRow`, 홈·프로필 UI ([docs/DAY9.md](./docs/DAY9.md))
 - **10일차:** 백엔드 zod 스키마 보강, 에러·404 응답 통일, `resolveStubUserId` 실패 처리, API 테스트 확장 ([docs/DAY10.md](./docs/DAY10.md))
+- **11일차:** proxy 설계 확정, `contracts/`, `bserClient`·`bserMapper` skeleton, API 매핑·응답 비교 문서 ([docs/DAY11.md](./docs/DAY11.md))
 
 ---
 
