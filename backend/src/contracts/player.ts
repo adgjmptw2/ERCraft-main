@@ -1,7 +1,3 @@
-// 프론트 src/types/player.ts, src/types/match.ts와 같은 shape.
-// 백엔드-프론트 직접 import 의존성을 피하려고 따로 정의해뒀다.
-// shape 바꾸면 src/types 쪽도 맞춰야 함.
-
 export interface PlayerSummaryContract {
   userNum: number
   nickname: string
