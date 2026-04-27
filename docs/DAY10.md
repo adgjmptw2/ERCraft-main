@@ -11,4 +11,3 @@
 **auth.** 공백-only `X-User-Id`는 기존 trim 검사로 401. `resolveStubUserId`에서 `findUniqueOrThrow`가 P2025면 `HttpError(500, 'INTERNAL_ERROR', 'User resolution failed')`.
 
 **favorites.** zod만으로 공백 닉네임·GET 0건·userId 스코프는 기존 동작 그대로 확인만.
-

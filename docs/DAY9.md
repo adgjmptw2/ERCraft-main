@@ -10,6 +10,6 @@
 
 **ProfilePage.** query·우선순위 그대로, summary 로딩은 텍스트 대신 스켈레톤. 통계는 카드 grid + `statsQuery.data.source` 뱃지, 전적은 `MatchRow` + 첫 페이지 `source` 뱃지 + `hasNextPage`일 때 "더 보기"로 `fetchNextPage()`.
 
-**기타 페이지.** `NotFoundPage` / `RankingPage` / `AuthCallbackPage` 
+**기타 페이지.** `NotFoundPage` / `RankingPage` / `AuthCallbackPage` 문구만 한국어로 맞춤.
 
-추가 shadcn 컴포넌트 쓰려면 예: `npx shadcn@latest add card` (border 카드로 처리, 설치는 X)
+추가 shadcn 쓰려면 예: `npx shadcn@latest add card` (카드 UI용, 설치는 당시엔 안 함)

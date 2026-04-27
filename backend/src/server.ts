@@ -1,8 +1,11 @@
 import 'dotenv/config'
 
 import { createApp } from './app.js'
+import { config } from './config/env.js'
 
-const port = Number.parseInt(process.env.PORT ?? '3001', 10)
+if (!config.databaseUrl) {
+  throw new Error('DATABASE_URL is required')
+}
 
 const app = await createApp()
-await app.listen({ port, host: '0.0.0.0' })
+await app.listen({ port: config.port, host: '0.0.0.0' })

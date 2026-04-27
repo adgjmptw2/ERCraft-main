@@ -1,3 +1,4 @@
+import cors from '@fastify/cors'
 import { PrismaClient } from '@prisma/client'
 import Fastify from 'fastify'
 import {
@@ -5,6 +6,7 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 
+import { config } from './config/env.js'
 import { attachErrorHandlers } from './plugins/errorHandler.js'
 import favoritesRoutes from './routes/favorites.js'
 import searchHistoryRoutes from './routes/searchHistory.js'
@@ -26,6 +28,9 @@ export async function createApp(options: CreateAppOptions = {}) {
     await instance.prisma.$disconnect()
   })
 
+  const origins = config.corsOrigin.split(',').map((s) => s.trim()).filter(Boolean)
+  await app.register(cors, { origin: origins.length > 0 ? origins : true })
+
   attachErrorHandlers(app)
 
   app.setNotFoundHandler((_request, reply) => {
@@ -33,6 +38,11 @@ export async function createApp(options: CreateAppOptions = {}) {
       error: { code: 'NOT_FOUND', message: 'Route not found' },
     })
   })
+
+  app.get('/health', async () => ({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+  }))
 
   await app.register(favoritesRoutes, { prefix: '/api' })
   await app.register(searchHistoryRoutes, { prefix: '/api' })

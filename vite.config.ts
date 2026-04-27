@@ -16,7 +16,6 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     env: {
-      VITE_BSER_API_KEY: '',
       VITE_API_BASE_URL: '',
     },
   },

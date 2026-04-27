@@ -17,14 +17,15 @@ export interface EternalReturnClient {
   ): Promise<Paginated<MatchSummary>>
 }
 
-function hasApiKey(): boolean {
-  return Boolean(import.meta.env.VITE_BSER_API_KEY?.trim())
+/** 백엔드 proxy 베이스 URL이 있으면 Real 클라이언트(아직 스텁). 없으면 mock. */
+function hasBackendUrl(): boolean {
+  return Boolean(import.meta.env.VITE_API_BASE_URL?.trim())
 }
 
 export function isRealMode(): boolean {
-  return hasApiKey()
+  return hasBackendUrl()
 }
 
 export function getClient(): EternalReturnClient {
-  return hasApiKey() ? new RealEternalReturnClient() : new MockEternalReturnClient()
+  return hasBackendUrl() ? new RealEternalReturnClient() : new MockEternalReturnClient()
 }

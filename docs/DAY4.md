@@ -8,7 +8,7 @@ mock 데이터를 `players.ts` / `matches.ts`에서 빼고 **`players.json`**, *
 
 `fetchMatchHistory` 반환을 **`MatchSummary[]`에서 `Paginated<MatchSummary>`**로 바꿨다. 이에 맞춰 `useMatchHistory`랑 프로필에서 첫 페이지 `items` 꺼내는 부분만 수정.
 
-API 키 없을 때 loader를 타도록 `player.ts`만 연결했고, 키 있을 때 axios 쪽은 타입만 Paginated에 맞춰 둔 상태.
+`VITE_API_BASE_URL` 비울 때는 loader를 타도록 `player.ts`만 연결했고, 백엔드 proxy 붙이면 axios 쪽은 그때 맞추면 된다.
 
 빌드 한 번 돌려봤고, 검색·있는 닉 프로필·없는 닉·매치 페이지 넘기기까지 손으로 대충 확인.
 

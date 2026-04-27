@@ -10,4 +10,4 @@
 
 **erClient.real.** BSER 직접 치는 것처럼 보이던 주석을 proxy 기준으로 고침.
 
-**문서.** `BSER_API_MAPPING.md`, `BSER_RESPONSE_DIFF.md`, `BSER_PROXY_DESIGN.md`.
+**문서.** `BSER_API_MAPPING.md`, `BSER_RESPONSE_DIFF.md`, `BSER_PROXY_DESIGN.md` 세 파일만 추가.

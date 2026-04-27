@@ -9,7 +9,7 @@ import {
   searchPlayers,
 } from '@/api/player'
 
-describe('player api (mock path, no BSER key)', () => {
+describe('player api (mock path, VITE_API_BASE_URL 비어 있음)', () => {
   it('searchPlayers', async () => {
     const res = await searchPlayers('네온')
     expect(res.source).toBe('cache')
