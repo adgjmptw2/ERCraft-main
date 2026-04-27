@@ -1,7 +1,6 @@
-// BSER API 응답 → Contract 타입 변환 책임.
-// 프론트 src/types를 직접 import하지 않음.
-// backend/src/contracts/player.ts의 Contract 타입 사용.
-// Contract 타입은 프론트 타입과 같은 shape를 유지하므로 프론트에서 그대로 사용 가능.
+// BSER 응답을 Contract 타입으로 바꾸는 곳.
+// 프론트 src/types 직접 안 씀. contracts/player.ts만 씀.
+// Contract 타입은 프론트 타입과 shape가 같아서 프론트에서 그대로 쓸 수 있음.
 
 import type {
   MatchSummaryContract,

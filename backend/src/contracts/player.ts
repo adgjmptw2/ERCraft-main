@@ -1,6 +1,6 @@
-// 프론트 src/types/player.ts, src/types/match.ts와 동일한 shape 유지.
-// 백엔드-프론트 간 직접 import 의존성을 피하기 위해 별도 정의.
-// shape 변경 시 프론트 타입도 함께 확인할 것.
+// 프론트 src/types/player.ts, src/types/match.ts와 같은 shape.
+// 백엔드-프론트 직접 import 의존성을 피하려고 따로 정의해뒀다.
+// shape 바꾸면 src/types 쪽도 맞춰야 함.
 
 export interface PlayerSummaryContract {
   userNum: number
