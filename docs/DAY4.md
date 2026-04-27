@@ -2,8 +2,6 @@
 
 ---
 
-프로젝트 메모에 티어 순서와 3일차에 정해 둔 스펙(ApiResult, 에러 모양, matches는 Paginated)을 정리해 뒀다.
-
 mock 데이터를 `players.ts` / `matches.ts`에서 빼고 **`players.json`**, **`matches.json`**으로 옮겼다. 닉네임 다섯 명, 티어는 랭크 전체에 고르게 섞었고 전적은 18판. 캐릭터 이름은 게임에 나오는 것만 썼다.
 
 **`loader.ts`**에서 json 읽어서 닉네임 부분 일치로 검색하고, 스탯은 전적 합쳐서 집계. 승률·평균 순위·평균 킬·KDA용 숫자를 `PlayerStats`에 optional 필드로 몇 개 더 넣었고, 화면에도 평균 순위·평균 킬 줄을 추가.
