@@ -24,6 +24,8 @@
 - **11일차:** BSER proxy 방향, Contract 분리, `bserClient`·`bserMapper` 골격, BSER 문서 3개 ([docs/DAY11.md](./docs/DAY11.md))
 - **12일차:** 백엔드 `config/env`, CORS, `GET /health`, `.env.example`·`DEPLOY.md`, 프론트에서 BSER 키 제거 ([docs/DAY12.md](./docs/DAY12.md))
 - **13일차:** README 보완(현재 상태·설계·아키텍처·검증·트러블슈팅·스크린샷), `DECISIONS.md`, `KNOWN_ISSUE.md` ([docs/DAY13.md](./docs/DAY13.md))
+- **14일차:** `typecheck` 스크립트, 빌드·테스트 재실행, mock 소폭 보정, `REAL_API_CHECKLIST.md`·`QA_CHECKLIST.md` ([docs/DAY14.md](./docs/DAY14.md))
+- **계획:** API 키가 오는 대로 작업 재개 예정 현재 API키가 미뤄지는 중
 
 ---
 

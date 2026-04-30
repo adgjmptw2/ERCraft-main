@@ -8,6 +8,6 @@
 
 **헬스.** **`GET /health`** — `{ status: 'ok', timestamp }` 만. DB ping 없음
 
-**예시 env.** 루트·`backend/` **`.env.example`만** 손봤다. `VITE_BSER_API_KEY`는 프론트에서 뺐고, 프론트 mock/real 분기는 **`VITE_API_BASE_URL`** 유무
+**예시 env.** 루트·`backend/` **`.env.example`만** 손봤다. BSER 키는 프론트에서 제거했고, mock/real 분기는 **`VITE_API_BASE_URL`** 유무
 
 **문서.** **`docs/DEPLOY.md`** — Vercel·Railway 쪽 순서랑 보안 체크만 짧게
