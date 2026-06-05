@@ -1,29 +1,20 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 
 import { MatchRow } from '@/components/player'
 import { Skeleton, SkeletonCard, SourceBadge, TierBadge } from '@/components/shared'
 import { Button } from '@/components/ui/button'
-import { fetchPlayerByNickname } from '@/api/player'
 import { useMatchDTOHistory } from '@/hooks/useMatchDTOHistory'
 import { usePlayerStatsDTO } from '@/hooks/usePlayerStatsDTO'
+import { usePlayerSummary } from '@/hooks/usePlayerSummary'
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export function ProfilePage() {
   const { nickname: nicknameParam } = useParams()
   const nickname = nicknameParam ? decodeURIComponent(nicknameParam) : ''
 
-  const summaryQuery = useQuery({
-    queryKey: ['player', 'summary', nickname],
-    queryFn: async () => {
-      const res = await fetchPlayerByNickname(nickname)
-      return res.data
-    },
-    enabled: nickname.length > 0,
-  })
-
+  const summaryQuery = usePlayerSummary(nickname)
   const userNum = summaryQuery.data?.userNum ?? 0
-  const statsQuery = usePlayerStatsDTO(userNum)
+  const statsQuery = usePlayerStatsDTO(userNum, summaryQuery.data?.tier)
   const matchesQuery = useMatchDTOHistory(userNum)
 
   if (!nickname.trim()) {

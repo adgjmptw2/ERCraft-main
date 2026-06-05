@@ -60,6 +60,7 @@ export function toStatsDTO(
   for (const m of matches) {
     counts.set(m.characterName, (counts.get(m.characterName) ?? 0) + 1)
   }
+  // 동률: 이름 오름차순
   const names = [...counts.keys()].sort()
   let best: { name: string; count: number } = { name: '', count: 0 }
   for (const name of names) {

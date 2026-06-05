@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client'
 import type { FastifyPluginAsync } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
-import { authMiddleware, resolveStubUserId } from '../middleware/auth.js'
+import { authMiddleware } from '../middleware/auth.js'
 import { createFavoriteBody } from '../schemas.js'
 import { apiResult } from '../types/api.js'
 import { HttpError } from '../utils/httpError.js'
@@ -19,12 +19,10 @@ const favoritesRoutes: FastifyPluginAsync = async (app) => {
     async (request, reply) => {
       const { playerUserNum, nicknameSnapshot } = request.body
 
-      const userDbId = await resolveStubUserId(app.prisma, request.userId)
-
       try {
         const row = await app.prisma.favoritePlayer.create({
           data: {
-            userId: userDbId,
+            userId: request.userId,
             playerUserNum: BigInt(playerUserNum),
             nicknameSnapshot: nicknameSnapshot.trim(),
           },
@@ -46,9 +44,8 @@ const favoritesRoutes: FastifyPluginAsync = async (app) => {
   )
 
   withZod.get('/favorites', { preHandler: authMiddleware }, async (request, reply) => {
-    const userDbId = await resolveStubUserId(app.prisma, request.userId)
     const rows = await app.prisma.favoritePlayer.findMany({
-      where: { userId: userDbId },
+      where: { userId: request.userId },
       orderBy: { createdAt: 'desc' },
     })
     return reply.send(

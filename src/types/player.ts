@@ -17,11 +17,6 @@ export interface PlayerStats {
   assists: number
   top3: number
   mmr: number
-  /** loader에서 매치 합산 */
-  winRate?: number
-  avgKills?: number
-  avgPlacement?: number
-  aggregateKda?: number
 }
 
 export interface PlayerRanking {

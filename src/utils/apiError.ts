@@ -1,11 +1,13 @@
+import type { ApiErrorCode } from '@/types/api'
+
 export interface ApiErrorPayload {
-  code: string
+  code: ApiErrorCode
   message: string
   details?: unknown
 }
 
 export class ApiError extends Error {
-  readonly code: string
+  readonly code: ApiErrorCode
   readonly details?: unknown
   readonly error: ApiErrorPayload
 
@@ -18,6 +20,6 @@ export class ApiError extends Error {
   }
 }
 
-export function throwApiError(code: string, message: string, details?: unknown): never {
+export function throwApiError(code: ApiErrorCode, message: string, details?: unknown): never {
   throw new ApiError({ code, message, details })
 }

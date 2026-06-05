@@ -17,7 +17,7 @@ export interface CreateAppOptions {
 
 export async function createApp(options: CreateAppOptions = {}) {
   const prisma = options.prisma ?? new PrismaClient()
-  const app = Fastify({ logger: false })
+  const app = Fastify({ logger: process.env.NODE_ENV !== 'production' })
 
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)

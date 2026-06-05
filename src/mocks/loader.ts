@@ -80,10 +80,6 @@ export function buildMockStatsForUser(userNum: number): PlayerStats | null {
       assists: 0,
       top3: 0,
       mmr: base.mmr,
-      winRate: 0,
-      avgKills: 0,
-      avgPlacement: 0,
-      aggregateKda: 0,
     }
   }
 
@@ -92,7 +88,6 @@ export function buildMockStatsForUser(userNum: number): PlayerStats | null {
   const kills = matches.reduce((s, m) => s + m.kills, 0)
   const deaths = matches.reduce((s, m) => s + m.deaths, 0)
   const assists = matches.reduce((s, m) => s + m.assists, 0)
-  const placementSum = matches.reduce((s, m) => s + m.placement, 0)
   const top3count = matches.filter((m) => m.placement <= 3).length
 
   return {
@@ -106,10 +101,6 @@ export function buildMockStatsForUser(userNum: number): PlayerStats | null {
     assists,
     top3: top3count,
     mmr: base.mmr,
-    winRate: (wins / games) * 100,
-    avgKills: kills / games,
-    avgPlacement: placementSum / games,
-    aggregateKda: deaths > 0 ? (kills + assists) / deaths : kills + assists,
   }
 }
 

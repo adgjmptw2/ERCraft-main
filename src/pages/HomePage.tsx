@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { PlayerRow } from '@/components/player'
 import { SkeletonCard, SourceBadge } from '@/components/shared'
+import { Input } from '@/components/ui/input'
 import { searchPlayers } from '@/api/player'
 import { useDebounce } from '@/hooks/useDebounce'
 import { getErrorMessage } from '@/utils/errorMessage'
@@ -29,8 +30,7 @@ export function HomePage() {
 
       <label className="flex flex-col gap-2 text-sm font-medium">
         플레이어 닉네임
-        <input
-          className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+        <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="2자 이상 입력"

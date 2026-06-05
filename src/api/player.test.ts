@@ -30,7 +30,6 @@ describe('player api (mock path, VITE_API_BASE_URL 비어 있음)', () => {
   it('fetchPlayerStats', async () => {
     const res = await fetchPlayerStats(560733)
     expect(res.data.games).toBe(4)
-    expect(res.data.avgPlacement).toBeDefined()
   })
 
   it('fetchPlayerStats 없는 유저는 throw', async () => {

@@ -22,14 +22,13 @@ describe('mock loader', () => {
     expect(buildMockStatsForUser(999_999)).toBeNull()
   })
 
-  it('스탯 집계 필드 채움', () => {
+  it('스탯 raw counter 필드 채움', () => {
     const stats = buildMockStatsForUser(847291)
     expect(stats).not.toBeNull()
     expect(stats?.games).toBe(5)
-    expect(stats?.winRate).toBeDefined()
-    expect(stats?.avgKills).toBeDefined()
-    expect(stats?.avgPlacement).toBeDefined()
-    expect(stats?.aggregateKda).toBeDefined()
+    expect(stats?.wins).toBeGreaterThan(0)
+    expect(stats?.kills).toBeGreaterThan(0)
+    expect(stats?.mmr).toBeGreaterThan(0)
   })
 
   it('매치 페이지네이션', () => {

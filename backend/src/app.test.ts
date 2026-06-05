@@ -111,7 +111,7 @@ describe.skipIf(!hasTestDb)('backend HTTP (TEST_DATABASE_URL)', () => {
     expect(body.error.code).toBe('INVALID_REQUEST')
   })
 
-  it('GET /api/search-history limit 100 → 최대 50건', async () => {
+  it('GET /api/search-history limit 100 → 400 INVALID_REQUEST', async () => {
     const uid = 'user-limit'
     const headers = { ...jsonHeaders, 'x-user-id': uid }
     await app.inject({
@@ -135,6 +135,37 @@ describe.skipIf(!hasTestDb)('backend HTTP (TEST_DATABASE_URL)', () => {
     const res = await app.inject({
       method: 'GET',
       url: '/api/search-history?limit=100',
+      headers: { 'x-user-id': uid },
+    })
+    expect(res.statusCode).toBe(400)
+    const body = res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('INVALID_REQUEST')
+  })
+
+  it('GET /api/search-history limit 50 → 최대 50건', async () => {
+    const uid = 'user-limit-50'
+    const headers = { ...jsonHeaders, 'x-user-id': uid }
+    await app.inject({
+      method: 'POST',
+      url: '/api/search-history',
+      headers,
+      payload: { query: 'first' },
+    })
+    const u = await prisma.user.findUniqueOrThrow({
+      where: { provider_providerSub: { provider: 'stub', providerSub: uid } },
+    })
+    for (let i = 0; i < 54; i++) {
+      await prisma.searchHistory.create({
+        data: {
+          userId: u.id,
+          query: `q${i}`,
+          createdAt: new Date(Date.UTC(2026, 0, 1, 12, 0, 54 - i)),
+        },
+      })
+    }
+    const res = await app.inject({
+      method: 'GET',
+      url: '/api/search-history?limit=50',
       headers: { 'x-user-id': uid },
     })
     expect(res.statusCode).toBe(200)
