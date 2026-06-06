@@ -4,6 +4,8 @@ import {
   buildPopulationMetricsFromMatches,
   buildPlayerAnalysisReport,
 } from '@/analysis/playerReport'
+import { buildCharacterAnalysisReports } from '@/analysis/characterReport'
+import type { CharacterAnalysisReport } from '@/analysis/types'
 import type { PlayerAnalysisReport } from '@/analysis/types'
 import matchesData from '@/mocks/matches.json'
 import playersData from '@/mocks/players.json'
@@ -174,4 +176,12 @@ export function getDemoPlayerAnalysisReport(nickname: string): PlayerAnalysisRep
     populationMetrics,
     baselineLabel: '데모 평균',
   })
+}
+
+export function getDemoPlayerCharacterReports(nickname: string): CharacterAnalysisReport[] {
+  const player = getMockPlayerSummaryByNickname(nickname)
+  if (!player) return []
+
+  const playerMatches = sortedMatchesForUser(player.userNum)
+  return buildCharacterAnalysisReports(playerMatches)
 }

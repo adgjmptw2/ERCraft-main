@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   buildMockStatsForUser,
   getDemoPlayerAnalysisReport,
+  getDemoPlayerCharacterReports,
   getMockPlayerByUserNum,
   getMockPlayerSummaryByNickname,
   getSamplePlayerNicknames,
@@ -74,5 +75,20 @@ describe('mock loader', () => {
 
   it('getDemoPlayerAnalysisReport — 없는 닉네임 null', () => {
     expect(getDemoPlayerAnalysisReport('없는닉네임xyz')).toBeNull()
+  })
+
+  it('getDemoPlayerCharacterReports — 샘플 닉네임 캐릭터 분석', () => {
+    const reports = getDemoPlayerCharacterReports('한강쐐기')
+    expect(reports.length).toBeGreaterThan(0)
+    expect(reports.every((r) => r.matchCount > 0)).toBe(true)
+    expect(reports.every((r) => r.characterName.length > 0)).toBe(true)
+  })
+
+  it('getDemoPlayerCharacterReports — 없는 닉네임 빈 배열', () => {
+    expect(getDemoPlayerCharacterReports('없는닉네임xyz')).toEqual([])
+  })
+
+  it('getDemoPlayerAnalysisReport — 기존 동작 유지', () => {
+    expect(getDemoPlayerAnalysisReport('한강쐐기')?.status).toBe('ok')
   })
 })

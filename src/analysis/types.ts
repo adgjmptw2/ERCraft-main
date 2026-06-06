@@ -61,3 +61,24 @@ export interface BuildPlayerAnalysisReportParams {
   minPlayerMatches?: number
   minPopulationSize?: number
 }
+
+export type CharacterAnalysisStatus = 'ok' | 'insufficient-sample'
+
+export interface CharacterAnalysisSummary {
+  characterName: string
+  matchCount: number
+  avgPlacement: number
+  avgKills: number
+  avgAssists: number
+  kda: number
+  top3Rate: number
+  winRate: number
+  overallScore: number | null
+}
+
+export interface CharacterAnalysisReport extends CharacterAnalysisSummary {
+  status: CharacterAnalysisStatus
+  overallGrade: AnalysisGrade | null
+  gradeLabel: string
+  feedback: string
+}

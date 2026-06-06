@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useMemo } from 'react'
 
-import { PlayerReportPanel } from '@/components/analysis'
+import { CharacterReportPanel, PlayerReportPanel } from '@/components/analysis'
 import { MatchRow } from '@/components/player'
 import {
   DemoDataNotice,
@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button'
 import { useMatchDTOHistory } from '@/hooks/useMatchDTOHistory'
 import { usePlayerStatsDTO } from '@/hooks/usePlayerStatsDTO'
 import { usePlayerSummary } from '@/hooks/usePlayerSummary'
-import { getDemoPlayerAnalysisReport } from '@/mocks/loader'
+import { getDemoPlayerAnalysisReport, getDemoPlayerCharacterReports } from '@/mocks/loader'
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export function ProfilePage() {
@@ -33,6 +33,14 @@ export function ProfilePage() {
       summaryQuery.data
         ? getDemoPlayerAnalysisReport(summaryQuery.data.nickname)
         : null,
+    [summaryQuery.data],
+  )
+
+  const characterReports = useMemo(
+    () =>
+      summaryQuery.data
+        ? getDemoPlayerCharacterReports(summaryQuery.data.nickname)
+        : [],
     [summaryQuery.data],
   )
 
@@ -152,6 +160,8 @@ export function ProfilePage() {
       </section>
 
       {analysisReport ? <PlayerReportPanel report={analysisReport} /> : null}
+
+      <CharacterReportPanel reports={characterReports} />
 
       <section className="space-y-3 text-sm">
         <div className="flex flex-wrap items-center gap-2">
