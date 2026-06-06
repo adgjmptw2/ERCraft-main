@@ -9,14 +9,26 @@ export function MatchRow({ match }: MatchRowProps) {
   return (
     <li
       className={cn(
-        'space-y-1 rounded-md border border-border px-3 py-2',
+        'space-y-1 rounded-md border border-border px-3 py-2.5',
         match.victory
           ? 'border-l-4 border-l-emerald-500 bg-emerald-500/5'
-          : 'border-border',
+          : 'border-border bg-card',
       )}
     >
-      <p className="font-medium">{match.characterName}</p>
-      <p>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="font-medium">{match.characterName}</p>
+        <span
+          className={cn(
+            'rounded px-1.5 py-0.5 text-xs font-medium',
+            match.victory
+              ? 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-200'
+              : 'bg-muted text-muted-foreground',
+          )}
+        >
+          {match.victory ? '승리' : '패배'}
+        </span>
+      </div>
+      <p className="text-sm">
         {match.placementLabel} · KDA {match.kdaString}
       </p>
       <p className="text-muted-foreground text-xs">{match.relativeTime}</p>

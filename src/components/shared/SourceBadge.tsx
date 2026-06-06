@@ -15,7 +15,7 @@ export function SourceBadge({ source }: SourceBadgeProps) {
           : 'border-sky-500/50 bg-sky-500/10 text-sky-800 dark:text-sky-200',
       )}
     >
-      {isCache ? '캐시' : '실시간'}
+      {isCache ? '데모 데이터' : 'API 연동'}
     </span>
   )
 }

@@ -43,6 +43,10 @@ function sortedMatchesForUser(userNum: number): MatchSummary[] {
     .sort((a, b) => new Date(b.gameStartedAt).getTime() - new Date(a.gameStartedAt).getTime())
 }
 
+export function getSamplePlayerNicknames(): string[] {
+  return playersFile.players.map((p) => p.nickname)
+}
+
 export function searchMockPlayersByNickname(query: string): PlayerSummary[] {
   const q = query.trim().toLowerCase()
   if (q.length < 2) return []

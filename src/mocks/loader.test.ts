@@ -4,6 +4,7 @@ import {
   buildMockStatsForUser,
   getMockPlayerByUserNum,
   getMockPlayerSummaryByNickname,
+  getSamplePlayerNicknames,
   searchMockPlayersByNickname,
   sliceMockMatchHistory,
 } from '@/mocks/loader'
@@ -54,5 +55,12 @@ describe('mock loader', () => {
   it('getMockPlayerSummaryByNickname — 정확 일치만', () => {
     expect(getMockPlayerSummaryByNickname('RustyMango')?.userNum).toBe(192044)
     expect(getMockPlayerSummaryByNickname('rust')).toBeUndefined()
+  })
+
+  it('getSamplePlayerNicknames — players.json 닉네임 목록', () => {
+    const samples = getSamplePlayerNicknames()
+    expect(samples).toContain('한강쐐기')
+    expect(samples).toContain('RustyMango')
+    expect(samples.length).toBe(5)
   })
 })
