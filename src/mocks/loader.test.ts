@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   buildMockStatsForUser,
+  getDemoPlayerAnalysisReport,
   getMockPlayerByUserNum,
   getMockPlayerSummaryByNickname,
   getSamplePlayerNicknames,
@@ -62,5 +63,16 @@ describe('mock loader', () => {
     expect(samples).toContain('한강쐐기')
     expect(samples).toContain('RustyMango')
     expect(samples.length).toBe(5)
+  })
+
+  it('getDemoPlayerAnalysisReport — 샘플 닉네임 report 생성', () => {
+    const report = getDemoPlayerAnalysisReport('한강쐐기')
+    expect(report).not.toBeNull()
+    expect(report?.status).toBe('ok')
+    expect(report?.metrics.length).toBeGreaterThan(0)
+  })
+
+  it('getDemoPlayerAnalysisReport — 없는 닉네임 null', () => {
+    expect(getDemoPlayerAnalysisReport('없는닉네임xyz')).toBeNull()
   })
 })

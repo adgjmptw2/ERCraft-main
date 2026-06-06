@@ -1,5 +1,10 @@
 // MOCK — 실 API 붙기 전
 
+import {
+  buildPopulationMetricsFromMatches,
+  buildPlayerAnalysisReport,
+} from '@/analysis/playerReport'
+import type { PlayerAnalysisReport } from '@/analysis/types'
 import matchesData from '@/mocks/matches.json'
 import playersData from '@/mocks/players.json'
 import type { MatchSummary, MatchSummaryDTO, Paginated } from '@/types/match'
@@ -144,4 +149,29 @@ export function sliceMockMatchDTOHistory(
     ...result,
     items: result.items.map((m) => toMatchSummaryDTO(m)),
   }
+}
+
+export function getAllDemoMatchesForAnalysis(): MatchSummary[] {
+  return [...matchesFile.matches]
+}
+
+export function getDemoMatchesByPlayerNickname(nickname: string): MatchSummary[] {
+  const player = getMockPlayerSummaryByNickname(nickname)
+  if (!player) return []
+  return sortedMatchesForUser(player.userNum)
+}
+
+export function getDemoPlayerAnalysisReport(nickname: string): PlayerAnalysisReport | null {
+  const player = getMockPlayerSummaryByNickname(nickname)
+  if (!player) return null
+
+  const populationMetrics = buildPopulationMetricsFromMatches(getAllDemoMatchesForAnalysis())
+  const playerMatches = sortedMatchesForUser(player.userNum)
+
+  return buildPlayerAnalysisReport({
+    nickname: player.nickname,
+    playerMatches,
+    populationMetrics,
+    baselineLabel: '데모 평균',
+  })
 }

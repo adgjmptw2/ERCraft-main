@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
+import { useMemo } from 'react'
 
+import { PlayerReportPanel } from '@/components/analysis'
 import { MatchRow } from '@/components/player'
 import {
   DemoDataNotice,
@@ -14,6 +16,7 @@ import { Button } from '@/components/ui/button'
 import { useMatchDTOHistory } from '@/hooks/useMatchDTOHistory'
 import { usePlayerStatsDTO } from '@/hooks/usePlayerStatsDTO'
 import { usePlayerSummary } from '@/hooks/usePlayerSummary'
+import { getDemoPlayerAnalysisReport } from '@/mocks/loader'
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export function ProfilePage() {
@@ -24,6 +27,14 @@ export function ProfilePage() {
   const userNum = summaryQuery.data?.userNum ?? 0
   const statsQuery = usePlayerStatsDTO(userNum, summaryQuery.data?.tier)
   const matchesQuery = useMatchDTOHistory(userNum)
+
+  const analysisReport = useMemo(
+    () =>
+      summaryQuery.data
+        ? getDemoPlayerAnalysisReport(summaryQuery.data.nickname)
+        : null,
+    [summaryQuery.data],
+  )
 
   if (!nickname.trim()) {
     return (
@@ -139,6 +150,8 @@ export function ProfilePage() {
           </div>
         ) : null}
       </section>
+
+      {analysisReport ? <PlayerReportPanel report={analysisReport} /> : null}
 
       <section className="space-y-3 text-sm">
         <div className="flex flex-wrap items-center gap-2">
