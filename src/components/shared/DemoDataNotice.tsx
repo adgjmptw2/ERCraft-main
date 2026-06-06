@@ -10,7 +10,13 @@ export interface DemoDataNoticeProps {
 export function DemoDataNotice({ className, compact = false }: DemoDataNoticeProps) {
   if (compact) {
     return (
-      <p className={cn('text-muted-foreground text-xs leading-relaxed', className)}>
+      <p
+        className={cn(
+          'text-muted-foreground inline-flex items-center gap-1.5 text-xs leading-relaxed',
+          className,
+        )}
+      >
+        <span className="bg-muted-foreground/50 size-1 shrink-0 rounded-full" aria-hidden />
         데모 데이터 · API 연동 전 미리보기
       </p>
     )
@@ -19,7 +25,7 @@ export function DemoDataNotice({ className, compact = false }: DemoDataNoticePro
   return (
     <div
       className={cn(
-        'flex gap-2 rounded-md border border-border bg-muted/30 px-3 py-2 text-sm',
+        'flex gap-2 rounded-lg border border-border/80 bg-muted/40 px-3 py-2.5 shadow-sm',
         className,
       )}
       role="note"

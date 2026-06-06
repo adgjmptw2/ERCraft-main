@@ -11,6 +11,7 @@ import {
   SkeletonCard,
   SourceBadge,
   StatCard,
+  SurfaceCard,
   TierBadge,
 } from '@/components/shared'
 import { Button } from '@/components/ui/button'
@@ -47,28 +48,25 @@ export function ProfilePage() {
 
   if (!nickname.trim()) {
     return (
-      <div className="mx-auto max-w-lg p-4 text-left sm:p-6">
-        <EmptyState
-          title="URL에 플레이어 닉네임이 없습니다"
-          action={
-            <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
-              홈으로
-            </Link>
-          }
-        />
-      </div>
+      <EmptyState
+        title="URL에 플레이어 닉네임이 없습니다"
+        action={
+          <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
+            홈으로
+          </Link>
+        }
+      />
     )
   }
 
   if (summaryQuery.isPending) {
     return (
-      <div className="mx-auto flex max-w-lg flex-col gap-6 p-4 text-left sm:p-6">
-        <Skeleton className="h-4 w-24" />
-        <div className="space-y-2">
-          <Skeleton className="h-8 w-48 max-w-full" />
-          <Skeleton className="h-6 w-40 max-w-full" />
+      <div className="flex flex-col gap-6">
+        <Skeleton className="h-32 w-full rounded-xl" />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <SkeletonCard />
+          <SkeletonCard />
         </div>
-        <SkeletonCard />
         <SkeletonCard />
       </div>
     )
@@ -76,33 +74,29 @@ export function ProfilePage() {
 
   if (summaryQuery.isError) {
     return (
-      <div className="mx-auto max-w-lg space-y-4 p-4 text-left sm:p-6">
-        <EmptyState
-          title="프로필 정보를 불러오지 못했습니다"
-          description={getErrorMessage(summaryQuery.error, '잠시 후 다시 시도해주세요.')}
-          action={
-            <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
-              홈으로
-            </Link>
-          }
-        />
-      </div>
+      <EmptyState
+        title="프로필 정보를 불러오지 못했습니다"
+        description={getErrorMessage(summaryQuery.error, '잠시 후 다시 시도해주세요.')}
+        action={
+          <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
+            홈으로
+          </Link>
+        }
+      />
     )
   }
 
   if (summaryQuery.data === null) {
     return (
-      <div className="mx-auto max-w-lg p-4 text-left sm:p-6">
-        <EmptyState
-          title="데모 데이터에 없는 플레이어입니다"
-          description="홈에서 샘플 닉네임으로 검색해보세요."
-          action={
-            <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
-              홈으로
-            </Link>
-          }
-        />
-      </div>
+      <EmptyState
+        title="데모 데이터에 없는 플레이어입니다"
+        description="홈에서 샘플 닉네임으로 검색해보세요."
+        action={
+          <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
+            홈으로
+          </Link>
+        }
+      />
     )
   }
 
@@ -112,19 +106,28 @@ export function ProfilePage() {
   const stats = statsQuery.data?.data
 
   return (
-    <div className="mx-auto flex max-w-lg flex-col gap-8 p-4 text-left sm:p-6">
-      <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
-        ← 검색으로
-      </Link>
-
-      <header className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight break-all">{summary.nickname}</h1>
-        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
-          <span>레벨 {summary.level}</span>
-          <TierBadge tier={summary.tier} />
+    <div className="flex flex-col gap-8">
+      <SurfaceCard variant="muted" padding="lg" className="relative overflow-hidden">
+        <div className="from-primary/6 pointer-events-none absolute inset-0 bg-gradient-to-br via-transparent to-transparent" />
+        <div className="relative space-y-3">
+          <Link
+            className="text-muted-foreground hover:text-foreground inline-flex min-h-8 items-center text-xs transition-colors"
+            to="/"
+          >
+            ← 검색으로
+          </Link>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-semibold tracking-tight break-all sm:text-3xl">
+              {summary.nickname}
+            </h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-muted-foreground text-sm">레벨 {summary.level}</span>
+              <TierBadge tier={summary.tier} />
+            </div>
+          </div>
+          <DemoDataNotice compact />
         </div>
-        <DemoDataNotice compact />
-      </header>
+      </SurfaceCard>
 
       <section className="space-y-3 text-sm">
         <SectionHeader
@@ -148,8 +151,8 @@ export function ProfilePage() {
           />
         ) : statsQuery.isSuccess && stats ? (
           <div className="grid gap-3 sm:grid-cols-2">
-            <StatCard label="티어" value={stats.tier} />
-            <StatCard label="MMR" value={stats.mmr} />
+            <StatCard label="티어" value={stats.tier} highlight />
+            <StatCard label="MMR" value={stats.mmr} highlight />
             <StatCard label="승률" value={`${stats.winRate}%`} />
             <StatCard label="KDA" value={stats.kdaString} />
             <StatCard label="총 판수" value={stats.games} />
@@ -159,16 +162,17 @@ export function ProfilePage() {
               label="주 캐릭터"
               value={stats.mostPlayedCharacter.name}
               description={`${stats.mostPlayedCharacter.count}판`}
+              highlight
               className="sm:col-span-2"
             />
           </div>
         ) : null}
       </section>
 
-      <div className="space-y-6 rounded-lg border border-border bg-muted/10 p-4 sm:p-5">
+      <SurfaceCard variant="inset" padding="lg" className="space-y-8">
         {analysisReport ? <PlayerReportPanel report={analysisReport} /> : null}
         <CharacterReportPanel reports={characterReports} />
-      </div>
+      </SurfaceCard>
 
       <section className="space-y-3 text-sm">
         <SectionHeader

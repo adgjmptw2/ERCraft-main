@@ -1,5 +1,6 @@
 import { GradeBadge } from '@/components/analysis/GradeBadge'
 import type { MetricComparison } from '@/analysis/types'
+import { SurfaceCard } from '@/components/shared/SurfaceCard'
 
 function formatValue(key: MetricComparison['key'], value: number | null): string {
   if (value == null || !Number.isFinite(value)) return '-'
@@ -15,9 +16,9 @@ export interface MetricComparisonCardProps {
 
 export function MetricComparisonCard({ metric, baselineLabel }: MetricComparisonCardProps) {
   return (
-    <article className="rounded-md border border-border bg-card p-3 text-sm">
+    <SurfaceCard padding="md" className="text-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h4 className="min-w-0 flex-1 font-medium">{metric.label}</h4>
+        <h4 className="text-foreground min-w-0 flex-1 font-medium">{metric.label}</h4>
         <GradeBadge grade={metric.grade} className="shrink-0" />
       </div>
       <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
@@ -39,6 +40,6 @@ export function MetricComparisonCard({ metric, baselineLabel }: MetricComparison
       <p className="text-muted-foreground mt-2 text-xs leading-relaxed break-words">
         {metric.description}
       </p>
-    </article>
+    </SurfaceCard>
   )
 }
