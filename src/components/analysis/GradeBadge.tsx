@@ -27,9 +27,10 @@ export function GradeBadge({ grade, className }: GradeBadgeProps) {
     return (
       <span
         className={cn(
-          'inline-flex items-center rounded-md border border-border px-2 py-0.5 text-xs font-medium',
+          'inline-flex items-center rounded-md border border-border bg-muted px-2 py-0.5 text-xs font-medium',
           className,
         )}
+        aria-label="등급 데이터 없음"
       >
         데이터 없음
       </span>
@@ -43,6 +44,7 @@ export function GradeBadge({ grade, className }: GradeBadgeProps) {
         GRADE_CLASS[grade],
         className,
       )}
+      aria-label={GRADE_LABEL[grade]}
     >
       {GRADE_LABEL[grade]}
     </span>

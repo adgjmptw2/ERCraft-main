@@ -6,6 +6,7 @@ import { MatchRow } from '@/components/player'
 import {
   DemoDataNotice,
   EmptyState,
+  SectionHeader,
   Skeleton,
   SkeletonCard,
   SourceBadge,
@@ -48,7 +49,7 @@ export function ProfilePage() {
     return (
       <div className="mx-auto max-w-lg p-4 text-left sm:p-6">
         <EmptyState
-          title="URL에 플레이어 닉네임이 없습니다."
+          title="URL에 플레이어 닉네임이 없습니다"
           action={
             <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
               홈으로
@@ -76,12 +77,15 @@ export function ProfilePage() {
   if (summaryQuery.isError) {
     return (
       <div className="mx-auto max-w-lg space-y-4 p-4 text-left sm:p-6">
-        <p className="text-destructive text-sm" role="alert">
-          {getErrorMessage(summaryQuery.error, '프로필 정보를 불러오지 못했습니다')}
-        </p>
-        <Link className="text-primary inline-block text-sm underline-offset-4 hover:underline" to="/">
-          홈으로
-        </Link>
+        <EmptyState
+          title="프로필 정보를 불러오지 못했습니다"
+          description={getErrorMessage(summaryQuery.error, '잠시 후 다시 시도해주세요.')}
+          action={
+            <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
+              홈으로
+            </Link>
+          }
+        />
       </div>
     )
   }
@@ -90,7 +94,7 @@ export function ProfilePage() {
     return (
       <div className="mx-auto max-w-lg p-4 text-left sm:p-6">
         <EmptyState
-          title="데모 데이터에 없는 플레이어입니다."
+          title="데모 데이터에 없는 플레이어입니다"
           description="홈에서 샘플 닉네임으로 검색해보세요."
           action={
             <Link className="text-primary text-sm underline-offset-4 hover:underline" to="/">
@@ -113,33 +117,35 @@ export function ProfilePage() {
         ← 검색으로
       </Link>
 
-      <header className="space-y-3">
-        <div className="space-y-2">
-          <h1 className="text-2xl font-semibold tracking-tight break-all">{summary.nickname}</h1>
-          <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
-            <span>레벨 {summary.level}</span>
-            <TierBadge tier={summary.tier} />
-          </div>
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold tracking-tight break-all">{summary.nickname}</h1>
+        <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
+          <span>레벨 {summary.level}</span>
+          <TierBadge tier={summary.tier} />
         </div>
         <DemoDataNotice compact />
       </header>
 
       <section className="space-y-3 text-sm">
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="text-foreground font-medium">시즌 통계</h2>
-          {statsQuery.isSuccess && statsQuery.data?.source ? (
-            <SourceBadge source={statsQuery.data.source} />
-          ) : null}
-        </div>
+        <SectionHeader
+          title="시즌 요약"
+          description="최근 데모 매치에서 집계한 기본 통계입니다."
+          badge={
+            statsQuery.isSuccess && statsQuery.data?.source ? (
+              <SourceBadge source={statsQuery.data.source} />
+            ) : undefined
+          }
+        />
         {statsQuery.isPending ? (
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             <SkeletonCard />
             <SkeletonCard />
           </div>
         ) : statsQuery.isError ? (
-          <p className="text-destructive" role="alert">
-            {getErrorMessage(statsQuery.error, '통계 정보를 불러오지 못했습니다')}
-          </p>
+          <EmptyState
+            title="통계 정보를 불러오지 못했습니다"
+            description={getErrorMessage(statsQuery.error, '잠시 후 다시 시도해주세요.')}
+          />
         ) : statsQuery.isSuccess && stats ? (
           <div className="grid gap-3 sm:grid-cols-2">
             <StatCard label="티어" value={stats.tier} />
@@ -159,26 +165,29 @@ export function ProfilePage() {
         ) : null}
       </section>
 
-      {analysisReport ? <PlayerReportPanel report={analysisReport} /> : null}
-
-      <CharacterReportPanel reports={characterReports} />
+      <div className="space-y-6 rounded-lg border border-border bg-muted/10 p-4 sm:p-5">
+        {analysisReport ? <PlayerReportPanel report={analysisReport} /> : null}
+        <CharacterReportPanel reports={characterReports} />
+      </div>
 
       <section className="space-y-3 text-sm">
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="text-foreground font-medium">최근 전적</h2>
-          {matchesSource ? <SourceBadge source={matchesSource} /> : null}
-        </div>
+        <SectionHeader
+          title="최근 매치"
+          description="분석에 사용된 최근 전적 흐름을 확인합니다."
+          badge={matchesSource ? <SourceBadge source={matchesSource} /> : undefined}
+        />
         {matchesQuery.isPending ? (
           <div className="grid gap-2">
             <SkeletonCard />
             <SkeletonCard />
           </div>
         ) : matchesQuery.isError ? (
-          <p className="text-destructive" role="alert">
-            {getErrorMessage(matchesQuery.error, '전적 정보를 불러오지 못했습니다')}
-          </p>
+          <EmptyState
+            title="전적 정보를 불러오지 못했습니다"
+            description={getErrorMessage(matchesQuery.error, '잠시 후 다시 시도해주세요.')}
+          />
         ) : matchItems.length === 0 ? (
-          <EmptyState title="기록된 전적이 없습니다." />
+          <EmptyState title="기록된 전적이 없습니다" />
         ) : (
           <>
             <ul className="flex flex-col gap-2">

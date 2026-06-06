@@ -17,13 +17,13 @@ export function MetricComparisonCard({ metric, baselineLabel }: MetricComparison
   return (
     <article className="rounded-md border border-border bg-card p-3 text-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h4 className="font-medium">{metric.label}</h4>
-        <GradeBadge grade={metric.grade} />
+        <h4 className="min-w-0 flex-1 font-medium">{metric.label}</h4>
+        <GradeBadge grade={metric.grade} className="shrink-0" />
       </div>
-      <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+      <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
         <div>
           <dt className="text-muted-foreground">내 값</dt>
-          <dd className="font-medium">{formatValue(metric.key, metric.playerValue)}</dd>
+          <dd className="text-base font-semibold">{formatValue(metric.key, metric.playerValue)}</dd>
         </div>
         <div>
           <dt className="text-muted-foreground">{baselineLabel}</dt>
@@ -36,7 +36,9 @@ export function MetricComparisonCard({ metric, baselineLabel }: MetricComparison
           </dd>
         </div>
       </dl>
-      <p className="text-muted-foreground mt-2 text-xs">{metric.description}</p>
+      <p className="text-muted-foreground mt-2 text-xs leading-relaxed break-words">
+        {metric.description}
+      </p>
     </article>
   )
 }

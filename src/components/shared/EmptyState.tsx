@@ -13,13 +13,13 @@ export function EmptyState({ title, description, action, className }: EmptyState
   return (
     <div
       className={cn(
-        'flex flex-col items-start gap-2 rounded-md border border-dashed border-border bg-muted/20 px-4 py-6 text-left',
+        'flex flex-col items-start gap-2 rounded-md border border-dashed border-border bg-muted/20 px-4 py-5 text-left',
         className,
       )}
     >
-      <p className="text-foreground text-sm font-medium">{title}</p>
+      <p className="text-foreground text-sm font-medium break-words">{title}</p>
       {description ? (
-        <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
+        <p className="text-muted-foreground text-sm leading-relaxed break-words">{description}</p>
       ) : null}
       {action ? <div className="pt-1">{action}</div> : null}
     </div>

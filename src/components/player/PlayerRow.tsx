@@ -18,7 +18,7 @@ export function PlayerRow({ player }: PlayerRowProps) {
         </div>
       </div>
       <Link
-        className="text-primary shrink-0 font-medium underline-offset-4 hover:underline sm:text-right"
+        className="text-primary inline-flex min-h-9 shrink-0 items-center font-medium underline-offset-4 hover:underline sm:text-right"
         to={`/player/${encodeURIComponent(player.nickname)}`}
       >
         프로필 보기
