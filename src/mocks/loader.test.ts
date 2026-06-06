@@ -62,8 +62,44 @@ describe('mock loader', () => {
   it('getSamplePlayerNicknames — players.json 닉네임 목록', () => {
     const samples = getSamplePlayerNicknames()
     expect(samples).toContain('한강쐐기')
+    expect(samples).toContain('마인')
     expect(samples).toContain('RustyMango')
-    expect(samples.length).toBe(5)
+    expect(samples.length).toBe(6)
+  })
+
+  it('searchMockPlayersByNickname — 마인 검색', () => {
+    const results = searchMockPlayersByNickname('마인')
+    expect(results).toHaveLength(1)
+    expect(results[0]?.nickname).toBe('마인')
+    expect(results[0]?.userNum).toBe(920517)
+  })
+
+  it('getMockPlayerSummaryByNickname — 마인', () => {
+    expect(getMockPlayerSummaryByNickname('마인')?.tier).toBe('Platinum II')
+  })
+
+  it('getDemoPlayerAnalysisReport — 마인 report 생성', () => {
+    const report = getDemoPlayerAnalysisReport('마인')
+    expect(report).not.toBeNull()
+    expect(report?.status).toBe('ok')
+    expect(report?.playerMatchCount).toBe(12)
+    expect(report?.overallGrade).not.toBeNull()
+    expect(report?.metrics.length).toBeGreaterThan(0)
+  })
+
+  it('getDemoPlayerCharacterReports — 마인 캐릭터 분석', () => {
+    const reports = getDemoPlayerCharacterReports('마인')
+    expect(reports.length).toBe(3)
+
+    const graded = reports.filter((r) => r.matchCount >= 2 && r.overallGrade !== null)
+    expect(graded.length).toBeGreaterThanOrEqual(2)
+
+    const yuki = reports.find((r) => r.characterName === 'Yuki')
+    const hyejin = reports.find((r) => r.characterName === 'Hyejin')
+    expect(yuki?.matchCount).toBe(5)
+    expect(hyejin?.matchCount).toBe(3)
+    expect(yuki?.overallGrade).not.toBeNull()
+    expect(hyejin?.overallGrade).not.toBeNull()
   })
 
   it('getDemoPlayerAnalysisReport — 샘플 닉네임 report 생성', () => {
