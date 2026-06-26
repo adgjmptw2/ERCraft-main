@@ -1,0 +1,433 @@
+{
+  "version": "role-time-curve.v1.2",
+  "status": "candidate",
+  "runtimeApplied": false,
+  "generatedAt": "2026-06-23T03:26:01.243Z",
+  "source": "PlayerMatch",
+  "models": {
+    "M1_GLOBAL_EQUAL_ROLE": {
+      "description": "equal-role global duration shape",
+      "points": {
+        "평타 딜러": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ],
+        "스증 딜러": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ],
+        "암살자": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ],
+        "브루저": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ],
+        "탱커": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ],
+        "유틸 서포터": [
+          {
+            "minute": 10,
+            "value": 0.518732,
+            "sampleCount": 2531
+          },
+          {
+            "minute": 15,
+            "value": 0.807183,
+            "sampleCount": 6048
+          },
+          {
+            "minute": 20,
+            "value": 1.079121,
+            "sampleCount": 8816
+          },
+          {
+            "minute": 25,
+            "value": 1.328282,
+            "sampleCount": 5138
+          }
+        ]
+      }
+    },
+    "M2_ROLE_RESIDUAL_CLAMP_10": {
+      "description": "global shape times shrunk role residual clamped 0.90-1.10",
+      "points": {
+        "평타 딜러": [
+          {
+            "minute": 10,
+            "value": 0.558481,
+            "sampleCount": 1049
+          },
+          {
+            "minute": 15,
+            "value": 0.788543,
+            "sampleCount": 1890
+          },
+          {
+            "minute": 20,
+            "value": 1.06402,
+            "sampleCount": 2327
+          },
+          {
+            "minute": 25,
+            "value": 1.356553,
+            "sampleCount": 931
+          }
+        ],
+        "스증 딜러": [
+          {
+            "minute": 10,
+            "value": 0.561072,
+            "sampleCount": 892
+          },
+          {
+            "minute": 15,
+            "value": 0.814508,
+            "sampleCount": 2585
+          },
+          {
+            "minute": 20,
+            "value": 1.063286,
+            "sampleCount": 4176
+          },
+          {
+            "minute": 25,
+            "value": 1.325975,
+            "sampleCount": 2389
+          }
+        ],
+        "암살자": [
+          {
+            "minute": 10,
+            "value": 0.528255,
+            "sampleCount": 64
+          },
+          {
+            "minute": 15,
+            "value": 0.817587,
+            "sampleCount": 143
+          },
+          {
+            "minute": 20,
+            "value": 1.070843,
+            "sampleCount": 181
+          },
+          {
+            "minute": 25,
+            "value": 1.325549,
+            "sampleCount": 56
+          }
+        ],
+        "브루저": [
+          {
+            "minute": 10,
+            "value": 0.507789,
+            "sampleCount": 51
+          },
+          {
+            "minute": 15,
+            "value": 0.837844,
+            "sampleCount": 273
+          },
+          {
+            "minute": 20,
+            "value": 1.099266,
+            "sampleCount": 658
+          },
+          {
+            "minute": 25,
+            "value": 1.263017,
+            "sampleCount": 390
+          }
+        ],
+        "탱커": [
+          {
+            "minute": 10,
+            "value": 0.518919,
+            "sampleCount": 191
+          },
+          {
+            "minute": 15,
+            "value": 0.798908,
+            "sampleCount": 492
+          },
+          {
+            "minute": 20,
+            "value": 1.085296,
+            "sampleCount": 759
+          },
+          {
+            "minute": 25,
+            "value": 1.327335,
+            "sampleCount": 711
+          }
+        ],
+        "유틸 서포터": [
+          {
+            "minute": 10,
+            "value": 0.476239,
+            "sampleCount": 284
+          },
+          {
+            "minute": 15,
+            "value": 0.749532,
+            "sampleCount": 665
+          },
+          {
+            "minute": 20,
+            "value": 1.088747,
+            "sampleCount": 715
+          },
+          {
+            "minute": 25,
+            "value": 1.400559,
+            "sampleCount": 661
+          }
+        ]
+      }
+    },
+    "M2_ROLE_RESIDUAL_CLAMP_15": {
+      "description": "global shape times shrunk role residual clamped 0.85-1.15",
+      "points": {
+        "평타 딜러": [
+          {
+            "minute": 10,
+            "value": 0.558481,
+            "sampleCount": 1049
+          },
+          {
+            "minute": 15,
+            "value": 0.788543,
+            "sampleCount": 1890
+          },
+          {
+            "minute": 20,
+            "value": 1.06402,
+            "sampleCount": 2327
+          },
+          {
+            "minute": 25,
+            "value": 1.356553,
+            "sampleCount": 931
+          }
+        ],
+        "스증 딜러": [
+          {
+            "minute": 10,
+            "value": 0.561072,
+            "sampleCount": 892
+          },
+          {
+            "minute": 15,
+            "value": 0.814508,
+            "sampleCount": 2585
+          },
+          {
+            "minute": 20,
+            "value": 1.063286,
+            "sampleCount": 4176
+          },
+          {
+            "minute": 25,
+            "value": 1.325975,
+            "sampleCount": 2389
+          }
+        ],
+        "암살자": [
+          {
+            "minute": 10,
+            "value": 0.528255,
+            "sampleCount": 64
+          },
+          {
+            "minute": 15,
+            "value": 0.817587,
+            "sampleCount": 143
+          },
+          {
+            "minute": 20,
+            "value": 1.070843,
+            "sampleCount": 181
+          },
+          {
+            "minute": 25,
+            "value": 1.325549,
+            "sampleCount": 56
+          }
+        ],
+        "브루저": [
+          {
+            "minute": 10,
+            "value": 0.507789,
+            "sampleCount": 51
+          },
+          {
+            "minute": 15,
+            "value": 0.837844,
+            "sampleCount": 273
+          },
+          {
+            "minute": 20,
+            "value": 1.099266,
+            "sampleCount": 658
+          },
+          {
+            "minute": 25,
+            "value": 1.263017,
+            "sampleCount": 390
+          }
+        ],
+        "탱커": [
+          {
+            "minute": 10,
+            "value": 0.518919,
+            "sampleCount": 191
+          },
+          {
+            "minute": 15,
+            "value": 0.798908,
+            "sampleCount": 492
+          },
+          {
+            "minute": 20,
+            "value": 1.085296,
+            "sampleCount": 759
+          },
+          {
+            "minute": 25,
+            "value": 1.327335,
+            "sampleCount": 711
+          }
+        ],
+        "유틸 서포터": [
+          {
+            "minute": 10,
+            "value": 0.476239,
+            "sampleCount": 284
+          },
+          {
+            "minute": 15,
+            "value": 0.749532,
+            "sampleCount": 665
+          },
+          {
+            "minute": 20,
+            "value": 1.088747,
+            "sampleCount": 715
+          },
+          {
+            "minute": 25,
+            "value": 1.400559,
+            "sampleCount": 661
+          }
+        ]
+      }
+    }
+  },
+  "anchorsMinutes": [
+    10,
+    15,
+    20,
+    25
+  ],
+  "anchorShrinkK": 409,
+  "policies": {
+    "under8": "production-duration-multiplier",
+    "eightToTen": "smooth-blend-production-to-shadow",
+    "tenToTwentyFive": "shadow-model",
+    "twentyFivePlus": "production-duration-multiplier"
+  }
+}

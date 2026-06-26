@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-20T06:17:00.217Z",
+  "blockedExactKeys": [
+    "meteorite_plus|69:9",
+    "meteorite_plus|77:24",
+    "meteorite_plus|83:6",
+    "meteorite_plus|73:24",
+    "meteorite_plus|45:4",
+    "meteorite_plus|70:6",
+    "meteorite_plus|21:9",
+    "mithril_plus|35:2",
+    "mithril_plus|80:19"
+  ],
+  "reasons": {
+    "meteorite_plus|69:9": "mean-delta-exceeded,max-delta-exceeded,coarse-change-rate-exceeded,two-plus-step-rate-exceeded",
+    "meteorite_plus|77:24": "mean-delta-exceeded,coarse-change-rate-exceeded,two-plus-step-rate-exceeded",
+    "meteorite_plus|83:6": "mean-delta-exceeded,max-delta-exceeded,coarse-change-rate-exceeded,two-plus-step-rate-exceeded",
+    "meteorite_plus|73:24": "mean-delta-exceeded,max-delta-exceeded",
+    "meteorite_plus|45:4": "max-delta-exceeded,coarse-change-rate-exceeded",
+    "meteorite_plus|70:6": "max-delta-exceeded",
+    "meteorite_plus|21:9": "coarse-change-rate-exceeded",
+    "mithril_plus|35:2": "max-delta-exceeded,coarse-change-rate-exceeded",
+    "mithril_plus|80:19": "coarse-change-rate-exceeded,review-needed-small-sample-coarse-change"
+  },
+  "entries": [
+    {
+      "key": "meteorite_plus|69:9",
+      "reasons": [
+        "mean-delta-exceeded",
+        "max-delta-exceeded",
+        "coarse-change-rate-exceeded",
+        "two-plus-step-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.414Z",
+      "auditGroupCount": 41
+    },
+    {
+      "key": "meteorite_plus|77:24",
+      "reasons": [
+        "mean-delta-exceeded",
+        "coarse-change-rate-exceeded",
+        "two-plus-step-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.414Z",
+      "auditGroupCount": 34
+    },
+    {
+      "key": "meteorite_plus|83:6",
+      "reasons": [
+        "mean-delta-exceeded",
+        "max-delta-exceeded",
+        "coarse-change-rate-exceeded",
+        "two-plus-step-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.414Z",
+      "auditGroupCount": 47
+    },
+    {
+      "key": "meteorite_plus|73:24",
+      "reasons": [
+        "mean-delta-exceeded",
+        "max-delta-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.414Z",
+      "auditGroupCount": 37
+    },
+    {
+      "key": "meteorite_plus|45:4",
+      "reasons": [
+        "max-delta-exceeded",
+        "coarse-change-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.414Z",
+      "auditGroupCount": 45
+    },
+    {
+      "key": "meteorite_plus|70:6",
+      "reasons": [
+        "max-delta-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.413Z",
+      "auditGroupCount": 41
+    },
+    {
+      "key": "meteorite_plus|21:9",
+      "reasons": [
+        "coarse-change-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.413Z",
+      "auditGroupCount": 48
+    },
+    {
+      "key": "mithril_plus|35:2",
+      "reasons": [
+        "max-delta-exceeded",
+        "coarse-change-rate-exceeded"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.412Z",
+      "auditGroupCount": 29
+    },
+    {
+      "key": "mithril_plus|80:19",
+      "reasons": [
+        "coarse-change-rate-exceeded",
+        "review-needed-small-sample-coarse-change"
+      ],
+      "auditGeneratedAt": "2026-06-20T05:46:01.413Z",
+      "auditGroupCount": 9
+    }
+  ]
+}

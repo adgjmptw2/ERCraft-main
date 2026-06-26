@@ -1,0 +1,18 @@
+export {
+  TEAM_LUCK_ROLE_SCORE_VERSION as TEAM_LUCK_ROLE_SCORE_SHADOW_VERSION,
+  TEAM_LUCK_ROLE_SCORE_WEIGHTS as TEAM_LUCK_ROLE_SCORE_SHADOW_WEIGHTS,
+  analyzeTeamKillMeaning,
+  computeCombatContributionRatio,
+  computeTeamLuckRoleScore as computeShadowRoleScore,
+  deathsPer10m,
+  durationBucket,
+  perMinute,
+  placementBucket,
+  sumTeamLuckRoleWeights as sumShadowRoleWeights,
+  type TeamKillMeaningReport,
+  type TeamKillParticipantRow,
+  type TeamLuckRoleMetricBaseline as ShadowMetricBaseline,
+  type TeamLuckRoleMetricInput as ShadowMetricInput,
+  type TeamLuckRoleScoreMetric,
+  type TeamLuckRoleScoreResult as ShadowRoleScoreResult,
+} from '../../services/roleScore/teamLuckRoleScore.js'

@@ -1,0 +1,492 @@
+{
+  "schemaVersion": 1,
+  "baselineVersion": "team-luck-role-score-baselines.v1",
+  "generatedAt": "2026-06-22T05:55:59.158Z",
+  "source": {
+    "table": "player_matches",
+    "mode": "rank",
+    "displaySeasonId": 11,
+    "selectedIdentifiers": []
+  },
+  "roleScoreVersion": "role-score.v2",
+  "metricNames": [
+    "damageToPlayer",
+    "damageToPlayerPerMinute",
+    "combatContribution",
+    "deathsPer10m",
+    "visionScore",
+    "visionScorePerMinute",
+    "monsterKill",
+    "monsterKillPerMinute"
+  ],
+  "roleDuration": {
+    "role:서포터|duration:duration-15-20m": {
+      "count": 1338,
+      "means": {
+        "damageToPlayer": 7667.379671,
+        "damageToPlayerPerMinute": 435.169252,
+        "combatContribution": 0.646414,
+        "deathsPer10m": 1.861162,
+        "visionScore": 16.8,
+        "visionScorePerMinute": 0.996505,
+        "monsterKill": 30.584211,
+        "monsterKillPerMinute": 1.800552
+      }
+    },
+    "role:서포터|duration:duration-20-25m": {
+      "count": 1821,
+      "means": {
+        "damageToPlayer": 11172.815486,
+        "damageToPlayerPerMinute": 498.221246,
+        "combatContribution": 0.627038,
+        "deathsPer10m": 1.187198,
+        "visionScore": 27.943299,
+        "visionScorePerMinute": 1.237128,
+        "monsterKill": 40.489691,
+        "monsterKillPerMinute": 1.800047
+      }
+    },
+    "role:서포터|duration:duration-25-30m": {
+      "count": 100,
+      "means": {
+        "damageToPlayer": 9278.09,
+        "damageToPlayerPerMinute": 367.17536,
+        "combatContribution": 0.68121,
+        "deathsPer10m": 0.791566,
+        "visionScore": 34.909091,
+        "visionScorePerMinute": 1.383306,
+        "monsterKill": 22.454545,
+        "monsterKillPerMinute": 0.889906
+      }
+    },
+    "role:서포터|duration:duration-lt-15m": {
+      "count": 1604,
+      "means": {
+        "damageToPlayer": 4488.627182,
+        "damageToPlayerPerMinute": 400.364359,
+        "combatContribution": 0.566064,
+        "deathsPer10m": 2.315509,
+        "visionScore": 7.797927,
+        "visionScorePerMinute": 0.655304,
+        "monsterKill": 20.588083,
+        "monsterKillPerMinute": 1.705835
+      }
+    },
+    "role:스증 딜러|duration:duration-15-20m": {
+      "count": 4912,
+      "means": {
+        "damageToPlayer": 17392.596906,
+        "damageToPlayerPerMinute": 995.223247,
+        "combatContribution": 0.615612,
+        "deathsPer10m": 2.034419,
+        "visionScore": 25.577181,
+        "visionScorePerMinute": 1.472748,
+        "monsterKill": 51.221477,
+        "monsterKillPerMinute": 2.965881
+      }
+    },
+    "role:스증 딜러|duration:duration-20-25m": {
+      "count": 8090,
+      "means": {
+        "damageToPlayer": 23251.636959,
+        "damageToPlayerPerMinute": 1040.116683,
+        "combatContribution": 0.648712,
+        "deathsPer10m": 1.357837,
+        "visionScore": 44.526819,
+        "visionScorePerMinute": 1.983784,
+        "monsterKill": 68.758099,
+        "monsterKillPerMinute": 3.080556
+      }
+    },
+    "role:스증 딜러|duration:duration-25-30m": {
+      "count": 179,
+      "means": {
+        "damageToPlayer": 31326.184358,
+        "damageToPlayerPerMinute": 1219.020275,
+        "combatContribution": 0.629114,
+        "deathsPer10m": 1.190909,
+        "visionScore": 54.649351,
+        "visionScorePerMinute": 2.140841,
+        "monsterKill": 66.025974,
+        "monsterKillPerMinute": 2.590897
+      }
+    },
+    "role:스증 딜러|duration:duration-lt-15m": {
+      "count": 4395,
+      "means": {
+        "damageToPlayer": 10752.036405,
+        "damageToPlayerPerMinute": 989.593802,
+        "combatContribution": 0.570315,
+        "deathsPer10m": 2.886602,
+        "visionScore": 13.70392,
+        "visionScorePerMinute": 1.229001,
+        "monsterKill": 34.908133,
+        "monsterKillPerMinute": 3.213924
+      }
+    },
+    "role:스증 브루저|duration:duration-15-20m": {
+      "count": 495,
+      "means": {
+        "damageToPlayer": 14464.19798,
+        "damageToPlayerPerMinute": 828.699751,
+        "combatContribution": 0.525339,
+        "deathsPer10m": 1.909996,
+        "visionScore": 23.74537,
+        "visionScorePerMinute": 1.31669,
+        "monsterKill": 54.689815,
+        "monsterKillPerMinute": 3.077217
+      }
+    },
+    "role:스증 브루저|duration:duration-20-25m": {
+      "count": 904,
+      "means": {
+        "damageToPlayer": 18336.110619,
+        "damageToPlayerPerMinute": 824.814553,
+        "combatContribution": 0.644935,
+        "deathsPer10m": 1.32611,
+        "visionScore": 39.214502,
+        "visionScorePerMinute": 1.768358,
+        "monsterKill": 61.250755,
+        "monsterKillPerMinute": 2.772782
+      }
+    },
+    "role:스증 브루저|duration:duration-25-30m": {
+      "count": 30,
+      "means": {
+        "damageToPlayer": 20006.833333,
+        "damageToPlayerPerMinute": 776.189091,
+        "combatContribution": 0.688831,
+        "deathsPer10m": 1.001273,
+        "visionScore": 73.545455,
+        "visionScorePerMinute": 2.805554,
+        "monsterKill": 74.863636,
+        "monsterKillPerMinute": 2.873781
+      }
+    },
+    "role:스증 브루저|duration:duration-lt-15m": {
+      "count": 199,
+      "means": {
+        "damageToPlayer": 6571.984925,
+        "damageToPlayerPerMinute": 666.709491,
+        "combatContribution": 0.49371,
+        "deathsPer10m": 2.9496,
+        "visionScore": 8,
+        "visionScorePerMinute": 0.918711,
+        "monsterKill": 27.245283,
+        "monsterKillPerMinute": 3.26099
+      }
+    },
+    "role:암살자|duration:duration-15-20m": {
+      "count": 168,
+      "means": {
+        "damageToPlayer": 18871.380952,
+        "damageToPlayerPerMinute": 1092.999225,
+        "combatContribution": 0.701156,
+        "deathsPer10m": 2.147723,
+        "visionScore": 32.192593,
+        "visionScorePerMinute": 1.861788,
+        "monsterKill": 57.955556,
+        "monsterKillPerMinute": 3.370439
+      }
+    },
+    "role:암살자|duration:duration-20-25m": {
+      "count": 192,
+      "means": {
+        "damageToPlayer": 21607.822917,
+        "damageToPlayerPerMinute": 978.930973,
+        "combatContribution": 0.617255,
+        "deathsPer10m": 1.493699,
+        "visionScore": 50.408759,
+        "visionScorePerMinute": 2.262285,
+        "monsterKill": 76.817518,
+        "monsterKillPerMinute": 3.450524
+      }
+    },
+    "role:암살자|duration:duration-25-30m": {
+      "count": 6,
+      "means": {
+        "damageToPlayer": 30870,
+        "damageToPlayerPerMinute": 1232.335329,
+        "combatContribution": 0.758824,
+        "deathsPer10m": 1.996008,
+        "visionScore": 66,
+        "visionScorePerMinute": 2.634731,
+        "monsterKill": 82,
+        "monsterKillPerMinute": 3.273453
+      }
+    },
+    "role:암살자|duration:duration-lt-15m": {
+      "count": 163,
+      "means": {
+        "damageToPlayer": 10693.104294,
+        "damageToPlayerPerMinute": 1039.494544,
+        "combatContribution": 0.648191,
+        "deathsPer10m": 2.162101,
+        "visionScore": 19.384058,
+        "visionScorePerMinute": 1.759049,
+        "monsterKill": 42.869565,
+        "monsterKillPerMinute": 3.935546
+      }
+    },
+    "role:탱커|duration:duration-15-20m": {
+      "count": 978,
+      "means": {
+        "damageToPlayer": 8919.180982,
+        "damageToPlayerPerMinute": 506.2806,
+        "combatContribution": 0.539314,
+        "deathsPer10m": 1.738917,
+        "visionScore": 20.290441,
+        "visionScorePerMinute": 1.131839,
+        "monsterKill": 34.788603,
+        "monsterKillPerMinute": 1.953732
+      }
+    },
+    "role:탱커|duration:duration-20-25m": {
+      "count": 1810,
+      "means": {
+        "damageToPlayer": 13524.187845,
+        "damageToPlayerPerMinute": 601.311118,
+        "combatContribution": 0.605295,
+        "deathsPer10m": 1.092796,
+        "visionScore": 38.005581,
+        "visionScorePerMinute": 1.6645,
+        "monsterKill": 41.47814,
+        "monsterKillPerMinute": 1.837902
+      }
+    },
+    "role:탱커|duration:duration-25-30m": {
+      "count": 87,
+      "means": {
+        "damageToPlayer": 16884.241379,
+        "damageToPlayerPerMinute": 669.907978,
+        "combatContribution": 0.682169,
+        "deathsPer10m": 0.66853,
+        "visionScore": 40.260274,
+        "visionScorePerMinute": 1.597332,
+        "monsterKill": 44.424658,
+        "monsterKillPerMinute": 1.766343
+      }
+    },
+    "role:탱커|duration:duration-lt-15m": {
+      "count": 1270,
+      "means": {
+        "damageToPlayer": 6139.707087,
+        "damageToPlayerPerMinute": 549.800352,
+        "combatContribution": 0.492727,
+        "deathsPer10m": 2.306725,
+        "visionScore": 10.451253,
+        "visionScorePerMinute": 0.952232,
+        "monsterKill": 25.721448,
+        "monsterKillPerMinute": 2.379262
+      }
+    },
+    "role:평타 딜러|duration:duration-15-20m": {
+      "count": 3840,
+      "means": {
+        "damageToPlayer": 15137.827604,
+        "damageToPlayerPerMinute": 863.453585,
+        "combatContribution": 0.627077,
+        "deathsPer10m": 2.43738,
+        "visionScore": 22.579787,
+        "visionScorePerMinute": 1.283755,
+        "monsterKill": 53.519947,
+        "monsterKillPerMinute": 3.049634
+      }
+    },
+    "role:평타 딜러|duration:duration-20-25m": {
+      "count": 4301,
+      "means": {
+        "damageToPlayer": 21939.579865,
+        "damageToPlayerPerMinute": 981.558182,
+        "combatContribution": 0.665439,
+        "deathsPer10m": 1.834698,
+        "visionScore": 38.357775,
+        "visionScorePerMinute": 1.702981,
+        "monsterKill": 70.797724,
+        "monsterKillPerMinute": 3.148297
+      }
+    },
+    "role:평타 딜러|duration:duration-25-30m": {
+      "count": 121,
+      "means": {
+        "damageToPlayer": 21570.338843,
+        "damageToPlayerPerMinute": 854.756993,
+        "combatContribution": 0.506174,
+        "deathsPer10m": 1.095705,
+        "visionScore": 39.378378,
+        "visionScorePerMinute": 1.551161,
+        "monsterKill": 59.594595,
+        "monsterKillPerMinute": 2.348568
+      }
+    },
+    "role:평타 딜러|duration:duration-lt-15m": {
+      "count": 4389,
+      "means": {
+        "damageToPlayer": 10411.139667,
+        "damageToPlayerPerMinute": 910.900875,
+        "combatContribution": 0.594817,
+        "deathsPer10m": 3.221869,
+        "visionScore": 11.81791,
+        "visionScorePerMinute": 1.011536,
+        "monsterKill": 32.478607,
+        "monsterKillPerMinute": 2.834257
+      }
+    },
+    "role:평타 브루저|duration:duration-15-20m": {
+      "count": 219,
+      "means": {
+        "damageToPlayer": 16071.191781,
+        "damageToPlayerPerMinute": 908.748017,
+        "combatContribution": 0.654221,
+        "deathsPer10m": 1.887037,
+        "visionScore": 22.668571,
+        "visionScorePerMinute": 1.272718,
+        "monsterKill": 41.457143,
+        "monsterKillPerMinute": 2.336927
+      }
+    },
+    "role:평타 브루저|duration:duration-20-25m": {
+      "count": 410,
+      "means": {
+        "damageToPlayer": 18647.119512,
+        "damageToPlayerPerMinute": 837.884733,
+        "combatContribution": 0.630247,
+        "deathsPer10m": 1.541968,
+        "visionScore": 39.138249,
+        "visionScorePerMinute": 1.792387,
+        "monsterKill": 64.56682,
+        "monsterKillPerMinute": 2.957627
+      }
+    },
+    "role:평타 브루저|duration:duration-25-30m": {
+      "count": 12,
+      "means": {
+        "damageToPlayer": 31618,
+        "damageToPlayerPerMinute": 1262.195609,
+        "combatContribution": 0.773333,
+        "deathsPer10m": 0,
+        "visionScore": 48,
+        "visionScorePerMinute": 1.916168,
+        "monsterKill": 67,
+        "monsterKillPerMinute": 2.674651
+      }
+    },
+    "role:평타 브루저|duration:duration-lt-15m": {
+      "count": 262,
+      "means": {
+        "damageToPlayer": 6720.087786,
+        "damageToPlayerPerMinute": 683.062624,
+        "combatContribution": 0.528329,
+        "deathsPer10m": 3.22149,
+        "visionScore": 8.463158,
+        "visionScorePerMinute": 0.92229,
+        "monsterKill": 29.136842,
+        "monsterKillPerMinute": 3.310221
+      }
+    }
+  },
+  "roleGlobal": {
+    "role:서포터": {
+      "count": 4863,
+      "means": {
+        "damageToPlayer": 7964.675715,
+        "damageToPlayerPerMinute": 445.901566,
+        "combatContribution": 0.613646,
+        "deathsPer10m": 1.736655,
+        "visionScore": 17.699571,
+        "visionScorePerMinute": 0.967246,
+        "monsterKill": 30.494421,
+        "monsterKillPerMinute": 1.760403
+      }
+    },
+    "role:스증 딜러": {
+      "count": 17576,
+      "means": {
+        "damageToPlayer": 18570.821916,
+        "damageToPlayerPerMinute": 1016.758645,
+        "combatContribution": 0.619743,
+        "deathsPer10m": 1.927501,
+        "visionScore": 32.556952,
+        "visionScorePerMinute": 1.676917,
+        "monsterKill": 56.367243,
+        "monsterKillPerMinute": 3.074142
+      }
+    },
+    "role:스증 브루저": {
+      "count": 1628,
+      "means": {
+        "damageToPlayer": 15751.628993,
+        "damageToPlayerPerMinute": 805.773707,
+        "combatContribution": 0.591799,
+        "deathsPer10m": 1.696106,
+        "visionScore": 30.481481,
+        "visionScorePerMinute": 1.524203,
+        "monsterKill": 54.254815,
+        "monsterKillPerMinute": 2.95016
+      }
+    },
+    "role:암살자": {
+      "count": 529,
+      "means": {
+        "damageToPlayer": 17480.699433,
+        "damageToPlayerPerMinute": 1036.692324,
+        "combatContribution": 0.655038,
+        "deathsPer10m": 1.913055,
+        "visionScore": 34.277778,
+        "visionScorePerMinute": 1.967541,
+        "monsterKill": 59.400966,
+        "monsterKillPerMinute": 3.584372
+      }
+    },
+    "role:탱커": {
+      "count": 4145,
+      "means": {
+        "damageToPlayer": 10245.620265,
+        "damageToPlayerPerMinute": 564.546198,
+        "combatContribution": 0.557365,
+        "deathsPer10m": 1.608281,
+        "visionScore": 25.865975,
+        "visionScorePerMinute": 1.330027,
+        "monsterKill": 35.363071,
+        "monsterKillPerMinute": 2.023165
+      }
+    },
+    "role:평타 딜러": {
+      "count": 12651,
+      "means": {
+        "damageToPlayer": 15871.938503,
+        "damageToPlayerPerMinute": 919.983641,
+        "combatContribution": 0.62786,
+        "deathsPer10m": 2.491814,
+        "visionScore": 23.464217,
+        "visionScorePerMinute": 1.31003,
+        "monsterKill": 50.713346,
+        "monsterKillPerMinute": 2.986055
+      }
+    },
+    "role:평타 브루저": {
+      "count": 903,
+      "means": {
+        "damageToPlayer": 14734.207087,
+        "damageToPlayerPerMinute": 815.788827,
+        "combatContribution": 0.608392,
+        "deathsPer10m": 2.092467,
+        "visionScore": 27.447154,
+        "visionScorePerMinute": 1.440797,
+        "monsterKill": 49.530488,
+        "monsterKillPerMinute": 2.802056
+      }
+    }
+  },
+  "validation": {
+    "sourceRows": 43972,
+    "eligibleRows": 42295,
+    "roleDurationKeyCount": 28,
+    "roleGlobalKeyCount": 7,
+    "skipped": {
+      "missingWeapon": 630,
+      "missingRole": 62,
+      "missingDuration": 985
+    }
+  }
+}

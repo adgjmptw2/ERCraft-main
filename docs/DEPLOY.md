@@ -41,6 +41,8 @@ node dist/server.js
 
 이 레포는 **`backend/`**가 패키지 루트라서, 이미지 빌드 시 `WORKDIR`를 `backend`로 잡고 위 명령을 돌리면 된다.
 
+**마이그레이션 미적용 시:** `20260618160000_player_profile_refresh_state`(`player_profile_refresh_states` 테이블)가 없으면 `GET /api/players/:nickname/summary`가 **500**이 될 수 있다. Prisma `P2021`(table does not exist)이 서버 로그에 남는다. 배포 직후 `cd backend && npx prisma migrate deploy`로 스키마를 맞춘다.
+
 ---
 
 ## DB (예: Railway MySQL / 호스팅 MySQL)

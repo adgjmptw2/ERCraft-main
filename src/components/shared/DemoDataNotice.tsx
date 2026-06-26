@@ -1,5 +1,6 @@
 import { Info } from 'lucide-react'
 
+import { isRealMode } from '@/api/erClient'
 import { cn } from '@/lib/utils'
 
 export interface DemoDataNoticeProps {
@@ -8,6 +9,8 @@ export interface DemoDataNoticeProps {
 }
 
 export function DemoDataNotice({ className, compact = false }: DemoDataNoticeProps) {
+  if (isRealMode()) return null
+
   if (compact) {
     return (
       <p

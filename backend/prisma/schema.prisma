@@ -52,3 +52,473 @@ model SearchHistory {
   @@index([userId, createdAt(sort: Desc)], map: "search_history_user_id_created_at_idx")
   @@map("search_history")
 }
+
+/// BSER getUserStats 응답 캐시 — 이전 시즌 영구, 현재 시즌 1시간 TTL
+model SeasonStatsCache {
+  id        String    @id // "{uid}:{apiSeasonId}"
+  data      Json
+  isCurrent Boolean   @default(false) @map("is_current")
+  cachedAt  DateTime  @default(now()) @map("cached_at")
+  expiresAt DateTime? @map("expires_at") // null = 영구 (이전 시즌)
+
+  @@index([expiresAt], map: "season_stats_cache_expires_at_idx")
+  @@map("season_stats_cache")
+}
+
+/// 시즌 그리드 API 응답 캐시 — S1~S10 영구·현재 시즌 포함 시 1시간
+model PlayerSeasonsCache {
+  id        String    @id // "{uid}:{from}:{to}"
+  data      Json
+  cachedAt  DateTime  @default(now()) @map("cached_at")
+  expiresAt DateTime? @map("expires_at")
+
+  @@index([expiresAt], map: "player_seasons_cache_expires_at_idx")
+  @@map("player_seasons_cache")
+}
+
+/// BSER getUserGames 누적 캐시 — uid 기준, 5분 TTL
+model MatchesCache {
+  id        String   @id // "{uid}:0"
+  data      Json
+  next      Int?
+  cachedAt  DateTime @default(now()) @map("cached_at")
+  expiresAt DateTime @map("expires_at")
+
+  @@index([expiresAt], map: "matches_cache_expires_at_idx")
+  @@map("matches_cache")
+}
+
+/// 시즌 분석 집계 캐시 — 캐릭터 통계/RP 시계열 materialized payload
+model SeasonAggregateCache {
+  id              String   @id // "{uid}:{apiSeasonId}"
+  uid             String
+  userNum         BigInt   @map("user_num")
+  apiSeasonId     Int      @map("api_season_id")
+  displaySeasonId Int      @map("display_season_id")
+  cacheStatus     String   @default("partial") @map("cache_status")
+  characterStats  Json     @map("character_stats")
+  rpSeries        Json     @map("rp_series")
+  cachedAt        DateTime @default(now()) @map("cached_at")
+  lastRefreshedAt DateTime @map("last_refreshed_at")
+  expiresAt       DateTime? @map("expires_at")
+
+  @@unique([uid, apiSeasonId], map: "season_aggregate_cache_uid_api_season_id_key")
+  @@index([userNum, displaySeasonId], map: "season_aggregate_cache_user_num_display_season_id_idx")
+  @@index([cacheStatus, expiresAt], map: "season_aggregate_cache_status_expires_at_idx")
+  @@map("season_aggregate_cache")
+}
+
+/// current-season character performance grade snapshot — DB-first restore
+model CharacterGradeSnapshot {
+  id                  String   @id @db.VarChar(255)
+  uid                 String   @db.VarChar(128)
+  canonicalUserNum    BigInt   @map("canonical_user_num")
+  apiSeasonId         Int      @map("api_season_id")
+  displaySeasonId     Int      @map("display_season_id")
+  matchMode           String   @map("match_mode") @db.VarChar(24)
+  benchmarkVersion    String   @map("benchmark_version") @db.VarChar(64)
+  metricPresetVersion String   @map("metric_preset_version") @db.VarChar(64)
+  sourceFingerprint   String   @map("source_fingerprint") @db.VarChar(128)
+  status              String   @db.VarChar(24)
+  characterStats      Json     @map("character_stats")
+  metadata            Json?
+  computedAt          DateTime @map("computed_at")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@index([canonicalUserNum, displaySeasonId, matchMode], map: "character_grade_snapshot_user_season_mode_idx")
+  @@index([uid, apiSeasonId, matchMode], map: "character_grade_snapshot_uid_api_mode_idx")
+  @@map("character_grade_snapshots")
+}
+
+/// 39.40 shadow — 플레이어×실험체 성과 스냅샷 (운영 API/UI 미사용)
+model PlayerCharacterPerformanceSnapshot {
+  id                    String   @id @db.VarChar(255)
+  canonicalUid          String   @map("canonical_uid") @db.VarChar(128)
+  displaySeasonId       Int      @map("display_season_id")
+  apiSeasonId           Int      @map("api_season_id")
+  characterNum          Int      @map("character_num")
+  benchmarkScope        String   @map("benchmark_scope") @db.VarChar(24)
+  benchmarkVersion      String   @map("benchmark_version") @db.VarChar(64)
+  sampleStatus          String   @map("sample_status") @db.VarChar(24)
+  eligibleMatches       Int      @map("eligible_matches")
+  averagePlacement      Float?   @map("average_placement")
+  winRate               Float?   @map("win_rate")
+  top3Rate              Float?   @map("top3_rate")
+  averageKills          Float?   @map("average_kills")
+  averageDeaths         Float?   @map("average_deaths")
+  teamKillParticipation Float?   @map("team_kill_participation")
+  damagePerMinute       Float?   @map("damage_per_minute")
+  damageShare           Float?   @map("damage_share")
+  visionPerMinute       Float?   @map("vision_per_minute")
+  averageSurvivalTime   Float?   @map("average_survival_time")
+  consistencyScore      Float?   @map("consistency_score")
+  shadowScore           Float?   @map("shadow_score")
+  primaryRole           String?  @map("primary_role") @db.VarChar(32)
+  tierBand              String?  @map("tier_band") @db.VarChar(32)
+  sampleWindowStart     DateTime @map("sample_window_start")
+  sampleWindowEnd       DateTime @map("sample_window_end")
+  sourceFingerprint     String   @map("source_fingerprint") @db.VarChar(128)
+  computedAt            DateTime @map("computed_at")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@unique([canonicalUid, displaySeasonId, characterNum, benchmarkScope, benchmarkVersion], map: "pcps_uid_season_char_scope_ver_key")
+  @@index([displaySeasonId, characterNum, benchmarkScope], map: "pcps_season_char_scope_idx")
+  @@index([displaySeasonId, benchmarkScope, sampleStatus], map: "pcps_season_scope_status_idx")
+  @@map("player_character_performance_snapshots")
+}
+
+/// 39.41 — 사용자×시즌×포지션 스냅샷 (전체/최근20 비교용)
+model PlayerRolePerformanceSnapshot {
+  id                  String   @id @db.VarChar(255)
+  canonicalUid        String   @map("canonical_uid") @db.VarChar(128)
+  displaySeasonId     Int      @map("display_season_id")
+  apiSeasonId         Int      @map("api_season_id")
+  rowType             String   @map("row_type") @db.VarChar(16)
+  primaryRole         String   @map("primary_role") @db.VarChar(32)
+  benchmarkScope      String   @map("benchmark_scope") @db.VarChar(24)
+  benchmarkVersion    String   @map("benchmark_version") @db.VarChar(64)
+  eligibleMatches     Int      @map("eligible_matches")
+  overallScore        Float?   @map("overall_score")
+  tierBand            String?  @map("tier_band") @db.VarChar(32)
+  metrics             Json?
+  sourceFingerprint   String   @map("source_fingerprint") @db.VarChar(128)
+  computedAt          DateTime @map("computed_at")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@unique([canonicalUid, displaySeasonId, primaryRole, rowType, benchmarkScope, benchmarkVersion], map: "prps_uid_season_role_row_scope_ver_key")
+  @@index([displaySeasonId, primaryRole, benchmarkScope], map: "prps_season_role_scope_idx")
+  @@map("player_role_performance_snapshots")
+}
+
+/// BSER getUserGames 경기 단위 영구 누적 — uid + gameId unique
+model PlayerMatch {
+  id               BigInt   @id @default(autoincrement())
+  uid              String   @db.VarChar(128)
+
+  apiSeasonId      Int      @map("api_season_id")
+  displaySeasonId  Int      @map("display_season_id")
+
+  gameId           String   @map("game_id") @db.VarChar(32)
+  gameMode         String   @map("game_mode") @db.VarChar(24)
+
+  matchingMode     Int?     @map("matching_mode")
+  matchingTeamMode Int?     @map("matching_team_mode")
+
+  playedAt         DateTime @map("played_at")
+
+  characterNum     Int      @map("character_num")
+  characterName    String?  @map("character_name") @db.VarChar(64)
+
+  placement        Int?
+  kills            Int?
+  deaths           Int?
+  assists          Int?
+  teamKills        Int?     @map("team_kills")
+  damageToPlayer   Int?     @map("damage_to_player")
+
+  victory          Boolean?
+
+  rpAfter          Int?     @map("rp_after")
+  rpDelta          Int?     @map("rp_delta")
+  gameDuration     Int?     @map("game_duration")
+  cobaltInfusions  Json?    @map("cobalt_infusions")
+
+  accountLevel         Int?  @map("account_level")
+  characterLevel       Int?  @map("character_level")
+  skinCode             Int?  @map("skin_code")
+  bestWeapon           Int?  @map("best_weapon")
+  bestWeaponLevel      Int?  @map("best_weapon_level")
+  tacticalSkillGroup   Int?  @map("tactical_skill_group")
+  tacticalSkillLevel   Int?  @map("tactical_skill_level")
+  traitFirstCore       Int?  @map("trait_first_core")
+  traitFirstSub        Json? @map("trait_first_sub")
+  traitSecondSub       Json? @map("trait_second_sub")
+  equipment            Json?
+  equipmentGrade       Json? @map("equipment_grade")
+  routeIdOfStart       Int?  @map("route_id_of_start")
+  routeSlotId          Int?  @map("route_slot_id")
+  masteryLevel         Json? @map("mastery_level")
+  skillLevelInfo       Json? @map("skill_level_info")
+  skillOrderInfo       Json? @map("skill_order_info")
+
+  rawJson          Json?    @map("raw_json")
+
+  damageFromPlayer             Int?      @map("damage_from_player")
+  protectAbsorb                Int?      @map("protect_absorb")
+  shieldDamageOffsetFromPlayer Int?      @map("shield_damage_offset_from_player")
+  teamRecover                  Int?      @map("team_recover")
+  ccTimeToPlayer               Float?    @map("cc_time_to_player")
+  viewContribution             Float?    @map("view_contribution")
+  monsterKill                  Int?      @map("monster_kill")
+  roleMetricsVersion           Int?      @map("role_metrics_version")
+  roleMetricsCapturedAt        DateTime? @map("role_metrics_captured_at")
+
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@unique([uid, gameId], map: "player_match_uid_game_id_key")
+  @@index([uid, apiSeasonId, gameMode, playedAt(sort: Desc)], map: "player_match_uid_season_mode_played_idx")
+  @@index([uid, displaySeasonId, gameMode], map: "player_match_uid_display_season_mode_idx")
+  @@index([uid, gameMode, playedAt(sort: Desc)], map: "player_match_uid_mode_played_idx")
+  @@map("player_matches")
+}
+
+/// BSER GET /v1/games/{gameId} — 경기 단위 shared cache (전체 참가자)
+model MatchDetail {
+  gameId          String   @id @map("game_id") @db.VarChar(32)
+  apiSeasonId     Int?     @map("api_season_id")
+  displaySeasonId Int?     @map("display_season_id")
+  gameMode        String   @map("game_mode") @db.VarChar(24)
+  matchingMode    Int?     @map("matching_mode")
+  matchingTeamMode Int?    @map("matching_team_mode")
+  playedAt        DateTime @map("played_at")
+  durationSeconds Int?     @map("duration_seconds")
+  rawJson         Json?    @map("raw_json")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  participants MatchParticipant[]
+
+  @@index([playedAt(sort: Desc)], map: "match_detail_played_at_idx")
+  @@map("match_details")
+}
+
+/// 경기 참가자 — gameId shared cache (uid 없을 수 있음, v11 games 응답은 nickname만 제공)
+model MatchParticipant {
+  id                BigInt   @id @default(autoincrement())
+  gameId            String   @map("game_id") @db.VarChar(32)
+  uid               String?  @db.VarChar(128)
+  nickname          String?  @db.VarChar(64)
+  teamNumber        Int?     @map("team_number")
+  teamRank          Int?     @map("team_rank")
+  placement         Int?
+  characterNum      Int      @map("character_num")
+  characterName     String?  @map("character_name") @db.VarChar(64)
+  skinCode          Int?     @map("skin_code")
+  accountLevel      Int?     @map("account_level")
+  characterLevel    Int?     @map("character_level")
+  kills             Int?
+  deaths            Int?
+  assists           Int?
+  teamKills         Int?     @map("team_kills")
+  damageToPlayer    Int?     @map("damage_to_player")
+  damageToMonster   Int?     @map("damage_to_monster")
+  damageTaken       Int?     @map("damage_taken")
+  credit            Int?
+  rpAfter           Int?     @map("rp_after")
+  rpDelta           Int?     @map("rp_delta")
+  bestWeapon        Int?     @map("best_weapon")
+  tacticalSkillGroup Int?    @map("tactical_skill_group")
+  traitFirstCore    Int?     @map("trait_first_core")
+  traitFirstSub     Json?    @map("trait_first_sub")
+  traitSecondSub    Json?    @map("trait_second_sub")
+  equipment         Json?
+  equipmentGrade    Json?    @map("equipment_grade")
+  cobaltInfusions   Json?    @map("cobalt_infusions")
+  rawJson           Json?    @map("raw_json")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  match MatchDetail @relation(fields: [gameId], references: [gameId], onDelete: Cascade)
+
+  @@index([gameId, teamNumber], map: "match_participant_game_team_idx")
+  @@index([gameId, placement], map: "match_participant_game_placement_idx")
+  @@index([nickname], map: "match_participant_nickname_idx")
+  @@index([uid, gameId], map: "match_participant_uid_game_idx")
+  @@map("match_participants")
+}
+
+/// 경기별 residual 팀운 영속 캐시 — 공식/기준선 버전 단위 DB-first 복원
+model TeamLuckMetricCache {
+  id                      BigInt   @id @default(autoincrement())
+  matchId                 String   @map("match_id") @db.VarChar(32)
+  targetUid               String   @map("target_uid") @db.VarChar(128)
+  teamMetricVersion       String   @map("team_metric_version") @db.VarChar(64)
+  residualBaselineVersion String   @map("residual_baseline_version") @db.VarChar(96)
+  benchmarkVersion        String   @map("benchmark_version") @db.VarChar(96)
+  teamLuckResidual        Float?   @map("team_luck_residual")
+  teamLuckLabel           String?  @map("team_luck_label") @db.VarChar(16)
+  carryBurdenResidual     Float?   @map("carry_burden_residual")
+  carryBurdenLabel        String?  @map("carry_burden_label") @db.VarChar(32)
+  confidence              String   @db.VarChar(16)
+  fallbackLevel           String?  @map("fallback_level") @db.VarChar(8)
+  sampleCount             Int?     @map("sample_count")
+  teammateCount           Int      @map("teammate_count")
+  sourceFingerprint       String   @map("source_fingerprint") @db.VarChar(128)
+  payload                 Json?
+  computedAt              DateTime @map("computed_at")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  @@unique([matchId, targetUid, teamMetricVersion, residualBaselineVersion, benchmarkVersion], map: "team_luck_metric_cache_identity_key")
+  @@index([matchId], map: "team_luck_metric_cache_match_idx")
+  @@index([targetUid, computedAt(sort: Desc)], map: "team_luck_metric_cache_uid_computed_idx")
+  @@map("team_luck_metric_cache")
+}
+
+/// nickname → canonical uid 영속 바인딩 — cold identity 복원
+model ProfileNicknameBinding {
+  normalizedNickname String   @id @map("normalized_nickname") @db.VarChar(64)
+  canonicalUid       String   @map("canonical_uid") @db.VarChar(128)
+  canonicalUserNum   BigInt   @map("canonical_user_num")
+  verifiedAt         DateTime @default(now()) @map("verified_at")
+  lastSeenAt         DateTime @updatedAt @map("last_seen_at")
+
+  @@index([canonicalUid], map: "profile_nickname_binding_canonical_idx")
+  @@map("profile_nickname_bindings")
+}
+
+/// 검증된 profile source alias — 서버 재시작 후 identity 복원용
+model ProfileIdentityAlias {
+  id                 String   @id @default(cuid())
+  canonicalUid       String   @map("canonical_uid") @db.VarChar(128)
+  sourceUid          String   @map("source_uid") @db.VarChar(128)
+  verificationMethod String   @map("verification_method") @db.VarChar(32)
+  fingerprintHash    String?  @map("fingerprint_hash") @db.VarChar(64)
+  verifiedAt         DateTime @default(now()) @map("verified_at")
+  lastSeenAt         DateTime @default(now()) @map("last_seen_at")
+  isActive           Boolean  @default(true) @map("is_active")
+
+  @@unique([canonicalUid, sourceUid], map: "profile_identity_alias_canonical_source_key")
+  @@index([canonicalUid, isActive], map: "profile_identity_alias_canonical_active_idx")
+  @@index([sourceUid], map: "profile_identity_alias_source_idx")
+  @@map("profile_identity_aliases")
+}
+
+/// 수동 전적 갱신 / 최근 경기 확인 시각 — canonical uid 기준
+model PlayerProfileRefreshState {
+  uid               String    @id @db.VarChar(128)
+  manualRefreshedAt DateTime? @map("manual_refreshed_at")
+  lastCheckedAt     DateTime? @map("last_checked_at")
+  lastFailedAt      DateTime? @map("last_failed_at")
+  nextRetryAt       DateTime? @map("next_retry_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  @@map("player_profile_refresh_states")
+}
+
+/// uid+apiSeasonId 시즌 rank backfill 진행 상태 (chunk worker 영속)
+model PlayerSeasonBackfillState {
+  id                   String    @id // "{uid}:{apiSeasonId}"
+  uid                  String    @db.VarChar(128)
+  apiSeasonId          Int       @map("api_season_id")
+  displaySeasonId      Int?      @map("display_season_id")
+  status               String    @db.VarChar(24)
+  officialSeasonGames  Int?      @map("official_season_games")
+  collectedGames       Int       @default(0) @map("collected_games")
+  nextCursor           Int?      @map("next_cursor")
+  lastCursor           Int?      @map("last_cursor")
+  lastStoppedReason    String?   @map("last_stopped_reason") @db.VarChar(32)
+  lastError            String?   @map("last_error") @db.VarChar(255)
+  pagesFetchedTotal    Int       @default(0) @map("pages_fetched_total")
+  rawGamesSeenTotal    Int       @default(0) @map("raw_games_seen_total")
+  rankGamesSeenTotal   Int       @default(0) @map("rank_games_seen_total")
+  upsertedTotal        Int       @default(0) @map("upserted_total")
+  duplicateTotal       Int       @default(0) @map("duplicate_total")
+  startedAt            DateTime? @map("started_at")
+  lastRunAt            DateTime? @map("last_run_at")
+  finishedAt           DateTime? @map("finished_at")
+  retryAfter           DateTime? @map("retry_after")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  @@index([uid, apiSeasonId], map: "player_season_backfill_uid_season_idx")
+  @@index([status, retryAfter], map: "player_season_backfill_status_retry_idx")
+  @@map("player_season_backfill_states")
+}
+
+/// autonomous collector user frontier — persisted breadth-first crawl queue
+model CollectorUserQueue {
+  userNum              BigInt    @id @map("user_num")
+  uid                  String?   @db.VarChar(128)
+  lastKnownNickname    String?   @map("last_known_nickname") @db.VarChar(64)
+  status               String    @default("pending") @db.VarChar(16)
+  priority             Int       @default(100)
+  discoveryDepth       Int       @default(0) @map("discovery_depth")
+  discoveredFromGameId String?   @map("discovered_from_game_id") @db.VarChar(32)
+  lastCollectedAt      DateTime? @map("last_collected_at")
+  nextCollectAt        DateTime? @map("next_collect_at")
+  pageCursor           Int?      @map("page_cursor")
+  attemptCount         Int       @default(0) @map("attempt_count")
+  leaseOwner           String?   @map("lease_owner") @db.VarChar(64)
+  leaseExpiresAt       DateTime? @map("lease_expires_at")
+  lastErrorCode        String?   @map("last_error_code") @db.VarChar(32)
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  @@index([status, priority, nextCollectAt], map: "collector_user_queue_claim_idx")
+  @@index([uid], map: "collector_user_queue_uid_idx")
+  @@map("collector_user_queue")
+}
+
+/// autonomous collector game frontier — one official game detail request per gameId
+model CollectorGameQueue {
+  gameId                String    @id @map("game_id") @db.VarChar(32)
+  status                String    @default("pending") @db.VarChar(16)
+  priority              Int       @default(100)
+  discoveredFromUserNum BigInt?   @map("discovered_from_user_num")
+  seasonId              Int?      @map("season_id")
+  matchingMode          Int?      @map("matching_mode")
+  attemptCount          Int       @default(0) @map("attempt_count")
+  nextAttemptAt         DateTime? @map("next_attempt_at")
+  leaseOwner            String?   @map("lease_owner") @db.VarChar(64)
+  leaseExpiresAt        DateTime? @map("lease_expires_at")
+  collectedAt           DateTime? @map("collected_at")
+  lastErrorCode         String?   @map("last_error_code") @db.VarChar(32)
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@index([status, priority, nextAttemptAt], map: "collector_game_queue_claim_idx")
+  @@index([discoveredFromUserNum], map: "collector_game_queue_discovered_user_idx")
+  @@map("collector_game_queue")
+}
+
+/// nickname-only match participant identity resolution frontier
+model CollectorIdentityQueue {
+  id                   BigInt    @id @default(autoincrement())
+  sourceGameId         String    @map("source_game_id") @db.VarChar(32)
+  nickname             String    @db.VarChar(64)
+  characterNum         Int       @map("character_num")
+  teamNumber           Int       @default(0) @map("team_number")
+  seasonId             Int?      @map("season_id")
+  matchingMode         Int?      @map("matching_mode")
+  status               String    @default("pending") @db.VarChar(16)
+  priority             Int       @default(100)
+  attemptCount         Int       @default(0) @map("attempt_count")
+  nextAttemptAt        DateTime? @map("next_attempt_at")
+  resolvedUid          String?   @map("resolved_uid") @db.VarChar(128)
+  resolvedUserNum      BigInt?   @map("resolved_user_num")
+  verificationStatus   String?   @map("verification_status") @db.VarChar(32)
+  nicknameResolveCount Int       @default(0) @map("nickname_resolve_count")
+  verifyGameCount      Int       @default(0) @map("verify_game_count")
+  totalRequestCount    Int       @default(0) @map("total_request_count")
+  leaseOwner           String?   @map("lease_owner") @db.VarChar(64)
+  leaseExpiresAt       DateTime? @map("lease_expires_at")
+  lastErrorCode        String?   @map("last_error_code") @db.VarChar(48)
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  @@unique([sourceGameId, nickname, characterNum, teamNumber], map: "collector_identity_queue_identity_key")
+  @@index([status, priority, nextAttemptAt], map: "collector_identity_queue_claim_idx")
+  @@map("collector_identity_queue")
+}
+
+/// autonomous collector API budget accounting — date + endpoint aggregate only
+model CollectorApiUsage {
+  id                      String   @id // "{yyyy-mm-dd}:{endpoint}"
+  date                    DateTime @db.Date
+  endpoint                String   @db.VarChar(64)
+  successCount            Int      @default(0) @map("success_count")
+  failureCount            Int      @default(0) @map("failure_count")
+  rateLimitedCount        Int      @default(0) @map("rate_limited_count")
+  collectorRequestCount   Int      @default(0) @map("collector_request_count")
+  interactiveRequestCount Int      @default(0) @map("interactive_request_count")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  @@unique([date, endpoint], map: "collector_api_usage_date_endpoint_key")
+  @@map("collector_api_usage")
+}

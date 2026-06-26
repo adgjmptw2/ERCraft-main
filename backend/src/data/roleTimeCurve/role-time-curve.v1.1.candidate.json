@@ -1,0 +1,2705 @@
+{
+  "version": "role-time-curve.v1.1",
+  "previousVersion": "role-time-curve.v1",
+  "status": "candidate",
+  "generatedAt": "2026-06-22T17:24:00.666Z",
+  "source": "PlayerMatch",
+  "runtimeApplied": false,
+  "modes": [
+    "rank"
+  ],
+  "seasons": [
+    6,
+    11
+  ],
+  "anchorsMinutes": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "metrics": [
+    "damageToPlayer",
+    "viewContribution",
+    "monsterKill"
+  ],
+  "roles": [
+    "평타 딜러",
+    "스증 딜러",
+    "암살자",
+    "브루저",
+    "탱커",
+    "유틸 서포터",
+    "unknown"
+  ],
+  "anchorShrinkK": 409,
+  "outlierMethod": "p95-winsorized-mean",
+  "monotonicCorrection": "weighted-isotonic-regression",
+  "thirtyMinutePolicy": "carry-forward-25m-when-30plus-empty",
+  "shortGamePolicy": "exclude-under-8m-from-curve-training",
+  "normalization": {
+    "method": "absolute expected values divided by role/metric average expected value over actual validation durations",
+    "targetAverageMultiplier": 1
+  },
+  "notes": [
+    "Candidate artifact only; no runtime scoring path imports this file.",
+    "Anchor weights are computed from each role+metric+anchor sample count, not from total role sample count.",
+    "PlayerMatch gameDuration is mapped from BSER playTime; DB comparison shows participant/team activity-time-like behavior rather than a pure global match end time."
+  ],
+  "warnings": [
+    "under-8-minute rows are excluded from curve training as abnormal/low-information endings",
+    "30+ duration bucket has no current rank samples; 30m anchors are carry-forward candidates, not strong observations"
+  ],
+  "curves": {
+    "평타 딜러": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "평타 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 13742.971765403256,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 8406.233494363929,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 8162.530322811642,
+            "anchorSampleCount": 621,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.6029126213592233,
+            "globalWeight": 0.3970873786407767,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 8162.530322811642,
+            "preNormalizationValue": 8162.530322811642,
+            "normalizedMultiplier": 0.5939421591012874
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 11428.486141388976,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 11313.893941187449,
+            "anchorSampleCount": 3211,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.8870165745856353,
+            "globalWeight": 0.11298342541436468,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 11313.893941187449,
+            "preNormalizationValue": 11313.893941187449,
+            "normalizedMultiplier": 0.8232494495600434
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 15047.294561540462,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 15016.269358750014,
+            "anchorSampleCount": 3843,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.9038099717779868,
+            "globalWeight": 0.09619002822201317,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 15016.269358750014,
+            "preNormalizationValue": 15016.269358750014,
+            "normalizedMultiplier": 1.0926508192756514
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 21823.13954028326,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 21696.079996835582,
+            "anchorSampleCount": 4307,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.9132739609838847,
+            "globalWeight": 0.08672603901611531,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 21696.079996835582,
+            "preNormalizationValue": 21696.079996835582,
+            "normalizedMultiplier": 1.5787036724803285
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 21570.338842975205,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 22045.104907703833,
+            "anchorSampleCount": 121,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.22830188679245284,
+            "globalWeight": 0.7716981132075471,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 22045.104907703833,
+            "preNormalizationValue": 22045.104907703833,
+            "normalizedMultiplier": 1.604100283695589
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "평타 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 20.061839182425217,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 6.856435643564357,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 8.390613865417897,
+            "anchorSampleCount": 202,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.33060556464811786,
+            "globalWeight": 0.6693944353518821,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 8.390613865417897,
+            "preNormalizationValue": 8.390613865417897,
+            "normalizedMultiplier": 0.4182375199562127
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 14.081005586592179,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 14.44342275698158,
+            "anchorSampleCount": 716,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.6364444444444445,
+            "globalWeight": 0.3635555555555555,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 14.44342275698158,
+            "preNormalizationValue": 14.44342275698158,
+            "normalizedMultiplier": 0.7199450970394807
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 22.488741721854304,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 23.149720932069336,
+            "anchorSampleCount": 755,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.6486254295532646,
+            "globalWeight": 0.35137457044673537,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 23.149720932069336,
+            "preNormalizationValue": 23.149720932069336,
+            "normalizedMultiplier": 1.1539181787654442
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 38.366373902133,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 39.86436541463963,
+            "anchorSampleCount": 797,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.6608623548922057,
+            "globalWeight": 0.3391376451077943,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 39.86436541463963,
+            "preNormalizationValue": 39.86436541463963,
+            "normalizedMultiplier": 1.9870743181692947
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 39.37837837837838,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 48.99680854911037,
+            "anchorSampleCount": 37,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.08295964125560538,
+            "globalWeight": 0.9170403587443946,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 48.99680854911037,
+            "preNormalizationValue": 48.99680854911037,
+            "normalizedMultiplier": 2.4422889697985948
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "평타 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 43.71595251980563,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 22.559405940594058,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 24.876132546065357,
+            "anchorSampleCount": 202,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.33060556464811786,
+            "globalWeight": 0.6693944353518821,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 24.876132546065357,
+            "preNormalizationValue": 24.876132546065357,
+            "normalizedMultiplier": 0.569040158390582
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 36.63966480446928,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 36.60395603089721,
+            "anchorSampleCount": 716,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.6364444444444445,
+            "globalWeight": 0.3635555555555555,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 36.60395603089721,
+            "preNormalizationValue": 36.60395603089721,
+            "normalizedMultiplier": 0.8373134730236905
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 53.31258278145695,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 51.71297779230647,
+            "anchorSampleCount": 755,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.6486254295532646,
+            "globalWeight": 0.35137457044673537,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 51.71297779230647,
+            "preNormalizationValue": 51.71297779230647,
+            "normalizedMultiplier": 1.1829315115318089
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 70.62735257214554,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 67.99188923060153,
+            "anchorSampleCount": 797,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.6608623548922057,
+            "globalWeight": 0.3391376451077943,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 67.99188923060153,
+            "preNormalizationValue": 67.99188923060153,
+            "normalizedMultiplier": 1.5553107118001746
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 59.5945945945946,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 67.99188923060153,
+            "anchorSampleCount": 37,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.08295964125560538,
+            "globalWeight": 0.9170403587443946,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 67.99188923060153,
+            "preNormalizationValue": 67.99188923060153,
+            "normalizedMultiplier": 1.5553107118001746
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "스증 딜러": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "스증 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 16280.88659768832,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 8993.618980169971,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 8553.031598651112,
+            "anchorSampleCount": 706,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.6331838565022422,
+            "globalWeight": 0.3668161434977578,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 8553.031598651112,
+            "preNormalizationValue": 8553.031598651112,
+            "normalizedMultiplier": 0.5253418815573309
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 12459.153771760155,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 12220.940491910727,
+            "anchorSampleCount": 3102,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.8835089718029051,
+            "globalWeight": 0.11649102819709489,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 12220.940491910727,
+            "preNormalizationValue": 12220.940491910727,
+            "normalizedMultiplier": 0.7506311415280017
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 17313.284484407883,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 17125.436890242207,
+            "anchorSampleCount": 5227,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.9274308019872249,
+            "globalWeight": 0.07256919801277506,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 17125.436890242207,
+            "preNormalizationValue": 17125.436890242207,
+            "normalizedMultiplier": 1.0518737285888227
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 23266.42850637523,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 23137.03462037165,
+            "anchorSampleCount": 8784,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.955509626890025,
+            "globalWeight": 0.044490373109974946,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 23137.03462037165,
+            "preNormalizationValue": 23137.03462037165,
+            "normalizedMultiplier": 1.4211163797220243
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 31189.615384615383,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 25092.499339541446,
+            "anchorSampleCount": 195,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.3228476821192053,
+            "globalWeight": 0.6771523178807948,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 25092.499339541446,
+            "preNormalizationValue": 25092.499339541446,
+            "normalizedMultiplier": 1.5412243792118951
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "스증 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 27.11256957305001,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 10.116666666666667,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 9.558060750028682,
+            "anchorSampleCount": 300,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.4231311706629055,
+            "globalWeight": 0.5768688293370945,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 9.558060750028682,
+            "preNormalizationValue": 9.558060750028682,
+            "normalizedMultiplier": 0.3525324563677442
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 17.33110119047619,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 16.805391101884926,
+            "anchorSampleCount": 1344,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.7666856816885339,
+            "globalWeight": 0.2333143183114661,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 16.805391101884926,
+            "preNormalizationValue": 16.805391101884926,
+            "normalizedMultiplier": 0.6198376386496964
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 26.608912952936276,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 26.283016072928366,
+            "anchorSampleCount": 2401,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.8544483985765124,
+            "globalWeight": 0.14555160142348755,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 26.283016072928366,
+            "preNormalizationValue": 26.283016072928366,
+            "normalizedMultiplier": 0.9694033611278872
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 45.99103139013453,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 45.721590612046704,
+            "anchorSampleCount": 4460,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.9159991784760732,
+            "globalWeight": 0.08400082152392685,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 45.721590612046704,
+            "preNormalizationValue": 45.721590612046704,
+            "normalizedMultiplier": 1.6863613937018396
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 56.634408602150536,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 51.120670543631924,
+            "anchorSampleCount": 93,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.1852589641434263,
+            "globalWeight": 0.8147410358565736,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 51.120670543631924,
+            "preNormalizationValue": 51.120670543631924,
+            "normalizedMultiplier": 1.8854970719723316
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "스증 딜러",
+        "anchorShrinkK": 409,
+        "normalizer": 50.59331910287955,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 30.663333333333334,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 27.984932278767182,
+            "anchorSampleCount": 300,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.4231311706629055,
+            "globalWeight": 0.5768688293370945,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 27.984932278767182,
+            "preNormalizationValue": 27.984932278767182,
+            "normalizedMultiplier": 0.5531349351059753
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 40.723958333333336,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 39.74811781788897,
+            "anchorSampleCount": 1344,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.7666856816885339,
+            "globalWeight": 0.2333143183114661,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 39.74811781788897,
+            "preNormalizationValue": 39.74811781788897,
+            "normalizedMultiplier": 0.7856396560396189
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 52.480216576426486,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 51.93875663709777,
+            "anchorSampleCount": 2401,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.8544483985765124,
+            "globalWeight": 0.14555160142348755,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 51.93875663709777,
+            "preNormalizationValue": 51.93875663709777,
+            "normalizedMultiplier": 1.0265931857817496
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 69.75291479820628,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 68.98539098839498,
+            "anchorSampleCount": 4460,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.9159991784760732,
+            "globalWeight": 0.08400082152392685,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 68.98539098839498,
+            "preNormalizationValue": 68.98539098839498,
+            "normalizedMultiplier": 1.3635276793782964
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 66.70967741935483,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 68.98539098839498,
+            "anchorSampleCount": 93,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.1852589641434263,
+            "globalWeight": 0.8147410358565736,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 68.98539098839498,
+            "preNormalizationValue": 68.98539098839498,
+            "normalizedMultiplier": 1.3635276793782964
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "암살자": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "암살자",
+        "anchorShrinkK": 409,
+        "normalizer": 13842.325416656497,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 10984.619047619048,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 8089.776568727254,
+            "anchorSampleCount": 42,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.09312638580931264,
+            "globalWeight": 0.9068736141906873,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 8089.776568727254,
+            "preNormalizationValue": 8089.776568727254,
+            "normalizedMultiplier": 0.5844232327461981
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 11489.9375,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 10694.35455171531,
+            "anchorSampleCount": 144,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.2603978300180832,
+            "globalWeight": 0.7396021699819169,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 10694.35455171531,
+            "preNormalizationValue": 10694.35455171531,
+            "normalizedMultiplier": 0.7725836685537514
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 18738.92372881356,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 16193.504361868316,
+            "anchorSampleCount": 236,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.36589147286821705,
+            "globalWeight": 0.634108527131783,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 16193.504361868316,
+            "preNormalizationValue": 16193.504361868316,
+            "normalizedMultiplier": 1.169854332595204
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 21785.07421875,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 20907.413932446023,
+            "anchorSampleCount": 256,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.3849624060150376,
+            "globalWeight": 0.6150375939849624,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 20907.413932446023,
+            "preNormalizationValue": 20907.413932446023,
+            "normalizedMultiplier": 1.5103975165392436
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 30870,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 22372.54689254314,
+            "anchorSampleCount": 9,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.0215311004784689,
+            "globalWeight": 0.9784688995215312,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 22372.54689254314,
+            "preNormalizationValue": 22372.54689254314,
+            "normalizedMultiplier": 1.6162419405067745
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "암살자",
+        "anchorShrinkK": 409,
+        "normalizer": 23.72885601950775,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 14.53125,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 9.538923065238855,
+            "anchorSampleCount": 32,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.07256235827664399,
+            "globalWeight": 0.927437641723356,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 9.538923065238855,
+            "preNormalizationValue": 9.538923065238855,
+            "normalizedMultiplier": 0.4019967527046733
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 22.64179104477612,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 16.944476246048396,
+            "anchorSampleCount": 134,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.24677716390423574,
+            "globalWeight": 0.7532228360957642,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 16.944476246048396,
+            "preNormalizationValue": 16.944476246048396,
+            "normalizedMultiplier": 0.7140873640144371
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 33.20197044334975,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 27.29946922373972,
+            "anchorSampleCount": 203,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.33169934640522875,
+            "globalWeight": 0.6683006535947713,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 27.29946922373972,
+            "preNormalizationValue": 27.29946922373972,
+            "normalizedMultiplier": 1.1504755729183291
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 52.00995024875622,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 45.8236470328777,
+            "anchorSampleCount": 201,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.3295081967213115,
+            "globalWeight": 0.6704918032786885,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 45.8236470328777,
+            "preNormalizationValue": 45.8236470328777,
+            "normalizedMultiplier": 1.93113595510907
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 66,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 50.138405319478906,
+            "anchorSampleCount": 7,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.016826923076923076,
+            "globalWeight": 0.9831730769230769,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 50.138405319478906,
+            "preNormalizationValue": 50.138405319478906,
+            "normalizedMultiplier": 2.112971871811249
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "암살자",
+        "anchorShrinkK": 409,
+        "normalizer": 45.66348128342074,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 27.9375,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 26.159448947042932,
+            "anchorSampleCount": 32,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.07256235827664399,
+            "globalWeight": 0.927437641723356,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 26.159448947042932,
+            "preNormalizationValue": 26.159448947042932,
+            "normalizedMultiplier": 0.5728746081508413
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 47.201492537313435,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 39.17210043233767,
+            "anchorSampleCount": 134,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.24677716390423574,
+            "globalWeight": 0.7532228360957642,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 39.17210043233767,
+            "preNormalizationValue": 39.17210043233767,
+            "normalizedMultiplier": 0.8578430582023995
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 60.3448275862069,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 52.602787827197275,
+            "anchorSampleCount": 203,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.33169934640522875,
+            "globalWeight": 0.6683006535947713,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 52.602787827197275,
+            "preNormalizationValue": 52.602787827197275,
+            "normalizedMultiplier": 1.1519662178340315
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 76.61194029850746,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 67.75675437993901,
+            "anchorSampleCount": 201,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.3295081967213115,
+            "globalWeight": 0.6704918032786885,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 67.75675437993901,
+            "preNormalizationValue": 67.75675437993901,
+            "normalizedMultiplier": 1.4838280498017962
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 82,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 67.75675437993901,
+            "anchorSampleCount": 7,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.016826923076923076,
+            "globalWeight": 0.9831730769230769,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 67.75675437993901,
+            "preNormalizationValue": 67.75675437993901,
+            "normalizedMultiplier": 1.4838280498017962
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "브루저": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "브루저",
+        "anchorShrinkK": 409,
+        "normalizer": 14191.330869212972,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 6162.929577464789,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 7372.543071680565,
+            "anchorSampleCount": 142,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.2577132486388385,
+            "globalWeight": 0.7422867513611615,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 7372.543071680565,
+            "preNormalizationValue": 7372.543071680565,
+            "normalizedMultiplier": 0.5195103362486421
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 8311.463157894737,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 9747.253868278072,
+            "anchorSampleCount": 190,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.31719532554257096,
+            "globalWeight": 0.682804674457429,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 9747.253868278072,
+            "preNormalizationValue": 9747.253868278072,
+            "normalizedMultiplier": 0.6868456495101533
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 14898.347107438016,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 14835.79234661239,
+            "anchorSampleCount": 726,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.639647577092511,
+            "globalWeight": 0.36035242290748903,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 14835.79234661239,
+            "preNormalizationValue": 14835.79234661239,
+            "normalizedMultiplier": 1.0454123354136946
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 18488.049740163326,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 18923.607212458202,
+            "anchorSampleCount": 1347,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.7670842824601367,
+            "globalWeight": 0.2329157175398633,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 18923.607212458202,
+            "preNormalizationValue": 18923.607212458202,
+            "normalizedMultiplier": 1.3334624769768104
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 23324.309523809523,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 22291.608871581,
+            "anchorSampleCount": 42,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.09312638580931264,
+            "globalWeight": 0.9068736141906873,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 22291.608871581,
+            "preNormalizationValue": 22291.608871581,
+            "normalizedMultiplier": 1.5707905817304968
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "브루저",
+        "anchorShrinkK": 409,
+        "normalizer": 24.9161843747804,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 7.987654320987654,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 8.956459330143542,
+            "anchorSampleCount": 81,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.1653061224489796,
+            "globalWeight": 0.8346938775510204,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 8.956459330143542,
+            "preNormalizationValue": 8.956459330143542,
+            "normalizedMultiplier": 0.3594635195912689
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 15.162162162162161,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 15.084866819740533,
+            "anchorSampleCount": 37,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.08295964125560538,
+            "globalWeight": 0.9170403587443946,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 15.084866819740533,
+            "preNormalizationValue": 15.084866819740533,
+            "normalizedMultiplier": 0.6054244338876018
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 23.39950372208437,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 23.888269907547674,
+            "anchorSampleCount": 403,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.4963054187192118,
+            "globalWeight": 0.5036945812807883,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 23.888269907547674,
+            "preNormalizationValue": 23.888269907547674,
+            "normalizedMultiplier": 0.9587451091318316
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 39.93115318416523,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 41.109519888944845,
+            "anchorSampleCount": 581,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.5868686868686869,
+            "globalWeight": 0.4131313131313131,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 41.109519888944845,
+            "preNormalizationValue": 41.109519888944845,
+            "normalizedMultiplier": 1.6499123329074004
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 68.81481481481481,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 51.04031333234684,
+            "anchorSampleCount": 27,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.06192660550458716,
+            "globalWeight": 0.9380733944954128,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 51.04031333234684,
+            "preNormalizationValue": 51.04031333234684,
+            "normalizedMultiplier": 2.048480319643512
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "브루저",
+        "anchorShrinkK": 409,
+        "normalizer": 47.82278476877842,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 29.641975308641975,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 26.61901425642027,
+            "anchorSampleCount": 81,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.1653061224489796,
+            "globalWeight": 0.8346938775510204,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 26.61901425642027,
+            "preNormalizationValue": 26.61901425642027,
+            "normalizedMultiplier": 0.5566178210893056
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 40.108108108108105,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 36.83733303757703,
+            "anchorSampleCount": 37,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.08295964125560538,
+            "globalWeight": 0.9170403587443946,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 36.83733303757703,
+            "preNormalizationValue": 36.83733303757703,
+            "normalizedMultiplier": 0.7702883304618148
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 49.33002481389578,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 49.04298786975953,
+            "anchorSampleCount": 403,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.4963054187192118,
+            "globalWeight": 0.5036945812807883,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 49.04298786975953,
+            "preNormalizationValue": 49.04298786975953,
+            "normalizedMultiplier": 1.0255150992749742
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 63.11531841652324,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 63.27375903687602,
+            "anchorSampleCount": 581,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.5868686868686869,
+            "globalWeight": 0.4131313131313131,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 63.27375903687602,
+            "preNormalizationValue": 63.27375903687602,
+            "normalizedMultiplier": 1.3230881334661406
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 73.4074074074074,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 63.27375903687602,
+            "anchorSampleCount": 27,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.06192660550458716,
+            "globalWeight": 0.9380733944954128,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 63.27375903687602,
+            "preNormalizationValue": 63.27375903687602,
+            "normalizedMultiplier": 1.3230881334661406
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "탱커": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "탱커",
+        "anchorShrinkK": 409,
+        "normalizer": 10280.117958351184,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 5075.209219858156,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 6683.566183062216,
+            "anchorSampleCount": 282,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.4081041968162084,
+            "globalWeight": 0.5918958031837915,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 6683.566183062216,
+            "preNormalizationValue": 6683.566183062216,
+            "normalizedMultiplier": 0.6501448923193275
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 7070.0919395466,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 8207.049099832557,
+            "anchorSampleCount": 794,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.6600166251039069,
+            "globalWeight": 0.3399833748960931,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 8207.049099832557,
+            "preNormalizationValue": 8207.049099832557,
+            "normalizedMultiplier": 0.7983419191377523
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 8638.684049079755,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 10433.350622498245,
+            "anchorSampleCount": 978,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.7051189617880317,
+            "globalWeight": 0.2948810382119683,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 10433.350622498245,
+            "preNormalizationValue": 10433.350622498245,
+            "normalizedMultiplier": 1.0149057301451079
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 13325.150276243094,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 14621.439055915549,
+            "anchorSampleCount": 1810,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.8156827399729608,
+            "globalWeight": 0.1843172600270392,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 14621.439055915549,
+            "preNormalizationValue": 14621.439055915549,
+            "normalizedMultiplier": 1.422302654031089
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 16884.241379310344,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 21255.692744119016,
+            "anchorSampleCount": 87,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.17540322580645162,
+            "globalWeight": 0.8245967741935484,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 21255.692744119016,
+            "preNormalizationValue": 21255.692744119016,
+            "normalizedMultiplier": 2.0676506660949046
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "탱커",
+        "anchorShrinkK": 409,
+        "normalizer": 22.64225049307385,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 10.261682242990654,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 9.530762555008565,
+            "anchorSampleCount": 214,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.3434991974317817,
+            "globalWeight": 0.6565008025682183,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 9.530762555008565,
+            "preNormalizationValue": 9.530762555008565,
+            "normalizedMultiplier": 0.42092823581843053
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 11.38262910798122,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 13.192635451023087,
+            "anchorSampleCount": 426,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.5101796407185629,
+            "globalWeight": 0.4898203592814371,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 13.192635451023087,
+            "preNormalizationValue": 13.192635451023087,
+            "normalizedMultiplier": 0.582655662035832
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 20.05514705882353,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 21.906899438540094,
+            "anchorSampleCount": 544,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.5708289611752361,
+            "globalWeight": 0.42917103882476393,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 21.906899438540094,
+            "preNormalizationValue": 21.906899438540094,
+            "normalizedMultiplier": 0.9675230580653326
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 37.73860465116279,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 39.128992378743526,
+            "anchorSampleCount": 1075,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.7243935309973046,
+            "globalWeight": 0.27560646900269536,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 39.128992378743526,
+            "preNormalizationValue": 39.128992378743526,
+            "normalizedMultiplier": 1.728140601161218
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 40.26027397260274,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 48.41198467407308,
+            "anchorSampleCount": 73,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.15145228215767634,
+            "globalWeight": 0.8485477178423236,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 48.41198467407308,
+            "preNormalizationValue": 48.41198467407308,
+            "normalizedMultiplier": 2.1381260086704748
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "탱커",
+        "anchorShrinkK": 409,
+        "normalizer": 37.71759970215717,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 22.08411214953271,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 24.668245562834564,
+            "anchorSampleCount": 214,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.3434991974317817,
+            "globalWeight": 0.6565008025682183,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 24.668245562834564,
+            "preNormalizationValue": 24.668245562834564,
+            "normalizedMultiplier": 0.6540247989700076
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 28.525821596244132,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 32.45203656857408,
+            "anchorSampleCount": 426,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.5101796407185629,
+            "globalWeight": 0.4898203592814371,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 32.45203656857408,
+            "preNormalizationValue": 32.45203656857408,
+            "normalizedMultiplier": 0.8603950629105929
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 34.35294117647059,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 40.536102990812935,
+            "anchorSampleCount": 544,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.5708289611752361,
+            "globalWeight": 0.42917103882476393,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 40.536102990812935,
+            "preNormalizationValue": 40.536102990812935,
+            "normalizedMultiplier": 1.0747264754627153
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 41.06511627906977,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 47.35314905639048,
+            "anchorSampleCount": 1075,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.7243935309973046,
+            "globalWeight": 0.27560646900269536,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 47.35314905639048,
+            "preNormalizationValue": 47.35314905639048,
+            "normalizedMultiplier": 1.2554656030691747
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 44.42465753424658,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 55.61893488154197,
+            "anchorSampleCount": 73,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.15145228215767634,
+            "globalWeight": 0.8485477178423236,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 55.61893488154197,
+            "preNormalizationValue": 55.61893488154197,
+            "normalizedMultiplier": 1.474614909770119
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "유틸 서포터": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "유틸 서포터",
+        "anchorShrinkK": 409,
+        "normalizer": 8968.272183629357,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 3299.397435897436,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 6615.0997353763005,
+            "anchorSampleCount": 78,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0.1601642710472279,
+            "globalWeight": 0.839835728952772,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 6615.0997353763005,
+            "preNormalizationValue": 6615.0997353763005,
+            "normalizedMultiplier": 0.7376113926884906
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 5169.014480408859,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 6615.0997353763005,
+            "anchorSampleCount": 1174,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.7416298168035376,
+            "globalWeight": 0.25837018319646243,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 6615.0997353763005,
+            "preNormalizationValue": 6615.0997353763005,
+            "normalizedMultiplier": 0.7376113926884906
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 7676.615727002967,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 9317.303536371694,
+            "anchorSampleCount": 1348,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.7672168468981218,
+            "globalWeight": 0.23278315310187825,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 9317.303536371694,
+            "preNormalizationValue": 9317.303536371694,
+            "normalizedMultiplier": 1.038918461170197
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 11281.178170144462,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 12910.875006618353,
+            "anchorSampleCount": 1869,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.8204565408252853,
+            "globalWeight": 0.1795434591747147,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 12910.875006618353,
+            "preNormalizationValue": 12910.875006618353,
+            "normalizedMultiplier": 1.43961676700511
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 9278.09,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 19649.712379337983,
+            "anchorSampleCount": 100,
+            "globalSampleCount": 554,
+            "anchorWeight": 0.19646365422396855,
+            "globalWeight": 0.8035363457760314,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 19649.712379337983,
+            "preNormalizationValue": 19649.712379337983,
+            "normalizedMultiplier": 2.191025425745494
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "유틸 서포터",
+        "anchorShrinkK": 409,
+        "normalizer": 19.742306947916653,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 7.571428571428571,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 9.12179103790946,
+            "anchorSampleCount": 7,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.016826923076923076,
+            "globalWeight": 0.9831730769230769,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 9.12179103790946,
+            "preNormalizationValue": 9.12179103790946,
+            "normalizedMultiplier": 0.4620428130296118
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 10.277777777777779,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 13.023567274971018,
+            "anchorSampleCount": 306,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.427972027972028,
+            "globalWeight": 0.572027972027972,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 13.023567274971018,
+            "preNormalizationValue": 13.023567274971018,
+            "normalizedMultiplier": 0.659678086726605
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 16.943589743589744,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 20.74502523770802,
+            "anchorSampleCount": 390,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.4881101376720901,
+            "globalWeight": 0.5118898623279099,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 20.74502523770802,
+            "preNormalizationValue": 20.74502523770802,
+            "normalizedMultiplier": 1.050790330250497
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 30.527522935779817,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 36.45967418941467,
+            "anchorSampleCount": 436,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.5159763313609468,
+            "globalWeight": 0.4840236686390532,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 36.45967418941467,
+            "preNormalizationValue": 36.45967418941467,
+            "normalizedMultiplier": 1.8467788129118392
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 34.90909090909091,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 49.475182411674346,
+            "anchorSampleCount": 11,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.02619047619047619,
+            "globalWeight": 0.9738095238095238,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 49.475182411674346,
+            "preNormalizationValue": 49.475182411674346,
+            "normalizedMultiplier": 2.5060486873290824
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "유틸 서포터",
+        "anchorShrinkK": 409,
+        "normalizer": 38.2801780465781,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": 16.285714285714285,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 25.85653121549503,
+            "anchorSampleCount": 7,
+            "globalSampleCount": 836,
+            "anchorWeight": 0.016826923076923076,
+            "globalWeight": 0.9831730769230769,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 25.85653121549503,
+            "preNormalizationValue": 25.85653121549503,
+            "normalizedMultiplier": 0.6754548315849949
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 26.715686274509803,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 32.33629445420889,
+            "anchorSampleCount": 306,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.427972027972028,
+            "globalWeight": 0.572027972027972,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 32.33629445420889,
+            "preNormalizationValue": 32.33629445420889,
+            "normalizedMultiplier": 0.8447268561515863
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 31.07179487179487,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 40.12629055099466,
+            "anchorSampleCount": 390,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.4881101376720901,
+            "globalWeight": 0.5118898623279099,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 40.12629055099466,
+            "preNormalizationValue": 40.12629055099466,
+            "normalizedMultiplier": 1.0482263301432473
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 43.722477064220186,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 53.47937656767273,
+            "anchorSampleCount": 436,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.5159763313609468,
+            "globalWeight": 0.4840236686390532,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 53.47937656767273,
+            "preNormalizationValue": 53.47937656767273,
+            "normalizedMultiplier": 1.3970514061507429
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": 22.454545454545453,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 56.69601574500768,
+            "anchorSampleCount": 11,
+            "globalSampleCount": 248,
+            "anchorWeight": 0.02619047619047619,
+            "globalWeight": 0.9738095238095238,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 56.69601574500768,
+            "preNormalizationValue": 56.69601574500768,
+            "normalizedMultiplier": 1.481080251926252
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    },
+    "unknown": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "unknown",
+        "anchorShrinkK": 409,
+        "normalizer": 13010.53629312547,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": null,
+            "globalFallbackValue": 7792.506680919295,
+            "blendedValue": 7792.506680919295,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 1871,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 7792.506680919295,
+            "preNormalizationValue": 7792.506680919295,
+            "normalizedMultiplier": 0.5989381609916198
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 8101,
+            "globalFallbackValue": 10414.247107820454,
+            "blendedValue": 10261.08691118394,
+            "anchorSampleCount": 29,
+            "globalSampleCount": 8644,
+            "anchorWeight": 0.06621004566210045,
+            "globalWeight": 0.9337899543378996,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 10261.08691118394,
+            "preNormalizationValue": 10261.08691118394,
+            "normalizedMultiplier": 0.7886751691093404
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 15022,
+            "globalFallbackValue": 14724.753822506269,
+            "blendedValue": 14726.918236420059,
+            "anchorSampleCount": 3,
+            "globalSampleCount": 12361,
+            "anchorWeight": 0.007281553398058253,
+            "globalWeight": 0.9927184466019418,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 14726.918236420059,
+            "preNormalizationValue": 14726.918236420059,
+            "normalizedMultiplier": 1.131922459199587
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 14728,
+            "globalFallbackValue": 20358.071552754536,
+            "blendedValue": 19937.72684406472,
+            "anchorSampleCount": 33,
+            "globalSampleCount": 18406,
+            "anchorWeight": 0.0746606334841629,
+            "globalWeight": 0.9253393665158371,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 19937.72684406472,
+            "preNormalizationValue": 19937.72684406472,
+            "normalizedMultiplier": 1.5324292861470632
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": null,
+            "globalFallbackValue": 22185.561371841155,
+            "blendedValue": 22185.561371841155,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 554,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 22185.561371841155,
+            "preNormalizationValue": 22185.561371841155,
+            "normalizedMultiplier": 1.7051996068420026
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "unknown",
+        "anchorShrinkK": 409,
+        "normalizer": 21.374035904299838,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": null,
+            "globalFallbackValue": 9.148325358851675,
+            "blendedValue": 9.148325358851675,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 836,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 9.148325358851675,
+            "preNormalizationValue": 9.148325358851675,
+            "normalizedMultiplier": 0.42801113462204377
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 11,
+            "globalFallbackValue": 15.077874331550802,
+            "blendedValue": 14.807878085854517,
+            "anchorSampleCount": 29,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.06621004566210045,
+            "globalWeight": 0.9337899543378996,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 14.807878085854517,
+            "preNormalizationValue": 14.807878085854517,
+            "normalizedMultiplier": 0.6927974741015384
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 52,
+            "globalFallbackValue": 24.369865928921048,
+            "blendedValue": 24.571056225555118,
+            "anchorSampleCount": 3,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.007281553398058253,
+            "globalWeight": 0.9927184466019418,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 24.571056225555118,
+            "preNormalizationValue": 24.571056225555118,
+            "normalizedMultiplier": 1.1495749485763769
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 27,
+            "globalFallbackValue": 42.78343445001319,
+            "blendedValue": 41.638151224615406,
+            "anchorSampleCount": 32,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.07256235827664399,
+            "globalWeight": 0.927437641723356,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 41.638151224615406,
+            "preNormalizationValue": 41.638151224615406,
+            "normalizedMultiplier": 1.9480715486324702
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": null,
+            "globalFallbackValue": 49.86693548387097,
+            "blendedValue": 49.86693548387097,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 248,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 49.86693548387097,
+            "preNormalizationValue": 49.86693548387097,
+            "normalizedMultiplier": 2.3330612761738267
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "unknown",
+        "anchorShrinkK": 409,
+        "normalizer": 42.97513746744894,
+        "points": [
+          {
+            "minute": 0,
+            "rawObservedValue": 0,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 1,
+            "globalSampleCount": 1,
+            "anchorWeight": 1,
+            "globalWeight": 0,
+            "source": "observed",
+            "warnings": [],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 5,
+            "rawObservedValue": null,
+            "globalFallbackValue": 0,
+            "blendedValue": 0,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 0,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 0,
+            "preNormalizationValue": 0,
+            "normalizedMultiplier": 0
+          },
+          {
+            "minute": 10,
+            "rawObservedValue": null,
+            "globalFallbackValue": 26.020334928229666,
+            "blendedValue": 26.020334928229666,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 836,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 26.020334928229666,
+            "preNormalizationValue": 26.020334928229666,
+            "normalizedMultiplier": 0.6054741523034916
+          },
+          {
+            "minute": 15,
+            "rawObservedValue": 25,
+            "globalFallbackValue": 36.54144385026738,
+            "blendedValue": 35.77728432593461,
+            "anchorSampleCount": 29,
+            "globalSampleCount": 2992,
+            "anchorWeight": 0.06621004566210045,
+            "globalWeight": 0.9337899543378996,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 35.77728432593461,
+            "preNormalizationValue": 35.77728432593461,
+            "normalizedMultiplier": 0.832511224729269
+          },
+          {
+            "minute": 20,
+            "rawObservedValue": 80,
+            "globalFallbackValue": 48.760161736539686,
+            "blendedValue": 48.98763628700178,
+            "anchorSampleCount": 3,
+            "globalSampleCount": 4699,
+            "anchorWeight": 0.007281553398058253,
+            "globalWeight": 0.9927184466019418,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 48.98763628700178,
+            "preNormalizationValue": 48.98763628700178,
+            "normalizedMultiplier": 1.1399064476316554
+          },
+          {
+            "minute": 25,
+            "rawObservedValue": 56,
+            "globalFallbackValue": 63.88037457135321,
+            "blendedValue": 63.12901875446401,
+            "anchorSampleCount": 32,
+            "globalSampleCount": 7582,
+            "anchorWeight": 0.07256235827664399,
+            "globalWeight": 0.927437641723356,
+            "source": "blended",
+            "warnings": [
+              "role anchor is shrunk toward global by anchor sample count"
+            ],
+            "absoluteExpectedValue": 63.12901875446401,
+            "preNormalizationValue": 63.12901875446401,
+            "normalizedMultiplier": 1.4689660690970545
+          },
+          {
+            "minute": 30,
+            "rawObservedValue": null,
+            "globalFallbackValue": 57.61693548387097,
+            "blendedValue": 63.12901875446401,
+            "anchorSampleCount": 0,
+            "globalSampleCount": 248,
+            "anchorWeight": 0,
+            "globalWeight": 1,
+            "source": "global-fallback",
+            "warnings": [
+              "role anchor sample is 0; global fallback used"
+            ],
+            "absoluteExpectedValue": 63.12901875446401,
+            "preNormalizationValue": 63.12901875446401,
+            "normalizedMultiplier": 1.4689660690970545
+          }
+        ],
+        "warnings": [
+          "role anchor sample is 0; global fallback used",
+          "role anchor is shrunk toward global by anchor sample count"
+        ]
+      }
+    }
+  }
+}

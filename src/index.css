@@ -43,6 +43,10 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-label: var(--label-foreground);
+  --color-stat-value: var(--stat-value-foreground);
+  --color-panel-heading: var(--panel-heading);
+  --shadow-card: var(--card-shadow);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -53,38 +57,47 @@
 }
 
 :root {
-  --background: oklch(0.988 0.004 280);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #e8eaed;
+  --foreground: #2b2f36;
+  --card: #f3f4f6;
+  --card-foreground: #2b2f36;
+  --popover: #f3f4f6;
+  --popover-foreground: #2b2f36;
+  --primary: #1f2937;
+  --primary-foreground: #f9fafb;
+  --secondary: #e9ecef;
+  --secondary-foreground: #2b2f36;
+  --muted: #e9ecef;
+  --muted-foreground: #64748b;
+  --label-foreground: #5c6570;
+  --stat-value-foreground: #1f2937;
+  --panel-heading: #3d4654;
+  --accent: #e9ecef;
+  --accent-foreground: #2b2f36;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: #d8dde3;
+  --input: #d8dde3;
+  --ring: #94a3b8;
+  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --radar-grid: #e5e7eb;
+  --radar-axis: #1a1a1a;
+  --radar-tier-avg: rgba(75, 85, 99, 0.65);
+  --radar-player: #f97316;
+  --radar-player-fill: rgba(249, 115, 22, 0.22);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f3f4f6;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #111827;
+  --sidebar-primary-foreground: #f9fafb;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #d8dde3;
+  --sidebar-ring: #94a3b8;
 }
 
 .dark {
@@ -100,12 +113,21 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
+  --label-foreground: oklch(0.708 0 0);
+  --stat-value-foreground: oklch(0.985 0 0);
+  --panel-heading: oklch(0.985 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+  --card-shadow: none;
+  --radar-grid: #2a2a2a;
+  --radar-axis: #ffffff;
+  --radar-tier-avg: rgba(255, 255, 255, 0.72);
+  --radar-player: #fb923c;
+  --radar-player-fill: rgba(251, 146, 60, 0.18);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -126,7 +148,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background antialiased;
+    color: var(--foreground);
   }
   html {
     @apply font-sans;
@@ -140,6 +163,312 @@
     radial-gradient(ellipse 70% 50% at 100% 0%, color-mix(in oklch, var(--primary) 4%, transparent), transparent 45%);
 }
 
+:root:not(.dark) .app-shell-bg {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% -30%, color-mix(in oklch, var(--primary) 3%, transparent), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, color-mix(in oklch, var(--primary) 2%, transparent), transparent 45%);
+}
+
+/* 장비 등급 — 라이트모드: 색상 테두리 + 연한 배경 */
+:root:not(.dark) .gear-grade-legend {
+  border: 1px solid rgba(234, 179, 8, 0.55);
+  background: rgba(234, 179, 8, 0.15);
+}
+
+:root:not(.dark) .gear-grade-epic {
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  background: rgba(168, 85, 247, 0.12);
+}
+
+:root:not(.dark) .gear-grade-blood {
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* 장비 등급 — 다크모드: 좌하단 진하게, 우상단 살짝 밝게 */
+.dark .gear-grade-legend {
+  background: linear-gradient(
+    to top right,
+    rgba(150, 105, 20, 0.40) 0%,
+    rgba(190, 140, 30, 0.34) 55%,
+    rgba(210, 160, 40, 0.28) 100%
+  );
+}
+
+.dark .gear-grade-epic {
+  background: linear-gradient(
+    to top right,
+    rgba(88, 50, 180, 0.40) 0%,
+    rgba(130, 75, 210, 0.34) 55%,
+    rgba(155, 100, 230, 0.28) 100%
+  );
+}
+
+.dark .gear-grade-blood {
+  background: linear-gradient(
+    to top right,
+    rgba(150, 30, 30, 0.40) 0%,
+    rgba(185, 45, 45, 0.34) 55%,
+    rgba(210, 65, 65, 0.28) 100%
+  );
+}
+
 .shell-container {
   @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.tier-badge-fill {
+  background-color: var(--tier-accent);
+  color: #ffffff;
+}
+
+.dark .tier-badge-fill {
+  background-color: color-mix(in srgb, var(--tier-accent) 10%, transparent);
+  color: var(--tier-accent);
+}
+
+/* ERCraft Victory Sparkle — 1등 · S+ MVP 매치 카드 */
+.match-card--sparkle {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, #67e8f9 24%, transparent),
+    inset 0 0 18px color-mix(in srgb, #c4b5fd 9%, transparent),
+    0 0 14px color-mix(in srgb, #fbbf24 5%, transparent);
+}
+
+.match-card--sparkle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 100% 0%, color-mix(in srgb, #fbbf24 7%, transparent), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 0% 100%, color-mix(in srgb, #22d3ee 6%, transparent), transparent 62%);
+  opacity: 0.9;
+}
+
+.match-card--sparkle:hover {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, #67e8f9 30%, transparent),
+    inset 0 0 20px color-mix(in srgb, #c4b5fd 11%, transparent),
+    0 0 16px color-mix(in srgb, #fbbf24 7%, transparent);
+}
+
+.match-card__sparkle-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: color-mix(in srgb, #5b21b6 72%, var(--foreground));
+  background: color-mix(in srgb, #c4b5fd 22%, var(--card));
+  border: 1px solid color-mix(in srgb, #a78bfa 28%, transparent);
+}
+
+.dark .match-card__sparkle-chip {
+  color: color-mix(in srgb, #e9d5ff 88%, white);
+  background: color-mix(in srgb, #7c3aed 18%, var(--card));
+}
+
+.match-card__sparkle-chip--sparkle {
+  color: color-mix(in srgb, #92400e 80%, var(--foreground));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #fde68a 55%, var(--card)),
+    color-mix(in srgb, #c4b5fd 35%, var(--card))
+  );
+  border-color: color-mix(in srgb, #fbbf24 35%, transparent);
+}
+
+.dark .match-card__sparkle-chip--sparkle {
+  color: #fef3c7;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #fbbf24 22%, transparent),
+    color-mix(in srgb, #a78bfa 20%, transparent)
+  );
+}
+
+.match-card__sparkle-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  pointer-events: none;
+  opacity: 0.65;
+  background: color-mix(in srgb, #fef08a 70%, white);
+  box-shadow: 0 0 4px color-mix(in srgb, #a78bfa 55%, transparent);
+  animation: ercraft-victory-sparkle 2.8s ease-in-out infinite;
+}
+
+.match-card__sparkle-particle:nth-child(1) {
+  top: 7px;
+  right: 34px;
+  animation-delay: 0s;
+}
+
+.match-card__sparkle-particle:nth-child(2) {
+  top: 10px;
+  right: 12px;
+  animation-delay: 0.7s;
+}
+
+.match-card__sparkle-particle:nth-child(3) {
+  bottom: 10px;
+  right: 22px;
+  animation-delay: 1.4s;
+}
+
+.match-card__sparkle-particle:nth-child(4) {
+  bottom: 14px;
+  left: 18%;
+  animation-delay: 2.1s;
+}
+
+@keyframes ercraft-victory-sparkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match-card__sparkle-particle {
+    animation: none;
+    opacity: 0.55;
+  }
+}
+
+.match-list__sparkle-summary {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--muted-foreground);
+  background: color-mix(in srgb, #a78bfa 10%, var(--muted));
+  border: 1px solid color-mix(in srgb, #a78bfa 14%, transparent);
+}
+
+.match-detail-participant-table {
+  container-type: inline-size;
+  container-name: match-detail;
+  --match-detail-team-w: 3rem;
+}
+
+.match-detail-team-row {
+  display: grid;
+  grid-template-columns: var(--match-detail-team-w) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.match-detail-participant-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.25rem 3.25rem 5rem;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 56px;
+  max-height: 68px;
+  min-width: 0;
+}
+
+@container match-detail (min-width: 540px) {
+  .match-detail-participant-cols {
+    grid-template-columns: minmax(0, 1fr) 3.5rem 3.5rem 3.25rem 5rem;
+  }
+}
+
+@container match-detail (min-width: 680px) {
+  .match-detail-participant-cols {
+    grid-template-columns: minmax(0, 1fr) 4rem 4rem 4rem 3.5rem 5.75rem;
+  }
+}
+
+@container match-detail (min-width: 760px) {
+  .match-detail-participant-table[data-show-infusions='true'] .match-detail-participant-cols {
+    grid-template-columns: minmax(0, 1fr) 4rem 4rem 4rem 3.5rem 5.75rem 5.75rem;
+  }
+}
+
+.match-detail-compact-row {
+  display: grid;
+  grid-template-columns: minmax(128px, 1.15fr) minmax(168px, 1.85fr) 96px;
+  align-items: stretch;
+  gap: 0.25rem;
+  min-height: 52px;
+  max-height: 58px;
+  min-width: 0;
+}
+
+.match-detail-compact-player {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.375rem;
+  row-gap: 0;
+  min-width: 0;
+}
+
+.match-detail-compact-player-avatar {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.match-detail-compact-player-nickname {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.match-detail-compact-player-tier {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.match-detail-compact-player-loadout {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+}
+
+.match-detail-compact-player-infusion {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+}
+
+.match-detail-compact-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  gap: 0 0.125rem;
+  min-width: 0;
+}
+
+.match-detail-compact-metric-label {
+  font-size: 8px;
+  line-height: 1;
+  color: var(--muted-foreground);
+}
+
+.match-detail-compact-metric-value {
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.match-detail-compact-gear {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
 }

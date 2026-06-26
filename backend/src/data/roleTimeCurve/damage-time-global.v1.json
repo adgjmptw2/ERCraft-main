@@ -1,0 +1,37 @@
+{
+  "version": "damage-time-global.v1",
+  "source": "role-time-curve.v1.2.candidate:M1_GLOBAL_EQUAL_ROLE",
+  "status": "production",
+  "description": "Balanced global damage duration multiplier for production match grade damage expectation.",
+  "metric": "damageToPlayer",
+  "roles": "all",
+  "points": [
+    {
+      "minute": 10,
+      "multiplier": 0.518732,
+      "sampleCount": 2531
+    },
+    {
+      "minute": 15,
+      "multiplier": 0.807183,
+      "sampleCount": 6048
+    },
+    {
+      "minute": 20,
+      "multiplier": 1.079121,
+      "sampleCount": 8816
+    },
+    {
+      "minute": 25,
+      "multiplier": 1.328282,
+      "sampleCount": 5138
+    }
+  ],
+  "policy": {
+    "lt8": "legacy-duration-multiplier",
+    "gte8lt10": "blend legacy to global",
+    "gte10lte20": "global",
+    "gt20lt25": "blend global to legacy",
+    "gte25": "legacy-duration-multiplier"
+  }
+}

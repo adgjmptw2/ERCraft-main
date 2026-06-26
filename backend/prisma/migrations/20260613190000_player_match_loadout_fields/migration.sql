@@ -1,0 +1,18 @@
+-- AlterTable
+ALTER TABLE `player_matches` ADD COLUMN `account_level` INTEGER NULL,
+    ADD COLUMN `character_level` INTEGER NULL,
+    ADD COLUMN `skin_code` INTEGER NULL,
+    ADD COLUMN `best_weapon` INTEGER NULL,
+    ADD COLUMN `best_weapon_level` INTEGER NULL,
+    ADD COLUMN `tactical_skill_group` INTEGER NULL,
+    ADD COLUMN `tactical_skill_level` INTEGER NULL,
+    ADD COLUMN `trait_first_core` INTEGER NULL,
+    ADD COLUMN `trait_first_sub` JSON NULL,
+    ADD COLUMN `trait_second_sub` JSON NULL,
+    ADD COLUMN `equipment` JSON NULL,
+    ADD COLUMN `equipment_grade` JSON NULL,
+    ADD COLUMN `route_id_of_start` INTEGER NULL,
+    ADD COLUMN `route_slot_id` INTEGER NULL,
+    ADD COLUMN `mastery_level` JSON NULL,
+    ADD COLUMN `skill_level_info` JSON NULL,
+    ADD COLUMN `skill_order_info` JSON NULL;

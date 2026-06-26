@@ -1,0 +1,32 @@
+-- CreateTable
+CREATE TABLE `player_matches` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `uid` VARCHAR(128) NOT NULL,
+    `api_season_id` INTEGER NOT NULL,
+    `display_season_id` INTEGER NOT NULL,
+    `game_id` VARCHAR(32) NOT NULL,
+    `game_mode` VARCHAR(24) NOT NULL,
+    `matching_mode` INTEGER NULL,
+    `matching_team_mode` INTEGER NULL,
+    `played_at` DATETIME(3) NOT NULL,
+    `character_num` INTEGER NOT NULL,
+    `character_name` VARCHAR(64) NULL,
+    `placement` INTEGER NULL,
+    `kills` INTEGER NULL,
+    `deaths` INTEGER NULL,
+    `assists` INTEGER NULL,
+    `team_kills` INTEGER NULL,
+    `damage_to_player` INTEGER NULL,
+    `victory` BOOLEAN NULL,
+    `rp_after` INTEGER NULL,
+    `rp_delta` INTEGER NULL,
+    `raw_json` JSON NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `player_match_uid_game_id_key`(`uid`, `game_id`),
+    INDEX `player_match_uid_season_mode_played_idx`(`uid`, `api_season_id`, `game_mode`, `played_at` DESC),
+    INDEX `player_match_uid_display_season_mode_idx`(`uid`, `display_season_id`, `game_mode`),
+    INDEX `player_match_uid_mode_played_idx`(`uid`, `game_mode`, `played_at` DESC),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

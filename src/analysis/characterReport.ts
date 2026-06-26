@@ -6,8 +6,37 @@ import type {
   CharacterAnalysisSummary,
 } from '@/analysis/types'
 import type { MatchSummary } from '@/types/match'
+import { resolveCharacterDisplayName } from '@/utils/characterMap'
 
-const MIN_GRADE_MATCHES = 2
+const DEFAULT_MIN_GRADE_MATCHES = 2
+
+export interface BuildCharacterReportsOptions {
+  groupBy?: 'name' | 'character'
+  minGradeMatches?: number
+  feedbackContext?: 'demo' | 'profile'
+}
+
+function resolveCharacterGroup(
+  match: MatchSummary,
+  groupBy: BuildCharacterReportsOptions['groupBy'],
+): { key: string; displayName: string } | null {
+  const name = match.characterName?.trim()
+
+  if (groupBy === 'character') {
+    const num = match.characterNum
+    if (typeof num === 'number' && Number.isInteger(num) && num > 0) {
+      return {
+        key: `num:${num}`,
+        displayName: resolveCharacterDisplayName(num, name),
+      }
+    }
+    if (name) return { key: `name:${name}`, displayName: name }
+    return { key: 'unknown', displayName: '알 수 없음' }
+  }
+
+  if (!name) return null
+  return { key: `name:${name}`, displayName: name }
+}
 
 function normalizeHigherBetter(value: number, min: number, max: number): number {
   if (max === min) return 50
@@ -19,6 +48,25 @@ function normalizeLowerBetter(value: number, min: number, max: number): number {
   return ((max - value) / (max - min)) * 100
 }
 
+function resolveCharacterNum(matches: MatchSummary[]): number | undefined {
+  for (const match of matches) {
+    const num = match.characterNum
+    if (typeof num === 'number' && Number.isInteger(num) && num > 0) return num
+  }
+  return undefined
+}
+
+function averageMatchField(
+  matches: MatchSummary[],
+  pick: (match: MatchSummary) => number | undefined,
+): number | null {
+  const values = matches
+    .map(pick)
+    .filter((value): value is number => value != null && Number.isFinite(value))
+  if (values.length === 0) return null
+  return values.reduce((sum, value) => sum + value, 0) / values.length
+}
+
 export function buildCharacterAnalysisSummary(
   characterName: string,
   matches: MatchSummary[],
@@ -28,12 +76,20 @@ export function buildCharacterAnalysisSummary(
   const metrics = computePlayerMetrics(matches)
   if (!metrics) return null
 
+  const characterNum = resolveCharacterNum(matches)
+
   return {
-    characterName,
+    characterNum,
+    characterName: resolveCharacterDisplayName(characterNum, characterName),
     matchCount: metrics.matchCount,
     avgPlacement: metrics.avgPlacement,
     avgKills: metrics.avgKills,
     avgAssists: metrics.avgAssists,
+    avgTeamKills: averageMatchField(matches, (m) => m.teamKills ?? undefined),
+    avgDamageToPlayers: averageMatchField(
+      matches,
+      (m) => m.damageToPlayers ?? m.playerDamage ?? undefined,
+    ),
     kda: metrics.kda,
     top3Rate: metrics.top3Rate,
     winRate: metrics.winRate,
@@ -44,10 +100,11 @@ export function buildCharacterAnalysisSummary(
 function computeOverallScore(
   summary: CharacterAnalysisSummary,
   pool: CharacterAnalysisSummary[],
+  minGradeMatches: number,
 ): number | null {
-  if (summary.matchCount < MIN_GRADE_MATCHES) return null
+  if (summary.matchCount < minGradeMatches) return null
 
-  const gradeable = pool.filter((s) => s.matchCount >= MIN_GRADE_MATCHES)
+  const gradeable = pool.filter((s) => s.matchCount >= minGradeMatches)
   if (gradeable.length === 0) return null
 
   const placements = gradeable.map((s) => s.avgPlacement)
@@ -72,15 +129,20 @@ function computeOverallScore(
 function buildCharacterFeedback(
   summary: CharacterAnalysisSummary,
   gradeableCount: number,
+  minGradeMatches: number,
+  feedbackContext: BuildCharacterReportsOptions['feedbackContext'],
 ): string {
-  if (summary.matchCount < MIN_GRADE_MATCHES) {
-    return '아직 판단하기엔 표본이 적습니다.'
+  if (summary.matchCount < minGradeMatches) {
+    return feedbackContext === 'profile'
+      ? '표본이 부족해 참고 등급을 표시하지 않습니다.'
+      : '아직 판단하기엔 표본이 적습니다.'
   }
 
   const messages: string[] = []
+  const scopeLabel = feedbackContext === 'profile' ? '최근 경기' : '최근 데모 매치'
 
   if (summary.avgPlacement <= 3.5) {
-    messages.push('최근 데모 매치 기준으로 순위 안정성이 좋은 캐릭터로 보여요.')
+    messages.push(`${scopeLabel} 기준으로 순위 안정성이 좋은 캐릭터로 보여요.`)
   } else if (summary.avgPlacement >= 6) {
     messages.push('순위 안정성은 점검해볼 만한 편이에요.')
   }
@@ -99,17 +161,22 @@ function buildCharacterFeedback(
 
   if (messages.length === 0) {
     return gradeableCount > 1
-      ? '최근 데모 매치 안에서 평균적인 흐름으로 보여요.'
+      ? `${scopeLabel} 안에서 평균적인 흐름으로 보여요.`
       : '표본이 적어 참고용으로만 봐주세요.'
   }
 
   return messages[0]!
 }
 
-function assignGrades(summaries: CharacterAnalysisSummary[]): CharacterAnalysisReport[] {
+function assignGrades(
+  summaries: CharacterAnalysisSummary[],
+  options: Required<Pick<BuildCharacterReportsOptions, 'minGradeMatches' | 'feedbackContext'>>,
+): CharacterAnalysisReport[] {
+  const { minGradeMatches, feedbackContext } = options
+
   const withScores = summaries.map((s) => ({
     ...s,
-    overallScore: computeOverallScore(s, summaries),
+    overallScore: computeOverallScore(s, summaries, minGradeMatches),
   }))
 
   const gradeableScores = withScores
@@ -119,13 +186,13 @@ function assignGrades(summaries: CharacterAnalysisSummary[]): CharacterAnalysisR
   const gradeableCount = gradeableScores.length
 
   const reports: CharacterAnalysisReport[] = withScores.map((s) => {
-    if (s.matchCount < MIN_GRADE_MATCHES) {
+    if (s.matchCount < minGradeMatches) {
       return {
         ...s,
         status: 'insufficient-sample',
         overallGrade: null,
         gradeLabel: '표본 부족',
-        feedback: buildCharacterFeedback(s, gradeableCount),
+        feedback: buildCharacterFeedback(s, gradeableCount, minGradeMatches, feedbackContext),
       }
     }
 
@@ -141,12 +208,19 @@ function assignGrades(summaries: CharacterAnalysisSummary[]): CharacterAnalysisR
     const overallGrade: AnalysisGrade | null =
       percentile != null ? gradeFromPercentile(percentile) : null
 
+    const gradeLabel =
+      feedbackContext === 'profile' && overallGrade
+        ? `${overallGrade} · 참고`
+        : overallGrade
+          ? `${overallGrade}등급`
+          : '참고용'
+
     return {
       ...s,
       status: 'ok',
       overallGrade,
-      gradeLabel: overallGrade ? `${overallGrade}등급` : '참고용',
-      feedback: buildCharacterFeedback(s, gradeableCount),
+      gradeLabel,
+      feedback: buildCharacterFeedback(s, gradeableCount, minGradeMatches, feedbackContext),
     }
   })
 
@@ -155,10 +229,11 @@ function assignGrades(summaries: CharacterAnalysisSummary[]): CharacterAnalysisR
 
 export function sortCharacterReports(
   reports: CharacterAnalysisReport[],
+  minGradeMatches = DEFAULT_MIN_GRADE_MATCHES,
 ): CharacterAnalysisReport[] {
   return [...reports].sort((a, b) => {
-    const aGradeable = a.matchCount >= MIN_GRADE_MATCHES ? 1 : 0
-    const bGradeable = b.matchCount >= MIN_GRADE_MATCHES ? 1 : 0
+    const aGradeable = a.matchCount >= minGradeMatches ? 1 : 0
+    const bGradeable = b.matchCount >= minGradeMatches ? 1 : 0
     if (aGradeable !== bGradeable) return bGradeable - aGradeable
 
     const aScore = a.overallScore ?? -1
@@ -173,25 +248,30 @@ export function sortCharacterReports(
 
 export function buildCharacterAnalysisReports(
   matches: MatchSummary[],
+  options?: BuildCharacterReportsOptions,
 ): CharacterAnalysisReport[] {
   if (matches.length === 0) return []
 
-  const byCharacter = new Map<string, MatchSummary[]>()
-  for (const m of matches) {
-    const name = m.characterName?.trim()
-    if (!name) continue
-    const list = byCharacter.get(name) ?? []
-    list.push(m)
-    byCharacter.set(name, list)
+  const groupBy = options?.groupBy ?? 'name'
+  const minGradeMatches = options?.minGradeMatches ?? DEFAULT_MIN_GRADE_MATCHES
+  const feedbackContext = options?.feedbackContext ?? 'demo'
+
+  const byCharacter = new Map<string, { displayName: string; matches: MatchSummary[] }>()
+  for (const match of matches) {
+    const group = resolveCharacterGroup(match, groupBy)
+    if (!group) continue
+    const bucket = byCharacter.get(group.key) ?? { displayName: group.displayName, matches: [] }
+    bucket.matches.push(match)
+    byCharacter.set(group.key, bucket)
   }
 
   const summaries: CharacterAnalysisSummary[] = []
-  for (const [name, charMatches] of byCharacter) {
-    const summary = buildCharacterAnalysisSummary(name, charMatches)
+  for (const { displayName, matches: charMatches } of byCharacter.values()) {
+    const summary = buildCharacterAnalysisSummary(displayName, charMatches)
     if (summary) summaries.push(summary)
   }
 
   if (summaries.length === 0) return []
 
-  return assignGrades(summaries)
+  return assignGrades(summaries, { minGradeMatches, feedbackContext })
 }

@@ -1,0 +1,1676 @@
+{
+  "version": "role-time-curve.v1",
+  "status": "candidate",
+  "generatedAt": "2026-06-22T17:09:22.468Z",
+  "source": "PlayerMatch",
+  "runtimeApplied": false,
+  "modes": [
+    "rank"
+  ],
+  "seasons": [
+    6,
+    11
+  ],
+  "anchorsMinutes": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "metrics": [
+    "damageToPlayer",
+    "viewContribution",
+    "monsterKill"
+  ],
+  "roles": [
+    "평타 딜러",
+    "스증 딜러",
+    "암살자",
+    "브루저",
+    "탱커",
+    "유틸 서포터",
+    "unknown"
+  ],
+  "outlierMethod": "p95-winsorized-mean",
+  "shrinkK": 4280,
+  "normalization": {
+    "method": "curve values divided by the role/metric average expected value over actual match durations",
+    "targetAverageMultiplier": 1
+  },
+  "interpolation": "linear",
+  "notes": [
+    "Candidate artifact only; no runtime scoring path imports this file.",
+    "PlayerMatch stores final cumulative match values, so this is an expected cumulative curve by match end activity time, not a mid-match event log.",
+    "18-minute wins use the 18-minute interpolated expected value; match duration is not normalized to 100%.",
+    "Metrics: 플레이어 피해, 시야, 야생동물."
+  ],
+  "warnings": [
+    "some rows lack gameDuration and are excluded from duration-bucket curves"
+  ],
+  "curves": {
+    "평타 딜러": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "평타 딜러",
+        "roleSampleCount": 12669,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.7474777272995456,
+        "shrinkK": 4280,
+        "normalizer": 13011.885896235675,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 278.39665629454436,
+            "normalizedMultiplier": 0.02139556544797893,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 7254.961246840775,
+            "monotonicValue": 7254.961246840775,
+            "finalValue": 7065.803381512527,
+            "normalizedMultiplier": 0.5430268477497683,
+            "sampleCount": 1187,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 11428.486141388976,
+            "monotonicValue": 11428.486141388976,
+            "finalValue": 11172.36819557074,
+            "normalizedMultiplier": 0.8586278948851599,
+            "sampleCount": 3211,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 15047.294561540462,
+            "monotonicValue": 15047.294561540462,
+            "finalValue": 14965.845841081064,
+            "normalizedMultiplier": 1.150167313210967,
+            "sampleCount": 3843,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 21823.13954028326,
+            "monotonicValue": 21816.23148148148,
+            "finalValue": 21448.01362231862,
+            "normalizedMultiplier": 1.648340124817995,
+            "sampleCount": 4307,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 21570.338842975205,
+            "monotonicValue": 21816.23148148148,
+            "finalValue": 21909.495504771316,
+            "normalizedMultiplier": 1.6838063044427487,
+            "sampleCount": 121,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": []
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "평타 딜러",
+        "roleSampleCount": 2603,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.3781781200058114,
+        "shrinkK": 4280,
+        "normalizer": 19.64702569771582,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.3109109399970943,
+            "normalizedMultiplier": 0.01582483500457991,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 6.352348993288591,
+            "monotonicValue": 6.352348993288591,
+            "finalValue": 7.0962082785461265,
+            "normalizedMultiplier": 0.3611848626721722,
+            "sampleCount": 298,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 14.081005586592179,
+            "monotonicValue": 14.081005586592179,
+            "finalValue": 14.700880383689796,
+            "normalizedMultiplier": 0.748249664344814,
+            "sampleCount": 716,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 22.488741721854304,
+            "monotonicValue": 22.488741721854304,
+            "finalValue": 23.658465912795123,
+            "normalizedMultiplier": 1.2041754450163762,
+            "sampleCount": 755,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 38.366373902133,
+            "monotonicValue": 38.366373902133,
+            "finalValue": 41.11299879606402,
+            "normalizedMultiplier": 2.092581311218209,
+            "sampleCount": 797,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 39.37837837837838,
+            "monotonicValue": 39.37837837837838,
+            "finalValue": 45.90039267614219,
+            "normalizedMultiplier": 2.3362514704441297,
+            "sampleCount": 37,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "평타 딜러",
+        "roleSampleCount": 2603,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.3781781200058114,
+        "shrinkK": 4280,
+        "normalizer": 41.44580038348893,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.6218218799941886,
+            "normalizedMultiplier": 0.01500325423180652,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 22.375838926174495,
+            "monotonicValue": 22.375838926174495,
+            "finalValue": 22.67039388474984,
+            "normalizedMultiplier": 0.5469889271044507,
+            "sampleCount": 298,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 36.63966480446928,
+            "monotonicValue": 36.63966480446928,
+            "finalValue": 36.57858886607263,
+            "normalizedMultiplier": 0.8825644221517969,
+            "sampleCount": 716,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 53.31258278145695,
+            "monotonicValue": 53.31258278145695,
+            "finalValue": 50.48178776878139,
+            "normalizedMultiplier": 1.2180193723292696,
+            "sampleCount": 755,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 70.62735257214554,
+            "monotonicValue": 70.13788968824939,
+            "finalValue": 66.12347146034844,
+            "normalizedMultiplier": 1.5954203043136437,
+            "sampleCount": 797,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 59.5945945945946,
+            "monotonicValue": 70.13788968824939,
+            "finalValue": 66.12347146034844,
+            "normalizedMultiplier": 1.5954203043136437,
+            "sampleCount": 37,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    },
+    "스증 딜러": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "스증 딜러",
+        "roleSampleCount": 18927,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.8155728874908433,
+        "shrinkK": 4280,
+        "normalizer": 15285.441654102753,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 1033.2,
+            "monotonicValue": 1033.2,
+            "finalValue": 1045.974116755127,
+            "normalizedMultiplier": 0.06842943373339676,
+            "sampleCount": 40,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 7539.012032932235,
+            "monotonicValue": 7539.012032932235,
+            "finalValue": 7348.4758143809395,
+            "normalizedMultiplier": 0.48074998293611887,
+            "sampleCount": 1579,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 12459.153771760155,
+            "monotonicValue": 12459.153771760155,
+            "finalValue": 12082.017540379024,
+            "normalizedMultiplier": 0.7904264602741197,
+            "sampleCount": 3102,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 17313.284484407883,
+            "monotonicValue": 17313.284484407883,
+            "finalValue": 16835.88924879195,
+            "normalizedMultiplier": 1.1014329601835904,
+            "sampleCount": 5227,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 23266.42850637523,
+            "monotonicValue": 23266.42850637523,
+            "finalValue": 22730.048631273035,
+            "normalizedMultiplier": 1.4870390496811114,
+            "sampleCount": 8784,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 31189.615384615383,
+            "monotonicValue": 31189.615384615383,
+            "finalValue": 29529.023702162947,
+            "normalizedMultiplier": 1.9318397446656104,
+            "sampleCount": 195,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": []
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "스증 딜러",
+        "roleSampleCount": 8989,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.6774436656869395,
+        "shrinkK": 4280,
+        "normalizer": 25.53217585983218,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0.3333333333333333,
+            "monotonicValue": 0.3333333333333333,
+            "finalValue": 0.38709272238551007,
+            "normalizedMultiplier": 0.015160976663743471,
+            "sampleCount": 6,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 8.28905109489051,
+            "monotonicValue": 8.28905109489051,
+            "finalValue": 8.050216100962665,
+            "normalizedMultiplier": 0.3152969079156099,
+            "sampleCount": 685,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 17.33110119047619,
+            "monotonicValue": 17.33110119047619,
+            "finalValue": 16.604308594485488,
+            "normalizedMultiplier": 0.6503287728253422,
+            "sampleCount": 1344,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 26.608912952936276,
+            "monotonicValue": 26.608912952936276,
+            "finalValue": 25.886694152515357,
+            "normalizedMultiplier": 1.0138851578741048,
+            "sampleCount": 2401,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 45.99103139013453,
+            "monotonicValue": 45.99103139013453,
+            "finalValue": 44.9564006791752,
+            "normalizedMultiplier": 1.7607743627483654,
+            "sampleCount": 4460,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 56.634408602150536,
+            "monotonicValue": 56.634408602150536,
+            "finalValue": 54.4515172805561,
+            "normalizedMultiplier": 2.1326626285000843,
+            "sampleCount": 93,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": []
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "스증 딜러",
+        "roleSampleCount": 8989,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.6774436656869395,
+        "shrinkK": 4280,
+        "normalizer": 47.80592106478106,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 1,
+            "monotonicValue": 1,
+            "finalValue": 1,
+            "normalizedMultiplier": 0.020917910955944464,
+            "sampleCount": 6,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 25.388321167883213,
+            "monotonicValue": 25.388321167883213,
+            "finalValue": 24.569419802698253,
+            "normalizedMultiplier": 0.5139409356720607,
+            "sampleCount": 685,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 40.723958333333336,
+            "monotonicValue": 40.723958333333336,
+            "finalValue": 39.37486179346429,
+            "normalizedMultiplier": 0.8236398528983058,
+            "sampleCount": 1344,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 52.480216576426486,
+            "monotonicValue": 52.480216576426486,
+            "finalValue": 51.28028932382904,
+            "normalizedMultiplier": 1.0726765258709254,
+            "sampleCount": 2401,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 69.75291479820628,
+            "monotonicValue": 69.69075334943993,
+            "finalValue": 67.75258942355721,
+            "normalizedMultiplier": 1.4172426325966345,
+            "sampleCount": 4460,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 66.70967741935483,
+            "monotonicValue": 69.69075334943993,
+            "finalValue": 67.75258942355721,
+            "normalizedMultiplier": 1.4172426325966345,
+            "sampleCount": 93,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": []
+      }
+    },
+    "암살자": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "암살자",
+        "roleSampleCount": 723,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.14451329202478513,
+        "shrinkK": 4280,
+        "normalizer": 12723.977888608499,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 943.1430996474579,
+            "normalizedMultiplier": 0.07412328973723174,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 9798.102564102564,
+            "monotonicValue": 9798.102564102564,
+            "finalValue": 6981.656132495744,
+            "normalizedMultiplier": 0.5487007438724228,
+            "sampleCount": 78,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 11489.9375,
+            "monotonicValue": 11489.9375,
+            "finalValue": 10569.698667593753,
+            "normalizedMultiplier": 0.8306913734152725,
+            "sampleCount": 144,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 18738.92372881356,
+            "monotonicValue": 18738.92372881356,
+            "finalValue": 15304.854730413559,
+            "normalizedMultiplier": 1.2028356905677793,
+            "sampleCount": 236,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 21785.07421875,
+            "monotonicValue": 21785.07421875,
+            "finalValue": 20564.292405745688,
+            "normalizedMultiplier": 1.6161842299456095,
+            "sampleCount": 256,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 30870,
+            "monotonicValue": 30870,
+            "finalValue": 23440.5781873836,
+            "normalizedMultiplier": 1.8422366332756237,
+            "sampleCount": 9,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "암살자",
+        "roleSampleCount": 608,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.12438625204582651,
+        "shrinkK": 4280,
+        "normalizer": 21.251056188471875,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.43780687397708673,
+            "normalizedMultiplier": 0.02060165245878862,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 10.952380952380953,
+            "monotonicValue": 10.952380952380953,
+            "finalValue": 7.971989519384289,
+            "normalizedMultiplier": 0.3751338027005396,
+            "sampleCount": 63,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 22.64179104477612,
+            "monotonicValue": 22.64179104477612,
+            "finalValue": 16.018721582295687,
+            "normalizedMultiplier": 0.7537847267556241,
+            "sampleCount": 134,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 33.20197044334975,
+            "monotonicValue": 33.20197044334975,
+            "finalValue": 25.46845830714786,
+            "normalizedMultiplier": 1.1984561181934954,
+            "sampleCount": 203,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 52.00995024875622,
+            "monotonicValue": 52.00995024875622,
+            "finalValue": 43.93108616966044,
+            "normalizedMultiplier": 2.067242483387337,
+            "sampleCount": 201,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 66,
+            "monotonicValue": 66,
+            "finalValue": 51.87366691304577,
+            "normalizedMultiplier": 2.440992412470578,
+            "sampleCount": 7,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "암살자",
+        "roleSampleCount": 608,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.12438625204582651,
+        "shrinkK": 4280,
+        "normalizer": 41.762053706916625,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.8756137479541735,
+            "normalizedMultiplier": 0.020966731044866082,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 26.634920634920636,
+            "monotonicValue": 26.634920634920636,
+            "finalValue": 23.320385460297192,
+            "normalizedMultiplier": 0.5584108871646528,
+            "sampleCount": 63,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 47.201492537313435,
+            "monotonicValue": 47.201492537313435,
+            "finalValue": 37.867407353075066,
+            "normalizedMultiplier": 0.9067419820592653,
+            "sampleCount": 134,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 60.3448275862069,
+            "monotonicValue": 60.3448275862069,
+            "finalValue": 50.20113490278307,
+            "normalizedMultiplier": 1.2020753398549642,
+            "sampleCount": 203,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 76.61194029850746,
+            "monotonicValue": 76.61194029850746,
+            "finalValue": 65.29030010322374,
+            "normalizedMultiplier": 1.5633881552240418,
+            "sampleCount": 201,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 82,
+            "monotonicValue": 82,
+            "finalValue": 65.96050065529155,
+            "normalizedMultiplier": 1.5794362297936317,
+            "sampleCount": 7,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    },
+    "브루저": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "브루저",
+        "roleSampleCount": 2576,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.3757292882147025,
+        "shrinkK": 4280,
+        "normalizer": 13635.329406587109,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 688.2358412392402,
+            "normalizedMultiplier": 0.050474456517842506,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 5233.461254612546,
+            "monotonicValue": 5233.461254612546,
+            "finalValue": 6027.799543306879,
+            "normalizedMultiplier": 0.44207216148330836,
+            "sampleCount": 271,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 8311.463157894737,
+            "monotonicValue": 8311.463157894737,
+            "finalValue": 9624.169591045564,
+            "normalizedMultiplier": 0.7058259690005151,
+            "sampleCount": 190,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 14898.347107438016,
+            "monotonicValue": 14898.347107438016,
+            "finalValue": 14789.977903892526,
+            "normalizedMultiplier": 1.0846806456137112,
+            "sampleCount": 726,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 18488.049740163326,
+            "monotonicValue": 18488.049740163326,
+            "finalValue": 19655.449588163672,
+            "normalizedMultiplier": 1.4415089655749935,
+            "sampleCount": 1347,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 23324.309523809523,
+            "monotonicValue": 23324.309523809523,
+            "finalValue": 22613.422404436038,
+            "normalizedMultiplier": 1.6584434251739963,
+            "sampleCount": 42,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "브루저",
+        "roleSampleCount": 1212,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.22068463219227968,
+        "shrinkK": 4280,
+        "normalizer": 23.60786714898669,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.38965768390386013,
+            "normalizedMultiplier": 0.016505416666604093,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 6.652439024390244,
+            "monotonicValue": 6.652439024390244,
+            "finalValue": 7.350836352742855,
+            "normalizedMultiplier": 0.311372319504872,
+            "sampleCount": 164,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 15.162162162162161,
+            "monotonicValue": 15.162162162162161,
+            "finalValue": 15.096475360447556,
+            "normalizedMultiplier": 0.6394679902752476,
+            "sampleCount": 37,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 23.39950372208437,
+            "monotonicValue": 23.39950372208437,
+            "finalValue": 24.155721902212004,
+            "normalizedMultiplier": 1.023206448501589,
+            "sampleCount": 403,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 39.93115318416523,
+            "monotonicValue": 39.93115318416523,
+            "finalValue": 42.1539798079506,
+            "normalizedMultiplier": 1.785590351806091,
+            "sampleCount": 581,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 68.81481481481481,
+            "monotonicValue": 68.81481481481481,
+            "finalValue": 54.04844126484401,
+            "normalizedMultiplier": 2.2894250007317543,
+            "sampleCount": 27,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "브루저",
+        "roleSampleCount": 1212,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.22068463219227968,
+        "shrinkK": 4280,
+        "normalizer": 44.858703284037354,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.7793153678077203,
+            "normalizedMultiplier": 0.017372668194914898,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 25.4390243902439,
+            "monotonicValue": 25.4390243902439,
+            "finalValue": 23.420995984136294,
+            "normalizedMultiplier": 0.5221059520120032,
+            "sampleCount": 164,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 40.108108108108105,
+            "monotonicValue": 40.108108108108105,
+            "finalValue": 37.328551840162305,
+            "normalizedMultiplier": 0.8321362212323556,
+            "sampleCount": 37,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 49.33002481389578,
+            "monotonicValue": 49.33002481389578,
+            "finalValue": 48.88592176016597,
+            "normalizedMultiplier": 1.0897756328494157,
+            "sampleCount": 403,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 63.11531841652324,
+            "monotonicValue": 63.11531841652324,
+            "finalValue": 63.55693611141501,
+            "normalizedMultiplier": 1.4168250854016837,
+            "sampleCount": 581,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 73.4074074074074,
+            "monotonicValue": 73.4074074074074,
+            "finalValue": 65.8282419848585,
+            "normalizedMultiplier": 1.4674575314414628,
+            "sampleCount": 27,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    },
+    "탱커": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "탱커",
+        "roleSampleCount": 4145,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.4919881305637982,
+        "shrinkK": 4280,
+        "normalizer": 10793.58373301825,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 560.064679826259,
+            "normalizedMultiplier": 0.05188866771959956,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 4298.823529411765,
+            "monotonicValue": 4298.823529411765,
+            "finalValue": 5420.038101654814,
+            "normalizedMultiplier": 0.5021537086958966,
+            "sampleCount": 476,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 7070.0919395466,
+            "monotonicValue": 7070.0919395466,
+            "finalValue": 8768.962458266136,
+            "normalizedMultiplier": 0.8124236282562325,
+            "sampleCount": 794,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 8638.684049079755,
+            "monotonicValue": 8638.684049079755,
+            "finalValue": 11730.47973219732,
+            "normalizedMultiplier": 1.0868011980407442,
+            "sampleCount": 978,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 13325.150276243094,
+            "monotonicValue": 13325.150276243094,
+            "finalValue": 16897.95776152131,
+            "normalizedMultiplier": 1.5655558134810588,
+            "sampleCount": 1810,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 16884.241379310344,
+            "monotonicValue": 16884.241379310344,
+            "finalValue": 19577.37485919543,
+            "normalizedMultiplier": 1.813797469260095,
+            "sampleCount": 87,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "탱커",
+        "roleSampleCount": 2410,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.3602391629297459,
+        "shrinkK": 4280,
+        "normalizer": 22.65424095380039,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.31988041853512705,
+            "normalizedMultiplier": 0.014120111955526152,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 8.886986301369863,
+            "monotonicValue": 8.886986301369863,
+            "finalValue": 8.030743518386272,
+            "normalizedMultiplier": 0.35449183818445545,
+            "sampleCount": 292,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 11.38262910798122,
+            "monotonicValue": 11.38262910798122,
+            "finalValue": 13.746702285391954,
+            "normalizedMultiplier": 0.6068048059268947,
+            "sampleCount": 426,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 20.05514705882353,
+            "monotonicValue": 20.05514705882353,
+            "finalValue": 22.815535214879937,
+            "normalizedMultiplier": 1.0071198263234014,
+            "sampleCount": 544,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 37.73860465116279,
+            "monotonicValue": 37.73860465116279,
+            "finalValue": 40.96608918615228,
+            "normalizedMultiplier": 1.8083187721758547,
+            "sampleCount": 1075,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 40.26027397260274,
+            "monotonicValue": 40.26027397260274,
+            "finalValue": 46.40623978250229,
+            "normalizedMultiplier": 2.048457058311519,
+            "sampleCount": 73,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "탱커",
+        "roleSampleCount": 2410,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.3602391629297459,
+        "shrinkK": 4280,
+        "normalizer": 39.77889087118841,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.6397608370702541,
+            "normalizedMultiplier": 0.016082922953833,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 20.982876712328768,
+            "monotonicValue": 20.982876712328768,
+            "finalValue": 22.177091967206767,
+            "normalizedMultiplier": 0.5575090577316596,
+            "sampleCount": 292,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 28.525821596244132,
+            "monotonicValue": 28.525821596244132,
+            "finalValue": 33.653902799117,
+            "normalizedMultiplier": 0.8460241616111097,
+            "sampleCount": 426,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 34.35294117647059,
+            "monotonicValue": 34.35294117647059,
+            "finalValue": 43.57011666183617,
+            "normalizedMultiplier": 1.095307478605285,
+            "sampleCount": 544,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 41.06511627906977,
+            "monotonicValue": 41.06511627906977,
+            "finalValue": 55.53450783791081,
+            "normalizedMultiplier": 1.3960798459097836,
+            "sampleCount": 1075,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 44.42465753424658,
+            "monotonicValue": 44.42465753424658,
+            "finalValue": 56.74474616750365,
+            "normalizedMultiplier": 1.42650398049694,
+            "sampleCount": 73,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    },
+    "유틸 서포터": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "유틸 서포터",
+        "roleSampleCount": 4953,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.5364453590382324,
+        "shrinkK": 4280,
+        "normalizer": 9528.385413663882,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 1198,
+            "monotonicValue": 1198,
+            "finalValue": 1153.7137363301454,
+            "normalizedMultiplier": 0.12108176634791645,
+            "sampleCount": 29,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 3332.9792147806006,
+            "monotonicValue": 3332.9792147806006,
+            "finalValue": 4803.795464945128,
+            "normalizedMultiplier": 0.5041562926344684,
+            "sampleCount": 433,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 5169.014480408859,
+            "monotonicValue": 5169.014480408859,
+            "finalValue": 7600.466407769589,
+            "normalizedMultiplier": 0.797665719616083,
+            "sampleCount": 1174,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 7676.615727002967,
+            "monotonicValue": 7676.615727002967,
+            "finalValue": 10943.812851312956,
+            "normalizedMultiplier": 1.1485485080839954,
+            "sampleCount": 1348,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 11281.178170144462,
+            "monotonicValue": 11179.446927374302,
+            "finalValue": 15434.240970115276,
+            "normalizedMultiplier": 1.6198170309087505,
+            "sampleCount": 1869,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 9278.09,
+            "monotonicValue": 11179.446927374302,
+            "finalValue": 16281.382357063256,
+            "normalizedMultiplier": 1.7087241594693945,
+            "sampleCount": 100,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": []
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "유틸 서포터",
+        "roleSampleCount": 1255,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.22673893405600723,
+        "shrinkK": 4280,
+        "normalizer": 19.52790247956811,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 1,
+            "monotonicValue": 1,
+            "finalValue": 0.6133694670280037,
+            "normalizedMultiplier": 0.031409900150298646,
+            "sampleCount": 2,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 2.5454545454545454,
+            "monotonicValue": 2.5454545454545454,
+            "finalValue": 6.414197399502844,
+            "normalizedMultiplier": 0.3284632031634718,
+            "sampleCount": 110,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 10.277777777777779,
+            "monotonicValue": 10.277777777777779,
+            "finalValue": 13.989505555582394,
+            "normalizedMultiplier": 0.7163854679333587,
+            "sampleCount": 306,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 16.943589743589744,
+            "monotonicValue": 16.943589743589744,
+            "finalValue": 22.68603998265352,
+            "normalizedMultiplier": 1.161724358588422,
+            "sampleCount": 390,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 30.527522935779817,
+            "monotonicValue": 30.527522935779817,
+            "finalValue": 40.00454213739117,
+            "normalizedMultiplier": 2.04858367042992,
+            "sampleCount": 436,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 34.90909090909091,
+            "monotonicValue": 34.90909090909091,
+            "finalValue": 46.4754097492099,
+            "normalizedMultiplier": 2.3799488858486852,
+            "sampleCount": 11,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "유틸 서포터",
+        "roleSampleCount": 1255,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.22673893405600723,
+        "shrinkK": 4280,
+        "normalizer": 37.96981214595359,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 1,
+            "monotonicValue": 1,
+            "finalValue": 1,
+            "normalizedMultiplier": 0.026336711810847586,
+            "sampleCount": 2,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 7.745454545454545,
+            "monotonicValue": 7.745454545454545,
+            "finalValue": 19.424852364669626,
+            "normalizedMultiplier": 0.5115867386965651,
+            "sampleCount": 110,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 26.715686274509803,
+            "monotonicValue": 26.715686274509803,
+            "finalValue": 34.31356205124737,
+            "normalizedMultiplier": 0.903706394947338,
+            "sampleCount": 306,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 31.07179487179487,
+            "monotonicValue": 31.07179487179487,
+            "finalValue": 44.749520288435846,
+            "normalizedMultiplier": 1.178555219510212,
+            "sampleCount": 390,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 43.722477064220186,
+            "monotonicValue": 43.19910514541387,
+            "finalValue": 59.03772432891772,
+            "normalizedMultiplier": 1.554859531618971,
+            "sampleCount": 436,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 22.454545454545453,
+            "monotonicValue": 43.19910514541387,
+            "finalValue": 59.03772432891772,
+            "normalizedMultiplier": 1.554859531618971,
+            "sampleCount": 11,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    },
+    "unknown": {
+      "damageToPlayer": {
+        "metric": "damageToPlayer",
+        "role": "unknown",
+        "roleSampleCount": 68,
+        "globalSampleCount": 44061,
+        "roleWeight": 0.015639374425023,
+        "shrinkK": 4280,
+        "normalizer": 12384.614699009067,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 1085.221924456355,
+            "normalizedMultiplier": 0.0876266198691823,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 3794,
+            "monotonicValue": 3794,
+            "finalValue": 6463.475040715283,
+            "normalizedMultiplier": 0.5218955290738635,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 8101,
+            "monotonicValue": 8101,
+            "finalValue": 10378.06937016365,
+            "normalizedMultiplier": 0.8379808029872768,
+            "sampleCount": 29,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 15022,
+            "monotonicValue": 14353.783783783783,
+            "finalValue": 14718.952083170223,
+            "normalizedMultiplier": 1.188486879963083,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 14728,
+            "monotonicValue": 14353.783783783783,
+            "finalValue": 20264.168248180016,
+            "normalizedMultiplier": 1.6362372783225478,
+            "sampleCount": 33,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 0,
+            "monotonicValue": 14353.783783783783,
+            "finalValue": 22063.077269728023,
+            "normalizedMultiplier": 1.7814908098427447,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "viewContribution": {
+        "metric": "viewContribution",
+        "role": "unknown",
+        "roleSampleCount": 67,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.015412928456406717,
+        "shrinkK": 4280,
+        "normalizer": 20.370379916996484,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.49229353577179663,
+            "normalizedMultiplier": 0.024167125884630186,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 11,
+            "monotonicValue": 11,
+            "finalValue": 7.601802887440255,
+            "normalizedMultiplier": 0.3731792395829358,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 11,
+            "monotonicValue": 11,
+            "finalValue": 15.015022346224391,
+            "normalizedMultiplier": 0.7371007515523199,
+            "sampleCount": 29,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 52,
+            "monotonicValue": 28.333333333333332,
+            "finalValue": 24.430954568464553,
+            "normalizedMultiplier": 1.1993372076521773,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 27,
+            "monotonicValue": 28.333333333333332,
+            "finalValue": 42.560716075313955,
+            "normalizedMultiplier": 2.089343264521172,
+            "sampleCount": 32,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 0,
+            "monotonicValue": 28.333333333333332,
+            "finalValue": 49.535039614516,
+            "normalizedMultiplier": 2.43171898689947,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      },
+      "monsterKill": {
+        "metric": "monsterKill",
+        "role": "unknown",
+        "roleSampleCount": 67,
+        "globalSampleCount": 17144,
+        "roleWeight": 0.015412928456406717,
+        "shrinkK": 4280,
+        "normalizer": 40.98487879955365,
+        "points": [
+          {
+            "minute": 0,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0,
+            "normalizedMultiplier": 0,
+            "sampleCount": 1,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 5,
+            "rawValue": 0,
+            "monotonicValue": 0,
+            "finalValue": 0.9845870715435933,
+            "normalizedMultiplier": 0.02402317880111228,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 10,
+            "rawValue": 35,
+            "monotonicValue": 25.9375,
+            "finalValue": 22.89713017803104,
+            "normalizedMultiplier": 0.5586726336319044,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 15,
+            "rawValue": 25,
+            "monotonicValue": 25.9375,
+            "finalValue": 36.37800602234745,
+            "normalizedMultiplier": 0.8875957935672517,
+            "sampleCount": 29,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 20,
+            "rawValue": 80,
+            "monotonicValue": 56.44444444444444,
+            "finalValue": 48.87859903615542,
+            "normalizedMultiplier": 1.1926007949226323,
+            "sampleCount": 3,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 25,
+            "rawValue": 56,
+            "monotonicValue": 56.44444444444444,
+            "finalValue": 63.57044052929443,
+            "normalizedMultiplier": 1.551070599481357,
+            "sampleCount": 32,
+            "usedGlobalFallback": false
+          },
+          {
+            "minute": 30,
+            "rawValue": 0,
+            "monotonicValue": 56.44444444444444,
+            "finalValue": 63.57044052929443,
+            "normalizedMultiplier": 1.551070599481357,
+            "sampleCount": 0,
+            "usedGlobalFallback": false
+          }
+        ],
+        "warnings": [
+          "role curve is strongly shrunk toward global"
+        ]
+      }
+    }
+  }
+}

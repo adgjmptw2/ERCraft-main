@@ -80,6 +80,11 @@ function insufficientReport(
   return {
     status: 'insufficient',
     overallGrade: null,
+    overallPerformanceScore: null,
+    overallScoreSource: 'unavailable',
+    gradedCharacterCount: 0,
+    weightedMatchCount: 0,
+    confidenceStatus: 'unavailable',
     overallPercentile: null,
     summary: reason,
     metrics: [],
@@ -168,6 +173,11 @@ export function buildPlayerAnalysisReport(
   const draft: PlayerAnalysisReport = {
     status: 'ok',
     overallGrade,
+    overallPerformanceScore: overallPercentile,
+    overallScoreSource: 'legacy-profile-analysis',
+    gradedCharacterCount: 0,
+    weightedMatchCount: params.playerMatches.length,
+    confidenceStatus: overallPercentile != null ? 'ready' : 'unavailable',
     overallPercentile,
     summary: buildSummaryFromMetrics(metrics, overallGrade),
     metrics: metrics.slice(0, 5),

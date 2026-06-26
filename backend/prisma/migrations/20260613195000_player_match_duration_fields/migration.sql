@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `player_matches` ADD COLUMN `game_duration` INTEGER NULL;

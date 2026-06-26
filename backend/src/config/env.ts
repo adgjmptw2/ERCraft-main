@@ -12,4 +12,8 @@ export const config = {
   testDatabaseUrl: process.env.TEST_DATABASE_URL ?? '',
   corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
   bserApiKey: process.env.BSER_API_KEY ?? '',
+  // 0이면 BSER 게임 데이터(Season 테이블)에서 현재 시즌 자동 감지
+  bserSeasonId: Number(process.env.BSER_SEASON_ID ?? 0),
+  // fixed-v1: 고정 티어 기준선 + legacy role/combat, experimental-local: local DB live 기준선 검증
+  characterGradeBenchmarkSource: process.env.CHARACTER_GRADE_BENCHMARK_SOURCE ?? '',
 }

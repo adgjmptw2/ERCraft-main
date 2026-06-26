@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "version": "aggregate-grade-calibration.v1",
+  "characterAggregateGradeVersion": "character-aggregate-grade.v4",
+  "overallAggregateGradeVersion": "overall-aggregate-grade.v4",
+  "generatedAt": "2026-06-22T13:13:35.531Z",
+  "inputVersions": {
+    "roleScoreVersion": "role-score.v3",
+    "matchGradeVersion": "match-grade-direct.v2"
+  },
+  "config": {
+    "defaultShrinkK": 1,
+    "minCharacterGames": 5,
+    "priorScope": "broad-role-and-global-v3-match-score"
+  },
+  "priors": {
+    "globalMatchScore": 64.0065,
+    "rolePriors": {
+      "탱커": {
+        "sampleCount": 4280,
+        "meanMatchScore": 63.7992,
+        "meanRoleScore": 63.033
+      },
+      "서포터": {
+        "sampleCount": 4960,
+        "meanMatchScore": 63.6047,
+        "meanRoleScore": 63.3875
+      },
+      "스증 딜러": {
+        "sampleCount": 19564,
+        "meanMatchScore": 64.4096,
+        "meanRoleScore": 63.7059
+      },
+      "평타 딜러": {
+        "sampleCount": 12684,
+        "meanMatchScore": 63.3829,
+        "meanRoleScore": 63.3645
+      },
+      "암살자": {
+        "sampleCount": 723,
+        "meanMatchScore": 67.6605,
+        "meanRoleScore": 67.0844
+      },
+      "평타 브루저": {
+        "sampleCount": 950,
+        "meanMatchScore": 65.1303,
+        "meanRoleScore": 64.6166
+      },
+      "스증 브루저": {
+        "sampleCount": 1817,
+        "meanMatchScore": 63.5631,
+        "meanRoleScore": 62.102
+      }
+    }
+  },
+  "characterCalibration": {
+    "cuts": [
+      {
+        "grade": "S+",
+        "min": 73.61
+      },
+      {
+        "grade": "S",
+        "min": 71.02
+      },
+      {
+        "grade": "S-",
+        "min": 70.66
+      },
+      {
+        "grade": "A+",
+        "min": 69.77
+      },
+      {
+        "grade": "A",
+        "min": 66.09
+      },
+      {
+        "grade": "A-",
+        "min": 63.89
+      },
+      {
+        "grade": "B+",
+        "min": 62.07
+      },
+      {
+        "grade": "B",
+        "min": 60.29
+      },
+      {
+        "grade": "B-",
+        "min": 58.36
+      },
+      {
+        "grade": "C+",
+        "min": 56.37
+      },
+      {
+        "grade": "C",
+        "min": 54.59
+      },
+      {
+        "grade": "C-",
+        "min": 53.19
+      },
+      {
+        "grade": "D+",
+        "min": 52.96
+      },
+      {
+        "grade": "D",
+        "min": 52.96
+      },
+      {
+        "grade": "D-",
+        "min": -1000000
+      }
+    ],
+    "metadata": {
+      "targetCount": 1189,
+      "mean": 62.9164,
+      "stddev": 5.7647,
+      "quantiles": {
+        "0.1": 55.305,
+        "0.25": 58.9942,
+        "0.5": 62.0985,
+        "0.75": 67.0033,
+        "0.9": 70.6627
+      }
+    }
+  },
+  "overallCalibration": {
+    "cuts": [
+      {
+        "grade": "S+",
+        "min": 73.27
+      },
+      {
+        "grade": "S",
+        "min": 72.85
+      },
+      {
+        "grade": "S-",
+        "min": 72.08
+      },
+      {
+        "grade": "A+",
+        "min": 72.08
+      },
+      {
+        "grade": "A",
+        "min": 72.08
+      },
+      {
+        "grade": "A-",
+        "min": 70.82
+      },
+      {
+        "grade": "B+",
+        "min": 69.03
+      },
+      {
+        "grade": "B",
+        "min": 67.06
+      },
+      {
+        "grade": "B-",
+        "min": 65.38
+      },
+      {
+        "grade": "C+",
+        "min": 63.36
+      },
+      {
+        "grade": "C",
+        "min": 61.19
+      },
+      {
+        "grade": "C-",
+        "min": 61.15
+      },
+      {
+        "grade": "D+",
+        "min": 61.15
+      },
+      {
+        "grade": "D",
+        "min": 60.48
+      },
+      {
+        "grade": "D-",
+        "min": -1000000
+      }
+    ],
+    "metadata": {
+      "targetCount": 312,
+      "mean": 68.426,
+      "stddev": 3.9248,
+      "quantiles": {
+        "0.1": 61.2551,
+        "0.25": 65.6911,
+        "0.5": 69.2705,
+        "0.75": 72.0808,
+        "0.9": 72.0808
+      }
+    }
+  },
+  "metadata": {
+    "purpose": "diagnostic-priors-and-distribution-report-only",
+    "gradeCutUsage": "not-used-for-character-or-overall-letter-grades",
+    "productionLetterGradeCuts": "aggregate-grade-shared-fine-cuts.v1",
+    "shrinkVersion": "aggregate-shrink-k1.v1",
+    "sourceTable": "player_matches",
+    "displaySeasonId": 11,
+    "sourceRows": 45676,
+    "scoredRows": 44978,
+    "characterAggregateRows": 1189,
+    "overallAggregateRows": 312,
+    "sampleBuckets": {
+      "1-4": {
+        "count": 0,
+        "rawMean": 0,
+        "adjustedMean": 0,
+        "gradeDistribution": {},
+        "sOrAboveRate": 0,
+        "aOrAboveRate": 0
+      },
+      "5-9": {
+        "count": 475,
+        "rawMean": 62.2572,
+        "adjustedMean": 62.4603,
+        "gradeDistribution": {
+          "S-": 95,
+          "S+": 17,
+          "S": 18,
+          "B+": 22,
+          "B": 63,
+          "C-": 31,
+          "A-": 18,
+          "A": 40,
+          "C+": 31,
+          "D-": 38,
+          "C": 58,
+          "B-": 41,
+          "A+": 3
+        },
+        "sOrAboveRate": 0.2737,
+        "aOrAboveRate": 0.4021
+      },
+      "10-19": {
+        "count": 200,
+        "rawMean": 64.492,
+        "adjustedMean": 64.4618,
+        "gradeDistribution": {
+          "A+": 9,
+          "A": 36,
+          "S": 16,
+          "A-": 39,
+          "C+": 31,
+          "B-": 12,
+          "B+": 35,
+          "S+": 4,
+          "S-": 8,
+          "B": 4,
+          "C": 6
+        },
+        "sOrAboveRate": 0.14,
+        "aOrAboveRate": 0.56
+      },
+      "20-29": {
+        "count": 195,
+        "rawMean": 60.6275,
+        "adjustedMean": 60.7466,
+        "gradeDistribution": {
+          "A+": 3,
+          "A-": 1,
+          "A": 15,
+          "B+": 13,
+          "B": 35,
+          "C+": 30,
+          "B-": 57,
+          "S": 6,
+          "S+": 3,
+          "C": 29,
+          "S-": 1,
+          "C-": 2
+        },
+        "sOrAboveRate": 0.0513,
+        "aOrAboveRate": 0.1487
+      },
+      "30+": {
+        "count": 319,
+        "rawMean": 63.9447,
+        "adjustedMean": 63.9528,
+        "gradeDistribution": {
+          "B+": 50,
+          "A-": 85,
+          "A": 32,
+          "S": 8,
+          "A+": 14,
+          "S-": 5,
+          "B-": 33,
+          "B": 88,
+          "C+": 4
+        },
+        "sOrAboveRate": 0.0408,
+        "aOrAboveRate": 0.4514
+      }
+    }
+  }
+}

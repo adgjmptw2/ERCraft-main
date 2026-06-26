@@ -30,8 +30,8 @@ export function StatCard({ label, value, description, highlight = false, classNa
       </p>
       <p
         className={cn(
-          'mt-1.5 break-words font-semibold tracking-tight',
-          highlight ? 'text-2xl sm:text-3xl' : 'text-xl',
+          'mt-1.5 break-words font-bold tracking-tight',
+          highlight ? 'text-2xl font-extrabold sm:text-3xl' : 'text-xl font-bold',
         )}
       >
         {display}

@@ -11,12 +11,12 @@ export interface SurfaceCardProps {
 }
 
 const variantClass: Record<NonNullable<SurfaceCardProps['variant']>, string> = {
-  default: 'border-border bg-card shadow-sm',
-  muted: 'border-border/80 bg-muted/30 shadow-sm',
+  default: 'border-border bg-card shadow-[var(--card-shadow)] dark:shadow-sm',
+  muted: 'border-border bg-muted/30 shadow-[var(--card-shadow)] dark:shadow-sm',
   inset: 'border-border/60 bg-background/50 shadow-none',
-  elevated: 'border-border/70 bg-card shadow-md',
+  elevated: 'border-border bg-card shadow-[var(--card-shadow)] dark:shadow-md',
   accent:
-    'border-primary/15 bg-gradient-to-br from-card via-card to-muted/40 shadow-sm dark:to-muted/20',
+    'border-primary/15 bg-gradient-to-br from-card via-card to-muted/40 shadow-[var(--card-shadow)] dark:shadow-sm dark:to-muted/20',
 }
 
 const paddingClass: Record<NonNullable<SurfaceCardProps['padding']>, string> = {

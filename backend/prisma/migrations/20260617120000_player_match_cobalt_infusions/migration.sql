@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `player_matches` ADD COLUMN `cobalt_infusions` JSON NULL;

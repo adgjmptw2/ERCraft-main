@@ -26,13 +26,31 @@ function makeMatch(
 describe('buildCharacterAnalysisSummary', () => {
   it('캐릭터별 지표 계산', () => {
     const summary = buildCharacterAnalysisSummary('Yuki', [
-      makeMatch({ characterName: 'Yuki', placement: 1, kills: 5, assists: 3, deaths: 1 }),
-      makeMatch({ characterName: 'Yuki', placement: 3, kills: 3, assists: 2, deaths: 2 }),
+      makeMatch({
+        characterName: 'Yuki',
+        placement: 1,
+        kills: 5,
+        assists: 3,
+        deaths: 1,
+        teamKills: 12,
+        damageToPlayers: 14000,
+      }),
+      makeMatch({
+        characterName: 'Yuki',
+        placement: 3,
+        kills: 3,
+        assists: 2,
+        deaths: 2,
+        teamKills: 10,
+        damageToPlayers: 12000,
+      }),
     ])
     expect(summary).not.toBeNull()
     expect(summary?.matchCount).toBe(2)
     expect(summary?.avgPlacement).toBe(2)
     expect(summary?.top3Rate).toBe(100)
+    expect(summary?.avgTeamKills).toBe(11)
+    expect(summary?.avgDamageToPlayers).toBe(13000)
   })
 
   it('deaths 0이어도 KDA가 유한', () => {
@@ -51,13 +69,14 @@ describe('buildCharacterAnalysisReports', () => {
 
   it('캐릭터별 groupBy', () => {
     const reports = buildCharacterAnalysisReports([
-      makeMatch({ characterName: 'Yuki', placement: 1 }),
-      makeMatch({ characterName: 'Adela', placement: 5 }),
-      makeMatch({ characterName: 'Yuki', placement: 2 }),
+      makeMatch({ characterName: 'Yuki', characterNum: 11, placement: 1 }),
+      makeMatch({ characterName: 'Adela', characterNum: 24, placement: 5 }),
+      makeMatch({ characterName: 'Yuki', characterNum: 11, placement: 2 }),
     ])
     expect(reports).toHaveLength(2)
-    const yuki = reports.find((r) => r.characterName === 'Yuki')
+    const yuki = reports.find((r) => r.characterName === '유키')
     expect(yuki?.matchCount).toBe(2)
+    expect(yuki?.characterNum).toBe(11)
   })
 
   it('matchCount 1인 캐릭터는 grade null', () => {

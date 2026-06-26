@@ -7,11 +7,3 @@ export interface RankingEntry {
   games: number
   wins: number
 }
-
-export interface MmrProjection {
-  userNum: number
-  currentMmr: number
-  projectedMmr: number
-  confidence: number
-  rationale: string
-}

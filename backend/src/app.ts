@@ -7,8 +7,13 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { config } from './config/env.js'
+import { SERVER_STARTED_AT, resolveServerBuildTimestamp } from './serverMeta.js'
 import { attachErrorHandlers } from './plugins/errorHandler.js'
+import { warnPrismaCacheReadiness } from './cache/prismaCacheReady.js'
 import favoritesRoutes from './routes/favorites.js'
+import benchmarksRoutes from './routes/benchmarks.js'
+import matchesRoutes from './routes/matches.js'
+import playersRoutes from './routes/players.js'
 import searchHistoryRoutes from './routes/searchHistory.js'
 
 export interface CreateAppOptions {
@@ -42,10 +47,19 @@ export async function createApp(options: CreateAppOptions = {}) {
   app.get('/health', async () => ({
     status: 'ok',
     timestamp: new Date().toISOString(),
+    startedAt: SERVER_STARTED_AT,
+    buildTimestamp: resolveServerBuildTimestamp(),
   }))
 
   await app.register(favoritesRoutes, { prefix: '/api' })
+  await app.register(benchmarksRoutes, { prefix: '/api' })
   await app.register(searchHistoryRoutes, { prefix: '/api' })
+  await app.register(playersRoutes, { prefix: '/api' })
+  await app.register(matchesRoutes, { prefix: '/api' })
+
+  if (process.env.NODE_ENV !== 'production') {
+    warnPrismaCacheReadiness(prisma)
+  }
 
   return app
 }

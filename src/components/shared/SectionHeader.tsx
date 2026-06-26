@@ -20,12 +20,12 @@ export function SectionHeader({
   size = 'default',
 }: SectionHeaderProps) {
   return (
-    <div className={cn('space-y-1.5', className)}>
+    <div className={cn('space-y-2', className)}>
       <div className="flex flex-wrap items-center gap-2.5">
         <h2
           id={id}
           className={cn(
-            'text-foreground font-semibold tracking-tight',
+            'text-foreground border-primary/70 border-l-2 pl-3 font-semibold tracking-tight',
             size === 'lg' ? 'text-lg sm:text-xl' : 'text-base sm:text-lg',
           )}
         >
@@ -34,7 +34,7 @@ export function SectionHeader({
         {badge}
       </div>
       {description ? (
-        <p className="text-muted-foreground max-w-3xl text-sm leading-relaxed">{description}</p>
+        <p className="text-muted-foreground max-w-3xl pl-3.5 text-sm leading-relaxed">{description}</p>
       ) : null}
     </div>
   )

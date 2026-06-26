@@ -1,0 +1,26 @@
+CREATE TABLE `team_luck_metric_cache` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `match_id` VARCHAR(32) NOT NULL,
+  `target_uid` VARCHAR(128) NOT NULL,
+  `team_metric_version` VARCHAR(64) NOT NULL,
+  `residual_baseline_version` VARCHAR(96) NOT NULL,
+  `benchmark_version` VARCHAR(96) NOT NULL,
+  `team_luck_residual` DOUBLE NULL,
+  `team_luck_label` VARCHAR(16) NULL,
+  `carry_burden_residual` DOUBLE NULL,
+  `carry_burden_label` VARCHAR(32) NULL,
+  `confidence` VARCHAR(16) NOT NULL,
+  `fallback_level` VARCHAR(8) NULL,
+  `sample_count` INTEGER NULL,
+  `teammate_count` INTEGER NOT NULL,
+  `source_fingerprint` VARCHAR(128) NOT NULL,
+  `payload` JSON NULL,
+  `computed_at` DATETIME(3) NOT NULL,
+  `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updated_at` DATETIME(3) NOT NULL,
+
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `team_luck_metric_cache_identity_key` (`match_id`, `target_uid`, `team_metric_version`, `residual_baseline_version`, `benchmark_version`),
+  INDEX `team_luck_metric_cache_match_idx` (`match_id`),
+  INDEX `team_luck_metric_cache_uid_computed_idx` (`target_uid`, `computed_at` DESC)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

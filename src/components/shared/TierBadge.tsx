@@ -1,49 +1,50 @@
+import { useState } from 'react'
+
+import { tierAccentColor } from '@/utils/rankTier'
+import { tierBadgeUrl } from '@/utils/assetUrls'
 import { cn } from '@/lib/utils'
-
-type TierBucket = 'muted' | 'amber' | 'sky' | 'violet' | 'orange'
-
-function firstToken(tier: string): string {
-  const t = tier.trim().toLowerCase()
-  if (!t) return ''
-  return t.split(/\s+/)[0] ?? ''
-}
-
-function bucketForToken(token: string): TierBucket {
-  if (token === 'iron' || token === 'bronze') return 'muted'
-  if (token === 'silver' || token === 'gold') return 'amber'
-  if (token === 'platinum' || token === 'diamond') return 'sky'
-  if (token === 'meteorite' || token === 'mithril') return 'violet'
-  if (token === 'demigod' || token === 'eternity') return 'orange'
-  return 'muted'
-}
-
-const bucketClass: Record<TierBucket, string> = {
-  muted: 'border-border bg-muted/80 text-muted-foreground',
-  amber:
-    'border-amber-500/40 bg-amber-500/15 text-amber-950 dark:text-amber-100',
-  sky: 'border-sky-500/40 bg-sky-500/15 text-sky-950 dark:text-sky-100',
-  violet:
-    'border-violet-500/40 bg-violet-500/15 text-violet-950 dark:text-violet-100',
-  orange:
-    'border-orange-500/40 bg-orange-500/15 text-orange-950 dark:text-orange-100',
-}
 
 export interface TierBadgeProps {
   tier: string
+  className?: string
+  /** false면 텍스트 배지만 (이미지 요청 없음) */
+  showTierImage?: boolean
 }
 
-export function TierBadge({ tier }: TierBadgeProps) {
-  const token = firstToken(tier)
-  const bucket = bucketForToken(token)
+export function TierBadge({ tier, className, showTierImage = true }: TierBadgeProps) {
+  const label = tier.trim() || '—'
+  const accent = tierAccentColor(label)
+  const imageUrl = showTierImage ? tierBadgeUrl(label) : null
+  const [failedUrl, setFailedUrl] = useState<string | null>(null)
+  const showImage = imageUrl !== null && failedUrl !== imageUrl
 
   return (
     <span
       className={cn(
-        'inline-flex max-w-full shrink-0 items-center rounded-md border px-2 py-0.5 text-xs font-medium',
-        bucketClass[bucket],
+        'inline-flex max-w-full shrink-0 items-center gap-1 rounded-md border px-2 py-0.5 text-xs font-medium',
+        className,
       )}
+      style={{
+        color: accent,
+        borderColor: `${accent}55`,
+        backgroundColor: `${accent}18`,
+      }}
     >
-      <span className="truncate">{tier.trim() || '—'}</span>
+      {showImage ? (
+        <img
+          src={imageUrl}
+          alt=""
+          width={18}
+          height={18}
+          loading="lazy"
+          decoding="async"
+          className="size-[18px] shrink-0 object-contain"
+          onError={() => {
+            if (imageUrl) setFailedUrl(imageUrl)
+          }}
+        />
+      ) : null}
+      <span className="truncate">{label}</span>
     </span>
   )
 }

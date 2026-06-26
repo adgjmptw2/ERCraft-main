@@ -1,4 +1,5 @@
 export { useDebounce } from '@/hooks/useDebounce'
-export { useMatchHistory } from '@/hooks/useMatchHistory'
-export { usePlayerStats } from '@/hooks/usePlayerStats'
+export { useMatchDTOHistory } from '@/hooks/useMatchDTOHistory'
+export { usePlayerStatsDTO } from '@/hooks/usePlayerStatsDTO'
 export { usePlayerSummary } from '@/hooks/usePlayerSummary'
+export { useTheme } from '@/hooks/useTheme'

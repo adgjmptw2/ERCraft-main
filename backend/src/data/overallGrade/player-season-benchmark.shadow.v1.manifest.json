@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "artifactVersion": "overall-grade-v2-shadow.v1",
+  "source": "experimental-player-matches-shadow",
+  "generatedAt": "2026-06-21T04:35:25.492Z",
+  "sourceWindow": {
+    "firstPlayedAt": "2026-05-07T06:06:45.045Z",
+    "lastPlayedAt": "2026-06-21T03:14:12.012Z"
+  },
+  "sourceHash": "140b2c49eb9a914561fcee017f55b76612594bbda5b1ab3210a361719953b37f",
+  "benchmarkVersion": "tier-baselines.v1-fixed-legacy.v1",
+  "metricPresetVersion": "grade-calibration.v2",
+  "rowCount": 264,
+  "uniquePlayerCount": 264,
+  "totalMatchCount": 33740,
+  "supportedModes": [
+    "rank"
+  ],
+  "excludedModes": [
+    "cobalt",
+    "normal",
+    "union"
+  ],
+  "minCohortSize": 12,
+  "percentileMinCohortSize": 20,
+  "fineGradeCuts": [
+    {
+      "min": 95,
+      "grade": "S+"
+    },
+    {
+      "min": 88,
+      "grade": "S"
+    },
+    {
+      "min": 84,
+      "grade": "S-"
+    },
+    {
+      "min": 80,
+      "grade": "A+"
+    },
+    {
+      "min": 76,
+      "grade": "A"
+    },
+    {
+      "min": 72,
+      "grade": "A-"
+    },
+    {
+      "min": 68,
+      "grade": "B+"
+    },
+    {
+      "min": 62,
+      "grade": "B"
+    },
+    {
+      "min": 56,
+      "grade": "B-"
+    },
+    {
+      "min": 50,
+      "grade": "C+"
+    },
+    {
+      "min": 44,
+      "grade": "C"
+    },
+    {
+      "min": 38,
+      "grade": "C-"
+    },
+    {
+      "min": 32,
+      "grade": "D+"
+    },
+    {
+      "min": 24,
+      "grade": "D"
+    },
+    {
+      "min": null,
+      "grade": "D-"
+    }
+  ],
+  "warning": "experimental-player-matches-shadow only; not a production benchmark"
+}
